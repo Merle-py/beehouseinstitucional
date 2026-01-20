@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeeStay - Transforme Seu Imóvel em um Negócio Rentável</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Gestão profissional de Short Stay com IA. Aumente em até 51% sua rentabilidade.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://cdn.bitrix24.com.br/b18304167/landing/67b/67b11dc89fa4fa4409c38fa3469a09e6/logotipo_13_3_1.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bee-gold': '#f9b410',
+                        'bee-gold-dark': '#d99a0d',
+                        'bee-black': '#0a0a0a',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-522STP288V"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-522STP288V');
+    </script>
+
+    <style>
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f9b410;
+            border-radius: 4px;
+        }
+
+        /* Phone Mockup */
+        .phone-mockup {
+            width: 210px;
+            height: 410px;
+            background: #1a1a1a;
+            border-radius: 35px;
+            padding: 10px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .phone-mockup {
+                width: 240px;
+                height: 490px;
+                border-radius: 40px;
+                padding: 12px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .phone-mockup {
+                width: 280px;
+                height: 570px;
+            }
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 22px;
+            background: #1a1a1a;
+            border-radius: 0 0 15px 15px;
+            z-index: 10;
+        }
+
+        @media (min-width: 768px) {
+            .phone-notch {
+                width: 120px;
+                height: 26px;
+                border-radius: 0 0 18px 18px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .phone-notch {
+                width: 150px;
+                height: 30px;
+                border-radius: 0 0 20px 20px;
+            }
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .phone-screen {
+                border-radius: 28px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .phone-screen {
+                border-radius: 32px;
+            }
+        }
+
+        /* Logo Scroll Animation */
+        .logo-scroll-container {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .logo-scroll {
+            display: flex;
+            gap: 4rem;
+            width: fit-content;
+        }
+
+        .logo-scroll:hover {
+            animation-play-state: paused;
+        }
+
+        .logo-item {
+            flex-shrink: 0;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-item:hover {
+            opacity: 0.8;
+        }
+
+        .logo-item img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                        padding 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+            opacity: 1;
+            padding-bottom: 1.5rem;
+        }
+
+        .faq-icon {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-icon.active {
+            transform: rotate(45deg);
+        }
+
+        /* Floating CTA Glow Pulse */
+        @keyframes glowPulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(212, 168, 83, 0.4), 0 0 40px rgba(212, 168, 83, 0.2), 0 10px 40px rgba(0, 0, 0, 0.15);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(212, 168, 83, 0.6), 0 0 60px rgba(212, 168, 83, 0.4), 0 10px 40px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        .glow-pulse {
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        .glow-pulse:hover {
+            animation: none;
+            box-shadow: 0 0 40px rgba(212, 168, 83, 0.7), 0 0 80px rgba(212, 168, 83, 0.4), 0 10px 40px rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-900 font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
+        <div class="container mx-auto px-6 lg:px-12">
+            <!-- Mobile: Logo centered only | Desktop: Full navigation -->
+            <div class="flex justify-center md:justify-between items-center h-16 md:h-20">
+                <img src="logo.svg" alt="BeeStay" class="h-10 md:h-8">
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#home" class="text-sm text-gray-600 hover:text-bee-gold transition-colors">Início</a>
+                    <a href="#recursos" class="text-sm text-gray-600 hover:text-bee-gold transition-colors">Como Funciona</a>
+                    <a href="#diferenciais" class="text-sm text-gray-600 hover:text-bee-gold transition-colors">Diferenciais</a>
+                    <a href="#contato" class="text-sm text-gray-600 hover:text-bee-gold transition-colors">Contato</a>
+                    <a href="#contato" class="bg-bee-black hover:bg-gray-800 text-white px-6 py-2.5 rounded-lg font-semibold transition-all text-sm">
+                        Começar Agora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 md:pt-32 pb-12 md:pb-20 px-4 md:px-8 lg:px-16 bg-gray-50">
+        <div class="container mx-auto max-w-7xl">
+            <!-- Mobile: Flex column | Desktop: Grid 5 cols -->
+            <div class="flex flex-col lg:grid lg:grid-cols-5 lg:gap-6 items-center overflow-hidden">
+                
+                <!-- Title (Mobile: first, Desktop: part of left column) -->
+                <div class="lg:col-span-3 lg:pl-11 text-center lg:text-left w-full order-1">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-4 lg:mb-6">
+                        Aumente em até<span class="text-bee-gold"><br>51% a rentabilidade</span><br>do seu imóvel
+                    </h1>
+                    
+                    <!-- Desktop only: Description, Button and Checks -->
+                    <div class="hidden lg:block">
+                        <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-lg">
+                            Gestão profissional de <strong>Short Stay</strong> com tecnologia de ponta. Transforme seu imóvel em um negócio rentável <strong>sem preocupações</strong>.
+                        </p>
+
+                        <div class="flex gap-4 mb-8">
+                            <a href="#contato" class="bg-bee-gold hover:bg-bee-gold-dark text-white px-8 py-4 rounded-lg font-bold transition-all text-center inline-flex items-center justify-center gap-2 shadow-lg">
+                                <i class="ph ph-calendar-check"></i>
+                                Quero aumentar minha rentabilidade
+                            </a>
+                        </div>
+
+                        <p class="text-sm text-gray-500">✓ Análise gratuita · ✓ Sem compromisso · ✓ Resposta em 24h</p>
+                    </div>
+                </div>
+
+                <!-- Phone Mockup (Mobile: second, smaller | Desktop: right column) -->
+                <div class="flex justify-center lg:justify-end lg:col-span-2 lg:pr-11 order-2 mt-0 mb-2 lg:my-0 w-full">
+                    <div class="phone-mockup">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <!-- Phone Screen Content -->
+                            <div class="p-3 lg:p-4 h-full flex flex-col bg-linear-to-b from-slate-50 via-white to-slate-50">
+                                <!-- App Header -->
+                                <div class="flex justify-between items-center mb-3 lg:mb-4">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 lg:w-8 lg:h-8 bg-linear-to-br from-bee-gold to-amber-500 rounded-lg flex items-center justify-center">
+                                            <i class="ph-fill ph-house text-white text-[10px] lg:text-xs"></i>
+                                        </div>
+                                        <span class="text-[10px] lg:text-xs font-bold text-gray-900">BeeStay</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <div class="w-5 h-5 lg:w-6 lg:h-6 bg-green-100 rounded-full flex items-center justify-center">
+                                            <i class="ph-fill ph-check-circle text-green-600 text-[10px] lg:text-xs"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Main Balance Card -->
+                                <div class="bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 rounded-xl lg:rounded-2xl p-3 lg:p-4 mb-2 lg:mb-3 shadow-xl">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <div>
+                                            <div class="text-[8px] lg:text-[10px] text-gray-400 mb-0.5 uppercase tracking-wider">Rendimento Total</div>
+                                            <div class="text-lg lg:text-2xl font-black text-white">R$ 12.847</div>
+                                        </div>
+                                        <div class="bg-green-500/20 backdrop-blur-sm rounded-full px-2 py-0.5 flex items-center gap-1">
+                                            <i class="ph-fill ph-trend-up text-green-400 text-[8px] lg:text-[10px]"></i>
+                                            <span class="text-[8px] lg:text-[10px] text-green-400 font-bold">+51%</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-[8px] lg:text-[10px] text-gray-500">Últimos 30 dias</div>
+                                </div>
+
+                                <!-- Stats Grid -->
+                                <div class="grid grid-cols-2 gap-1.5 lg:gap-2 mb-2 lg:mb-3">
+                                    <div class="bg-white rounded-lg lg:rounded-xl p-2 lg:p-3 shadow-sm border border-gray-100">
+                                        <div class="flex items-center gap-1 mb-1">
+                                            <div class="w-4 h-4 lg:w-5 lg:h-5 bg-blue-100 rounded flex items-center justify-center">
+                                                <i class="ph-fill ph-calendar-check text-blue-600 text-[8px] lg:text-[10px]"></i>
+                                            </div>
+                                            <span class="text-[7px] lg:text-[9px] text-gray-500 font-medium">Ocupação</span>
+                                        </div>
+                                        <div class="text-sm lg:text-lg font-black text-gray-900">92%</div>
+                                        <div class="text-[7px] lg:text-[8px] text-green-600 font-semibold">+35% vs mercado</div>
+                                    </div>
+                                    <div class="bg-white rounded-lg lg:rounded-xl p-2 lg:p-3 shadow-sm border border-gray-100">
+                                        <div class="flex items-center gap-1 mb-1">
+                                            <div class="w-4 h-4 lg:w-5 lg:h-5 bg-amber-100 rounded flex items-center justify-center">
+                                                <i class="ph-fill ph-star text-amber-600 text-[8px] lg:text-[10px]"></i>
+                                            </div>
+                                            <span class="text-[7px] lg:text-[9px] text-gray-500 font-medium">Avaliação</span>
+                                        </div>
+                                        <div class="text-sm lg:text-lg font-black text-gray-900">4.9</div>
+                                        <div class="text-[7px] lg:text-[8px] text-gray-500">127 reviews</div>
+                                    </div>
+                                </div>
+
+                                <!-- ROI Card -->
+                                <div class="bg-linear-to-br from-bee-gold via-amber-500 to-orange-500 rounded-xl lg:rounded-2xl p-2.5 lg:p-3 flex-1 flex flex-col shadow-lg relative overflow-hidden">
+                                    <!-- Decorative circles -->
+                                    <div class="absolute -right-4 -top-4 w-16 h-16 bg-white/10 rounded-full"></div>
+                                    <div class="absolute -right-2 -bottom-6 w-20 h-20 bg-white/5 rounded-full"></div>
+                                    
+                                    <div class="relative z-10">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div>
+                                                <div class="text-[8px] lg:text-[9px] text-white/80 uppercase tracking-wider mb-0.5">Retorno sobre Investimento</div>
+                                                <div class="text-xl lg:text-2xl font-black text-white">+51%</div>
+                                            </div>
+                                            <div class="bg-white/20 backdrop-blur-sm rounded-lg px-1.5 py-0.5">
+                                                <span class="text-[7px] lg:text-[8px] text-white font-bold">ANO</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Mini Chart -->
+                                        <div class="flex items-end gap-1 h-10 lg:h-14 mt-1">
+                                            <div class="flex-1 bg-white/40 rounded-sm" style="height: 35%"></div>
+                                            <div class="flex-1 bg-white/40 rounded-sm" style="height: 45%"></div>
+                                            <div class="flex-1 bg-white/50 rounded-sm" style="height: 55%"></div>
+                                            <div class="flex-1 bg-white/50 rounded-sm" style="height: 65%"></div>
+                                            <div class="flex-1 bg-white/60 rounded-sm" style="height: 75%"></div>
+                                            <div class="flex-1 bg-white/70 rounded-sm" style="height: 85%"></div>
+                                            <div class="flex-1 bg-white rounded-sm shadow-sm" style="height: 100%"></div>
+                                        </div>
+                                        <div class="flex justify-between mt-1">
+                                            <span class="text-[6px] lg:text-[7px] text-white/60">Jun</span>
+                                            <span class="text-[6px] lg:text-[7px] text-white font-bold">Dez</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile only: Description and Button (after mockup) -->
+                <div class="lg:hidden text-center w-full order-3 mt-2">
+                    <p class="text-sm text-gray-600 mb-4 leading-relaxed max-w-md mx-auto">
+                        Gestão profissional de <strong>Short Stay</strong> com tecnologia de ponta. Transforme seu imóvel em um negócio rentável <strong>sem preocupações</strong>.
+                    </p>
+
+                    <a href="#contato" class="bg-bee-gold hover:bg-bee-gold-dark text-white px-6 py-3 rounded-lg font-bold transition-all text-center inline-flex items-center justify-center gap-2 shadow-lg text-sm">
+                        <i class="ph ph-calendar-check"></i>
+                        Quero aumentar minha rentabilidade
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logo Bar -->
+    <section class="py-12 bg-white border-y border-gray-100">
+        <div class="container mx-auto px-8 lg:px-16">
+            <div class="logo-scroll-container">
+                <div class="logo-scroll">
+                    <!-- First set -->
+                    <div class="logo-item">
+                        <img src="Airbnb.svg" alt="Airbnb">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Booking.svg" alt="Booking">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Decolar.svg" alt="Decolar">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Expedia.svg" alt="Expedia">
+                    </div>
+                    <!-- Second set -->
+                    <div class="logo-item">
+                        <img src="Airbnb.svg" alt="Airbnb">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Booking.svg" alt="Booking">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Decolar.svg" alt="Decolar">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Expedia.svg" alt="Expedia">
+                    </div>
+                    <!-- Third set -->
+                    <div class="logo-item">
+                        <img src="Airbnb.svg" alt="Airbnb">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Booking.svg" alt="Booking">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Decolar.svg" alt="Decolar">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Expedia.svg" alt="Expedia">
+                    </div>
+                    <!-- Fourth set -->
+                    <div class="logo-item">
+                        <img src="Airbnb.svg" alt="Airbnb">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Booking.svg" alt="Booking">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Decolar.svg" alt="Decolar">
+                    </div>
+                    <div class="logo-item">
+                        <img src="Expedia.svg" alt="Expedia">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="recursos" class="py-12 md:py-20 lg:py-24 bg-white">
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-7xl">
+            <div class="text-center mb-8 md:mb-16">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-3 md:mb-4">
+                    Gestão Profissional com<br>Tecnologia de Ponta
+                </h2>
+                <p class="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+                    Operação 360º que cuida de cada detalhe do seu imóvel
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4 md:gap-8 mb-8 md:mb-12">
+                <!-- Feature 1 -->
+                <div class="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 lg:p-10 shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-linear-to-br from-blue-100 to-blue-50 rounded-lg md:rounded-xl flex items-center justify-center mb-4 md:mb-6">
+                        <i class="ph ph-globe-hemisphere-west text-blue-600 text-xl md:text-3xl"></i>
+                    </div>
+                    <h3 class="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4">Hub de Distribuição Global</h3>
+                    <p class="text-gray-600 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
+                        Centralizamos Airbnb, Booking, Expedia e Decolar em um único painel com sincronização automática
+                    </p>
+                    <ul class="space-y-2 md:space-y-3">
+                        <li class="flex items-center gap-2 md:gap-3 text-gray-700 text-sm md:text-base">
+                            <i class="ph ph-check text-bee-gold text-lg md:text-xl"></i>
+                            <span>Atualização em tempo real</span>
+                        </li>
+                        <li class="flex items-center gap-2 md:gap-3 text-gray-700 text-sm md:text-base">
+                            <i class="ph ph-check text-bee-gold text-lg md:text-xl"></i>
+                            <span>Zero overbooking</span>
+                        </li>
+                        <li class="flex items-center gap-2 md:gap-3 text-gray-700 text-sm md:text-base">
+                            <i class="ph ph-check text-bee-gold text-lg md:text-xl"></i>
+                            <span>Performance otimizada</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 lg:p-10 shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-linear-to-br from-orange-100 to-orange-50 rounded-lg md:rounded-xl flex items-center justify-center mb-4 md:mb-6">
+                        <i class="ph ph-chart-line-up text-orange-600 text-xl md:text-3xl"></i>
+                    </div>
+                    <h3 class="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4">Precificação Dinâmica</h3>
+                    <p class="text-gray-600 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
+                        Algoritmos inteligentes ajustam tarifas automaticamente para maximizar sua receita
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-gray-700">
+                            <i class="ph ph-check text-bee-gold text-xl"></i>
+                            <span>Paridade de preços</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700">
+                            <i class="ph ph-check text-bee-gold text-xl"></i>
+                            <span>Análise de mercado 24/7</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700">
+                            <i class="ph ph-check text-bee-gold text-xl"></i>
+                            <span>Aumento de até 51% na receita</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Single Feature with Chart -->
+            <div class="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100">
+                <div class="grid md:grid-cols-2 gap-6 md:gap-8 items-center">
+                    <div>
+                        <div class="w-10 h-10 md:w-14 md:h-14 bg-linear-to-br from-purple-100 to-purple-50 rounded-lg md:rounded-xl flex items-center justify-center mb-4 md:mb-6">
+                            <i class="ph ph-star text-purple-600 text-xl md:text-3xl"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4">Experiência Premium</h3>
+                        <p class="text-gray-600 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
+                            Padrão hoteleiro em cada detalhe, do staging ao check-out
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-gray-700">
+                                <i class="ph ph-check text-bee-gold text-xl"></i>
+                                <span>Concierge digital 24/7</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-700">
+                                <i class="ph ph-check text-bee-gold text-xl"></i>
+                                <span>Enxoval premium</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-700">
+                                <i class="ph ph-check text-bee-gold text-xl"></i>
+                                <span>Alcance rating 5.0 e aumente ocupação em 35%</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-700">
+                                <i class="ph ph-check text-bee-gold text-xl"></i>
+                                <span>Sincronização em todas as plataformas</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Chart Visual -->
+                    <div class="bg-gray-50 rounded-2xl p-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <div class="text-sm text-gray-500 mb-1">Receita Mensal Média</div>
+                                <div class="text-3xl font-black text-gray-900">R$ 10.271,25</div>
+                            </div>
+                            <div class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                                <i class="ph ph-arrow-up"></i>
+                                <span>+51%</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Vertical Bar Chart -->
+                        <div class="flex items-end justify-between gap-3 h-48">
+                            <!-- Setembro -->
+                            <div class="flex flex-col justify-end items-center gap-2 flex-1 h-full">
+                                <span class="text-xs font-semibold text-gray-700">R$ 8.160</span>
+                                <div class="w-full bg-linear-to-t from-gray-400 to-gray-500 rounded-t transition-all duration-1000" style="height: 43%"></div>
+                                <span class="text-xs text-gray-600 mt-2">Set</span>
+                            </div>
+
+                            <!-- Outubro -->
+                            <div class="flex flex-col justify-end items-center gap-2 flex-1 h-full">
+                                <span class="text-xs font-semibold text-gray-700">R$ 9.580</span>
+                                <div class="w-full bg-linear-to-t from-gray-400 to-gray-500 rounded-t transition-all duration-1000" style="height: 52%"></div>
+                                <span class="text-xs text-gray-600 mt-2">Out</span>
+                            </div>
+
+                            <!-- Novembro -->
+                            <div class="flex flex-col justify-end items-center gap-2 flex-1 h-full">
+                                <span class="text-xs font-semibold text-gray-700">R$ 11.020</span>
+                                <div class="w-full bg-linear-to-t from-gray-400 to-gray-500 rounded-t transition-all duration-1000" style="height: 63%"></div>
+                                <span class="text-xs text-gray-600 mt-2">Nov</span>
+                            </div>
+
+                            <!-- Dezembro (Destaque)-->
+                            <div class="flex flex-col justify-end items-center gap-2 flex-1 h-full">
+                                <span class="text-xs font-bold text-bee-gold">R$ 12.325</span>
+                                <div class="w-full bg-linear-to-t from-bee-gold to-amber-400 rounded-t shadow-lg transition-all duration-1000" style="height: 80%"></div>
+                                <span class="text-xs text-gray-900 font-semibold mt-2">Dez</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diferenciais Section -->
+    <section id="diferenciais" class="py-12 md:py-20 lg:py-24 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-7xl">
+            <div class="text-center mb-8 md:mb-16">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-3 md:mb-4">Por Que Escolher a BeeStay?</h2>
+                <p class="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+                    Diferenciais que transformam a gestão do seu imóvel
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 lg:gap-8">
+                <!-- Diferencial 1 -->
+                <div class="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-10 hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-linear-to-br from-blue-100 to-blue-50 rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-6">
+                        <i class="ph ph-cpu text-blue-600 text-xl md:text-3xl"></i>
+                    </div>
+                    <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3">Tecnologia de Ponta</h3>
+                    <p class="text-gray-600 text-xs md:text-sm leading-relaxed">
+                        IA e automação para otimizar cada aspecto da gestão do seu imóvel
+                    </p>
+                </div>
+
+                <!-- Diferencial 2 -->
+                <div class="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-10 hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-linear-to-br from-green-100 to-green-50 rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-6">
+                        <i class="ph ph-headset text-green-600 text-xl md:text-3xl"></i>
+                    </div>
+                    <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3">Suporte Dedicado</h3>
+                    <p class="text-gray-600 text-xs md:text-sm leading-relaxed">
+                        Equipe especializada disponível 24/7 para você e seus hóspedes
+                    </p>
+                </div>
+
+                <!-- Diferencial 3 -->
+                <div class="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-10 hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-linear-to-br from-purple-100 to-purple-50 rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-6">
+                        <i class="ph ph-handshake text-purple-600 text-xl md:text-3xl"></i>
+                    </div>
+                    <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3">Contratos Flexíveis</h3>
+                    <p class="text-gray-600 text-xs md:text-sm leading-relaxed">
+                        Sem amarras ou taxas de rescisão. Cancele com 30 dias de aviso
+                    </p>
+                </div>
+
+                <!-- Diferencial 4 -->
+                <div class="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-10 hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-linear-to-br from-amber-100 to-amber-50 rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-6">
+                        <i class="ph ph-trophy text-amber-600 text-xl md:text-3xl"></i>
+                    </div>
+                    <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3">Resultados Comprovados</h3>
+                    <p class="text-gray-600 text-xs md:text-sm leading-relaxed">
+                        +51% de rentabilidade e +35% de ocupação com nossos clientes
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-12 md:py-20 bg-gray-50 relative">
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-4xl">
+            <div class="text-center mb-8 md:mb-16">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-3 md:mb-4">Perguntas Frequentes</h2>
+            </div>
+
+            <div class="bg-white rounded-xl md:rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <button class="w-full px-4 md:px-8 py-4 md:py-6 flex justify-between items-center transition-colors faq-trigger">
+                        <span class="font-semibold text-left text-sm md:text-base">Qual o investimento inicial para começar?</span>
+                        <i class="ph ph-plus text-lg md:text-xl faq-icon"></i>
+                    </button>
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="text-gray-600 text-sm md:text-base">
+                            Não há taxas de setup. Trabalhamos com modelo de gestão compartilhada, onde cobramos apenas um percentual sobre o faturamento do imóvel. Você só paga quando recebe.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <button class="w-full px-4 md:px-8 py-4 md:py-6 flex justify-between items-center transition-colors faq-trigger">
+                        <span class="font-semibold text-left text-sm md:text-base">Como funciona o contrato? Posso cancelar quando quiser?</span>
+                        <i class="ph ph-plus text-lg md:text-xl faq-icon"></i>
+                    </button>
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="text-gray-600 text-sm md:text-base">
+                            Nossos contratos são flexíveis e transparentes. Você pode cancelar com aviso prévio de 30 dias, sem multas ou taxas de rescisão.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <button class="w-full px-4 md:px-8 py-4 md:py-6 flex justify-between items-center transition-colors faq-trigger">
+                        <span class="font-semibold text-left text-sm md:text-base">Meu imóvel precisa estar mobiliado?</span>
+                        <i class="ph ph-plus text-lg md:text-xl faq-icon"></i>
+                    </button>
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="text-gray-600 text-sm md:text-base">
+                            Não necessariamente. Oferecemos serviço completo de staging e decoração, incluindo mobília e enxoval premium. Podemos transformar seu imóvel vazio em um espaço pronto para receber hóspedes.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <button class="w-full px-4 md:px-8 py-4 md:py-6 flex justify-between items-center transition-colors faq-trigger">
+                        <span class="font-semibold text-left text-sm md:text-base">Como vocês garantem a segurança do meu imóvel?</span>
+                        <i class="ph ph-plus text-lg md:text-xl faq-icon"></i>
+                    </button>
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="text-gray-600 text-sm md:text-base">
+                            Implementamos protocolos rigorosos de vistoria pré e pós-checkout, seguro contra danos, verificação de identidade dos hóspedes e monitoramento 24/7. Seu patrimônio está protegido em todas as etapas.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item">
+                    <button class="w-full px-4 md:px-8 py-4 md:py-6 flex justify-between items-center transition-colors faq-trigger">
+                        <span class="font-semibold text-left text-sm md:text-base">Quanto tempo leva para ver resultados?</span>
+                        <i class="ph ph-plus text-lg md:text-xl faq-icon"></i>
+                    </button>
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="text-gray-600 text-sm md:text-base">
+                            Após a preparação inicial (staging e cadastro nas plataformas), você começa a receber reservas em média dentro de 7 a 15 dias. Os resultados de otimização de receita são percebidos já no primeiro mês.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="contato" class="py-12 md:py-20 bg-bee-black text-white">
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-5xl">
+            <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+                <!-- Left Content -->
+                <div class="text-center lg:text-left">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-4 md:mb-6 leading-tight">
+                        Agende Sua Análise <span class="text-bee-gold">Gratuita</span>
+                    </h2>
+
+                    <p class="text-sm sm:text-base md:text-lg text-gray-400 mb-6 md:mb-8">
+                        Descubra o potencial real do seu imóvel em uma consultoria personalizada de 30 minutos. <strong class="text-white">Sem compromisso, apenas dados reais.</strong>
+                    </p>
+                    <a href="#form" class="hidden lg:inline-flex items-center gap-2 bg-white text-bee-black px-6 md:px-8 py-3 md:py-4 rounded-lg font-bold hover:bg-gray-100 transition-all text-sm md:text-base">
+                        Começar Agora
+                        <i class="ph ph-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Right Form -->
+                <div id="form" class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl p-6 md:p-8">
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 md:mb-6">Não perca o ano atual!</h3>
+                    <p class="text-gray-400 mb-4 md:mb-6 text-sm md:text-base">
+                        Preencha o formulário e receba uma análise gratuita do potencial do seu imóvel
+                    </p>
+                    
+                    <form class="space-y-3 md:space-y-4">
+                        <input type="text" placeholder="Nome Completo" required
+                            class="w-full px-4 md:px-6 py-3 md:py-4 rounded-lg bg-white/10 border border-white/20 focus:border-bee-gold focus:outline-none text-white placeholder-gray-400 text-sm md:text-base">
+                        
+                        <input type="email" placeholder="E-mail" required
+                            class="w-full px-4 md:px-6 py-3 md:py-4 rounded-lg bg-white/10 border border-white/20 focus:border-bee-gold focus:outline-none text-white placeholder-gray-400 text-sm md:text-base">
+                        
+                        <input type="tel" placeholder="WhatsApp" required
+                            class="w-full px-4 md:px-6 py-3 md:py-4 rounded-lg bg-white/10 border border-white/20 focus:border-bee-gold focus:outline-none text-white placeholder-gray-400 text-sm md:text-base">
+
+                        <button type="submit"
+                            class="w-full bg-bee-gold hover:bg-bee-gold-dark text-white px-6 md:px-8 py-3 md:py-4 rounded-lg font-bold transition-all text-sm md:text-base">
+                            Começar Agora
+                        </button>
+
+                        <p class="text-xs md:text-sm text-gray-400 text-center">
+                            🔒 Dados seguros · ✓ Resposta em 24h
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100 py-8 md:py-12">
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-7xl">
+            <div class="grid grid-cols-2 md:grid-cols-2 gap-6 md:gap-8 mb-6 md:mb-8 max-w-4xl mx-auto">
+                <!-- Column 1 -->
+                <div class="text-center">
+                    <h4 class="font-bold text-gray-900 mb-3 md:mb-4 text-sm md:text-base">Sobre</h4>
+                    <ul class="space-y-2 text-xs md:text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-bee-gold">Empresa</a></li>
+                        <li><a href="#" class="hover:text-bee-gold">Equipe</a></li>
+                        <li><a href="#" class="hover:text-bee-gold">Carreiras</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="text-center">
+                    <h4 class="font-bold text-gray-900 mb-3 md:mb-4 text-sm md:text-base">Contato</h4>
+                    <ul class="space-y-2 text-xs md:text-sm text-gray-600">
+                        <li>(47) 99999-9999</li>
+                        <li>contato@beestay.com.br</li>
+                        <li class="pt-3 md:pt-4 flex gap-2 md:gap-3 justify-center">
+                            <a href="#" class="w-7 h-7 md:w-8 md:h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-bee-gold hover:text-white transition-all">
+                                <i class="ph ph-linkedin-logo text-sm md:text-base"></i>
+                            </a>
+                            <a href="#" class="w-7 h-7 md:w-8 md:h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-bee-gold hover:text-white transition-all">
+                                <i class="ph ph-facebook-logo text-sm md:text-base"></i>
+                            </a>
+                            <a href="#" class="w-7 h-7 md:w-8 md:h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-bee-gold hover:text-white transition-all">
+                                <i class="ph ph-youtube-logo text-sm md:text-base"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-100 pt-6 md:pt-8 text-center text-xs md:text-sm text-gray-600">
+                <p>© 2025 BeeStay. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('✅ Obrigado! Entraremos em contato em breve.');
+            this.reset();
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-trigger').forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('.faq-icon');
+                
+                // Close all other answers
+                document.querySelectorAll('.faq-answer').forEach(item => {
+                    if (item !== answer) {
+                        item.classList.remove('active');
+                    }
+                });
+                
+                document.querySelectorAll('.faq-icon').forEach(item => {
+                    if (item !== icon) {
+                        item.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current answer
+                answer.classList.toggle('active');
+                icon.classList.toggle('active');
+            });
+        });
+
+        // Infinite Logo Scroll
+        const logoScroll = document.querySelector('.logo-scroll');
+        if (logoScroll) {
+            let scrollPosition = 0;
+            const scrollSpeed = 0.5; // pixels per frame
+            let isPaused = false;
+
+            // Clone the logos for seamless loop
+            const logoItems = logoScroll.innerHTML;
+            logoScroll.innerHTML = logoItems + logoItems;
+
+            function animate() {
+                if (!isPaused) {
+                    scrollPosition += scrollSpeed;
+                    
+                    // Reset position when we've scrolled half the content
+                    const halfWidth = logoScroll.scrollWidth / 2;
+                    if (scrollPosition >= halfWidth) {
+                        scrollPosition = 0;
+                    }
+                    
+                    logoScroll.style.transform = `translateX(-${scrollPosition}px)`;
+                }
+                
+                requestAnimationFrame(animate);
+            }
+
+            // Pause on hover
+            logoScroll.addEventListener('mouseenter', () => isPaused = true);
+            logoScroll.addEventListener('mouseleave', () => isPaused = false);
+
+            // Start animation
+            animate();
+        }
+
+    </script>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/5547999999999?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20BeeStay" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       class="fixed bottom-6 right-6 z-50 w-14 h-14 md:w-16 md:h-16 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 group">
+        <i class="ph-fill ph-whatsapp-logo text-white text-2xl md:text-3xl"></i>
+    </a>
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+@theme {
+    --color-bee-gold: #f9b410;
+    --color-bee-gold-dark: #d99a0d;
+    --color-bee-black: #0a0a0a;
+
+    --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* Custom Styles from index.html - Migrated to standard CSS */
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #f9b410;
+    border-radius: 4px;
+}
+
+/* Phone Mockup */
+.phone-mockup {
+    width: 210px;
+    height: 410px;
+    background: #1a1a1a;
+    border-radius: 35px;
+    padding: 10px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    position: relative;
+}
+
+@media (min-width: 768px) {
+    .phone-mockup {
+        width: 240px;
+        height: 490px;
+        border-radius: 40px;
+        padding: 12px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .phone-mockup {
+        width: 280px;
+        height: 570px;
+    }
+}
+
+.phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 22px;
+    background: #1a1a1a;
+    border-radius: 0 0 15px 15px;
+    z-index: 10;
+}
+
+@media (min-width: 768px) {
+    .phone-notch {
+        width: 120px;
+        height: 26px;
+        border-radius: 0 0 18px 18px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .phone-notch {
+        width: 150px;
+        height: 30px;
+        border-radius: 0 0 20px 20px;
+    }
+}
+
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .phone-screen {
+        border-radius: 28px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .phone-screen {
+        border-radius: 32px;
+    }
+}
+
+/* Logo Scroll Animation */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.logo-scroll-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.logo-scroll {
+    display: flex;
+    gap: 4rem;
+    width: max-content;
+    animation: scroll 40s linear infinite;
+}
+
+.logo-scroll:hover {
+    animation-play-state: paused;
+}
+
+.logo-item {
+    flex-shrink: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.logo-item:hover {
+    opacity: 0.8;
+}
+
+.logo-item img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+/* FAQ Accordion */
+.faq-item {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        padding 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-answer.active {
+    max-height: 200px;
+    opacity: 1;
+    padding-bottom: 1.5rem;
+}
+
+.faq-icon {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-icon.active {
+    transform: rotate(45deg);
+}
+
+/* Floating CTA Glow Pulse */
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(212, 168, 83, 0.4), 0 0 40px rgba(212, 168, 83, 0.2), 0 10px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(212, 168, 83, 0.6), 0 0 60px rgba(212, 168, 83, 0.4), 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.glow-pulse {
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+.glow-pulse:hover {
+    animation: none;
+    box-shadow: 0 0 40px rgba(212, 168, 83, 0.7), 0 0 80px rgba(212, 168, 83, 0.4), 0 10px 40px rgba(0, 0, 0, 0.25);
+}
