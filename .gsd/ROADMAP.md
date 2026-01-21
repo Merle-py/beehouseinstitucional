@@ -31,10 +31,11 @@
 ---
 
 ### Phase 2: Performance Optimization
-**Status**: ⬜ Not Started
+**Status**: 📋 **PLANNED** (Ready for execution)
 **Objective**: Achieve >90 mobile PageSpeed score by optimizing images, fonts, and critical rendering path
 **Duration**: 4-6 hours
 **Requirements**: Phase 1 complete
+**Plans**: 3 execution plans created (Wave 1: 2.1, 2.2 | Wave 2: 2.3)
 
 **Tasks**:
 - Implement next/image for all images (logo, mockup assets)
@@ -71,7 +72,7 @@
 ---
 
 ### Phase 4: Bitrix24 Form Integration
-**Status**: 📋 **PLANNED** (Ready for execution)
+**Status**: 📋 **COMPLETE** (Ready for execution)
 **Objective**: Replace static contact form with Bitrix24 embed and apply custom CSS styling
 **Duration**: 2-3 hours
 **Requirements**: Phase 1 complete, Bitrix24 form embed code available
@@ -79,11 +80,11 @@
 
 **Tasks**:
 - ✅ Get Bitrix24 form embed code from client (available in `.gsd/bitrix24-form.txt`)
-- Integrate Bitrix24 form in CTA section (Plan 4.1)
-- Apply custom CSS to match BeeStay design (bee-gold, rounded corners, etc.) (Plan 4.2)
-- Test form submission flow
-- Ensure mobile responsiveness
-- Verify form tracking in Bitrix24
+- ✅ Integrate Bitrix24 form in CTA section (Plan 4.1)
+- ✅ Apply custom CSS to match BeeStay design (bee-gold, rounded corners, etc.) (Plan 4.2)
+- ✅ Test form submission flow
+- ✅ Ensure mobile responsiveness
+- ✅ Verify form tracking in Bitrix24
 
 ---
 
