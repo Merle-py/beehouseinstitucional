@@ -9,11 +9,7 @@ export default function HomePage() {
         setOpenFaq(openFaq === index ? null : index)
     }
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        alert('✅ Obrigado! Entraremos em contato em breve.')
-        e.currentTarget.reset()
-    }
+
 
     return (
         <main>
@@ -537,25 +533,12 @@ export default function HomePage() {
                                 Preencha o formulário e receba uma análise gratuita do potencial do seu imóvel
                             </p>
 
-                            <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
-                                <input type="text" placeholder="Nome Completo" required
-                                    className="w-full px-4 md:px-6 py-3 md:py-4 rounded-lg bg-white/10 border border-white/20 focus:border-bee-gold focus:outline-none text-white placeholder-gray-400 text-sm md:text-base" />
-
-                                <input type="email" placeholder="E-mail" required
-                                    className="w-full px-4 md:px-6 py-3 md:py-4 rounded-lg bg-white/10 border border-white/20 focus:border-bee-gold focus:outline-none text-white placeholder-gray-400 text-sm md:text-base" />
-
-                                <input type="tel" placeholder="WhatsApp" required
-                                    className="w-full px-4 md:px-6 py-3 md:py-4 rounded-lg bg-white/10 border border-white/20 focus:border-bee-gold focus:outline-none text-white placeholder-gray-400 text-sm md:text-base" />
-
-                                <button type="submit"
-                                    className="w-full bg-bee-gold hover:bg-bee-gold-dark text-white px-6 md:px-8 py-3 md:py-4 rounded-lg font-bold transition-all text-sm md:text-base">
-                                    Começar Agora
-                                </button>
-
-                                <p className="text-xs md:text-sm text-gray-400 text-center">
-                                    🔒 Dados seguros · ✓ Análise gratuita
-                                </p>
-                            </form>
+                            {/* Bitrix24 Form Container */}
+                            <div
+                                data-b24-form="inline/391/tud5rt"
+                                data-skip-moving="true"
+                                style={{ minHeight: '300px' }}
+                            ></div>
                         </div>
                     </div>
                 </div>
