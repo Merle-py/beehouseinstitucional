@@ -204,10 +204,24 @@
     font-family: inherit !important;
 }
 
-/* Form Container */
+/* Form Container - Force full width */
 .b24-form-wrapper,
-.b24-form {
+.b24-form,
+#bitrix-form-container,
+#bitrix-form-container>* {
     background: transparent !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Bitrix24 inner containers */
+.b24-form-content,
+.b24-form-padding {
+    width: 100% !important;
+    max-width: none !important;
     padding: 0 !important;
 }
 
@@ -219,6 +233,9 @@
 .b24-form select,
 .b24-form-control {
     width: 100% !important;
+    min-width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
     background: rgba(255, 255, 255, 0.1) !important;
     backdrop-filter: blur(10px) !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -227,7 +244,16 @@
     color: white !important;
     font-size: 0.875rem !important;
     transition: all 0.3s ease !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* Form field containers */
+.b24-form .b24-form-field,
+.b24-form-control-container {
+    margin-bottom: 0.5rem !important;
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
 }
 
 .b24-form input::placeholder,
@@ -249,7 +275,7 @@
     color: rgba(255, 255, 255, 0.9) !important;
     font-size: 0.875rem !important;
     font-weight: 500 !important;
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0.25rem !important;
     display: block !important;
 }
 
@@ -267,7 +293,7 @@
     font-weight: 700 !important;
     cursor: pointer !important;
     transition: all 0.3s ease !important;
-    margin-top: 0.5rem !important;
+    margin-top: 0.75rem !important;
 }
 
 .b24-form button[type="submit"]:hover,
