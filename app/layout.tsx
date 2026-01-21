@@ -66,6 +66,21 @@ export default function RootLayout({
             gtag('config', 'G-522STP288V');
           `}
                 </Script>
+
+                {/* Bitrix24 Form Loader */}
+                <Script
+                    id="bitrix24-form"
+                    strategy="lazyOnload"
+                    data-b24-form="inline/391/tud5rt"
+                    data-skip-moving="true"
+                >
+                    {`
+            (function(w,d,u){
+                var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);
+                var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);
+            })(window,document,'https://cdn.bitrix24.com.br/b18304167/crm/form/loader_391.js');
+          `}
+                </Script>
             </body>
         </html>
     )
