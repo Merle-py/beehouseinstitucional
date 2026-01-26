@@ -244,28 +244,11 @@ export default function HomePage() {
                         </div>
                     </div>
                 </div>
-
-                {/* Slide indicators */}
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-                    {heroImages.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => setCurrentSlide(index)}
-                            className={`w-2 h-2 rounded-full transition-all ${
-                                index === currentSlide ? 'bg-bee-gold w-8' : 'bg-white/50'
-                            }`}
-                            aria-label={`Slide ${index + 1}`}
-                        />
-                    ))}
-                </div>
             </section>
 
             {/* Logo Bar - Sutil */}
             <section className="py-10 bg-light-gray border-y border-mid-gray">
                 <div className="container mx-auto px-8 lg:px-16">
-                    <p className="text-center text-xs uppercase tracking-wide text-text-light mb-6 font-medium">
-                        Integramos sua propriedade aos principais canais
-                    </p>
                     <div className="logo-scroll-container">
                         <div className="logo-scroll">
                             {/* First set */}
