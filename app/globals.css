@@ -29,9 +29,15 @@
     --color-text-gray: #333333;
     --color-text-light: #666666;
 
+    /* Tons Quentes - Caseiro/Acolhedor */
+    --color-warm-cream: #F9F7F2;
+    --color-warm-sand: #F5F1E8;
+    --color-warm-linen: #FAF8F3;
+
     /* Backgrounds */
     --color-bg-cream: #fafafa;
     --color-bg-light: #ffffff;
+    --color-bg-warm: #F9F7F2;
 
     /* Compatibilidade */
     --color-charcoal-deep: #0a0a0a;
@@ -42,8 +48,10 @@
     --color-subtle-honey: #fafafa;
 
     --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-serif: 'Playfair Display', Georgia, serif;
 
     --font-family-sans: var(--font-sans);
+    --font-family-serif: var(--font-serif);
 }
 
 /* Custom Styles from index.html - Migrated to standard CSS */
@@ -90,6 +98,13 @@
 
 .faq-icon.active {
     transform: rotate(45deg);
+}
+
+/* Editorial Typography - Playfair Display for Headlines */
+h1, h2, .heading-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 /* Bitrix24 Form Custom Styling */

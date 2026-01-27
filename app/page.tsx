@@ -77,21 +77,21 @@ export default function HomePage() {
     const diferenciaisData: Diferencial[] = [
         {
             title: 'Transparência Total',
-            description: 'Receita e reservas em tempo real no seu dashboard. Sem letras miúdas.',
+            description: 'Dashboard em tempo real com todas as receitas, despesas e reservas. Zero letras miúdas.',
             icon: 'ChartLineUp',
             imageAlt: 'Dashboard em laptop',
             imageSrc: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop'
         },
         {
             title: 'Tecnologia de Ponta',
-            description: 'Automação completa do check-in ao checkout. Menos preocupações para você.',
+            description: 'Automação completa do check-in ao checkout. Você relaxa enquanto a tecnologia trabalha.',
             icon: 'Cpu',
             imageAlt: 'Pessoa verificando imóvel',
             imageSrc: 'https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=800'
         },
         {
             title: 'Cuidado Artesanal',
-            description: 'Gestor dedicado e atendimento humano. Seu imóvel é único para nós.',
+            description: 'Gestor dedicado que trata sua propriedade como única. Atendimento humano em cada detalhe.',
             icon: 'Handshake',
             imageAlt: 'Detalhe de limpeza premium',
             imageSrc: 'https://images.unsplash.com/photo-1584622050111-993a426fbf0a?q=80&w=800'
@@ -344,9 +344,9 @@ export default function HomePage() {
                                 href="#contato"
                                 className="bg-bee-gold hover:bg-bee-gold-dark text-white px-8 py-4 rounded font-semibold transition-all inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
                             >
-                                Agendar Consultoria
+                                Simular Receita do Meu Imóvel
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                 </svg>
                             </a>
                             <a
@@ -427,7 +427,7 @@ export default function HomePage() {
                         {/* Right - Content Side */}
                         <div className="p-8 md:p-12 lg:p-20 flex flex-col justify-center relative z-10">
                             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight text-white">
-                                Seu imóvel rendendo <span className="text-bee-gold">muito mais</span>, com zero esforço.
+                                Seu imóvel rendendo <span className="text-bee-gold">muito mais</span>, enquanto cuidamos de tudo.
                             </h2>
                             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
                                 Transformamos sua propriedade em um ativo de alta performance. Cuidamos da distribuição, precificação, hóspedes e manutenção.
@@ -438,9 +438,9 @@ export default function HomePage() {
                                     href="#contato"
                                     className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg w-full inline-flex justify-center items-center gap-2 transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(249,180,16,0.4)] hover:shadow-[0_0_30px_rgba(249,180,16,0.6)]"
                                 >
-                                    ANUNCIE AGORA
+                                    SIMULAR RECEITA DO MEU IMÓVEL
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                     </svg>
                                 </a>
                             </div>
@@ -462,7 +462,7 @@ export default function HomePage() {
             </section>
 
             {/* Diferenciais Section - Gestão Que Você Pode Acompanhar (Moved Up) */}
-            <section id="diferenciais" className="py-20 lg:py-32 bg-gray-50">
+            <section id="diferenciais" className="py-20 lg:py-32 bg-warm-cream">
                 <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
 
                     {/* Section Header */}
@@ -531,6 +531,13 @@ export default function HomePage() {
                                                     <p className="text-text-gray leading-relaxed text-sm md:text-base">
                                                         {item.description}
                                                     </p>
+                                                    {/* Fake CTA to encourage interaction perception */}
+                                                    <div className="mt-auto pt-6 flex items-center text-bee-gold font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
+                                                        <span>Saiba mais</span>
+                                                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                                        </svg>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -557,7 +564,7 @@ export default function HomePage() {
             </section>
 
             {/* O Que Cuidamos - Carrossel (Moved Down) */}
-            <section id="servicos" className="py-20 lg:py-32 bg-bg-cream relative overflow-hidden">
+            <section id="servicos" className="py-20 lg:py-32 bg-warm-linen relative overflow-hidden">
                 <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
                     {/* Section Header */}
                     <div className="text-center mb-12 lg:mb-16">
@@ -639,7 +646,7 @@ export default function HomePage() {
 
             {/* Processo - Como Funciona (Timeline) */}
             <section id="processo" className="py-20 lg:py-32 bg-white relative overflow-hidden">
-                <div className="container mx-auto px-6 lg:px-16 max-w-6xl">
+                <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
 
                     {/* Section Header */}
                     <div className="text-center mb-16 lg:mb-24">
@@ -651,8 +658,8 @@ export default function HomePage() {
                         </p>
                     </div>
 
-                    {/* Timeline */}
-                    <div className="relative max-w-4xl mx-auto">
+                    {/* Mobile & Tablet Timeline (Vertical) */}
+                    <div className="lg:hidden relative max-w-4xl mx-auto">
                         {/* Continuous Vertical Line */}
                         <div className="absolute left-[19px] md:left-[39px] top-0 bottom-0 w-px bg-gradient-to-b from-gray-200 via-gray-300 to-gray-200"></div>
 
@@ -675,6 +682,38 @@ export default function HomePage() {
                                             </h3>
                                         </div>
                                         <p className="text-text-gray leading-relaxed text-base md:text-lg">
+                                            {item.description}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Desktop Timeline (Horizontal) */}
+                    <div className="hidden lg:block relative">
+                        {/* Horizontal Line */}
+                        <div className="absolute top-12 left-0 right-0 h-px bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200"></div>
+
+                        <div className="grid grid-cols-4 gap-6">
+                            {timelineSteps.map((item, index) => (
+                                <div key={index} className="relative group">
+                                    {/* Marker */}
+                                    <div className="absolute left-1/2 -translate-x-1/2 top-8 w-10 h-10 bg-white border-2 border-bee-gold rounded-full flex items-center justify-center z-10 shadow-[0_0_0_4px_#ffffff] group-hover:bg-bee-gold transition-colors duration-300">
+                                        <div className="w-2.5 h-2.5 bg-bee-gold rounded-full group-hover:bg-white transition-colors duration-300"></div>
+                                    </div>
+
+                                    {/* Card */}
+                                    <div className="bg-white border border-gray-100 p-6 rounded-2xl shadow-sm hover:shadow-xl hover:border-bee-gold/30 transition-all duration-300 hover:-translate-y-1 mt-24">
+                                        <div className="text-center mb-4">
+                                            <span className="text-5xl font-bold text-gray-100 group-hover:text-bee-gold/20 transition-colors duration-300 font-sans tracking-tighter">
+                                                {item.step}
+                                            </span>
+                                        </div>
+                                        <h3 className="text-xl font-bold text-bee-black group-hover:text-bee-gold transition-colors mb-3 text-center">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-text-gray leading-relaxed text-sm text-center">
                                             {item.description}
                                         </p>
                                     </div>
@@ -879,7 +918,10 @@ export default function HomePage() {
                                 href="#contato"
                                 className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg w-full inline-flex justify-center items-center gap-2 transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(249,180,16,0.2)] hover:shadow-[0_0_30px_rgba(249,180,16,0.4)] uppercase tracking-wide text-sm md:text-base"
                             >
-                                QUERO FAZER PARTE DESSA HISTÓRIA
+                                SIMULAR RECEITA DO MEU IMÓVEL
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                </svg>
                             </a>
                         </div>
 
@@ -890,7 +932,7 @@ export default function HomePage() {
                                 <Image
                                     src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1000"
                                     className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500"
-                                    alt="Fernando - CEO BeeStay"
+                                    alt="André - CEO BeeStay"
                                     fill
                                     sizes="(max-width: 1024px) 100vw, 50vw"
                                 />
@@ -907,7 +949,7 @@ export default function HomePage() {
 
                                 {/* Minimal Tag */}
                                 <div className="absolute bottom-6 left-6 text-left">
-                                    <p className="text-white font-bold text-xl">Fernando</p>
+                                    <p className="text-white font-bold text-xl">André</p>
                                     <p className="text-bee-gold text-sm font-medium tracking-wide">CEO BeeStay</p>
                                 </div>
                             </div>
@@ -917,8 +959,9 @@ export default function HomePage() {
                 </div>
             </section>
 
+
             {/* FAQ Section */}
-            <section id="faq" className="py-12 md:py-20 bg-bg-cream relative">
+            <section id="faq" className="py-12 md:py-20 bg-warm-sand relative">
                 <div className="container mx-auto px-4 md:px-8 lg:px-16 max-w-4xl">
                     <div className="text-center mb-8 md:mb-12">
                         <h2 className="text-3xl sm:text-4xl text-bee-black mb-3 font-bold">Perguntas Frequentes</h2>
@@ -1084,6 +1127,17 @@ export default function HomePage() {
                 <Icons.WhatsappLogo className="w-6 h-6 md:w-8 md:h-8 text-white" />
             </a>*/}
 
+            {/* Sticky Desktop CTA - Bottom Right Corner */}
+            <a
+                href="#contato"
+                className="hidden md:flex fixed bottom-8 right-8 z-50 bg-bee-gold hover:bg-bee-gold-dark text-bee-black px-6 py-4 rounded-full font-bold transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 items-center gap-2 group"
+            >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <span className="whitespace-nowrap">Simular Receita</span>
+            </a>
+
             {/* Sticky Mobile CTA Bar - Visible only on mobile */}
             <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 shadow-lg">
                 <div className="px-4 py-3">
@@ -1091,9 +1145,9 @@ export default function HomePage() {
                         href="#contato"
                         className="bg-bee-gold hover:bg-bee-gold-dark text-white px-6 py-3.5 rounded-lg font-bold transition-all w-full flex items-center justify-center gap-2 shadow-md active:scale-95"
                     >
-                        Agendar Consultoria
+                        Simular Receita
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                         </svg>
                     </a>
                 </div>
