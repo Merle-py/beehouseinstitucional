@@ -734,59 +734,60 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* CEO Video Section - Joinville Vision */}
-            <section className="py-20 lg:py-32 bg-blue-50/50">
-                <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
-                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* CEO Video Section - Vision & Premium Dark */}
+            <section className="py-20 lg:py-32 bg-neutral-900 text-white relative overflow-hidden">
+                {/* Background Accents */}
+                <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-bee-gold/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2"></div>
+                
+                <div className="container mx-auto px-6 lg:px-16 max-w-7xl relative z-10">
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
                         
                         {/* Text Content */}
                         <div className="text-center lg:text-left order-2 lg:order-1">
-                            <h2 className="text-3xl md:text-4xl lg:text-5xl text-bee-black mb-6 font-bold leading-tight">
-                                Entenda por que <span className="text-bee-gold">Joinville</span> é o cenário perfeito para seus investimentos.
+                            <div className="inline-block px-3 py-1 mb-6 border border-bee-gold/30 rounded-full bg-bee-gold/10 text-bee-gold text-xs font-bold tracking-wider uppercase">
+                                Palavra do CEO
+                            </div>
+                            <h2 className="text-3xl md:text-4xl lg:text-5xl mb-6 font-bold leading-tight">
+                                Por que escolhi <span className="text-bee-gold">Joinville</span> para começar essa revolução?
                             </h2>
-                            <p className="text-lg text-text-gray mb-10 leading-relaxed">
-                                A BeeStay nasceu da visão de que Joinville é um mercado imobiliário em plena expansão. Assista ao vídeo e descubra o potencial que nos fez apostar tudo aqui.
+                            <p className="text-lg text-gray-400 mb-10 leading-relaxed">
+                                "Encontramos aqui o cenário perfeito: um mercado imobiliário sólido e uma demanda reprimida por gestão profissional. A BeeStay não é apenas uma empresa, é a nossa visão de futuro para a cidade."
                             </p>
                             
                             <a 
                                 href="#contato" 
-                                className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-4 px-8 rounded-lg inline-flex items-center gap-2 transition-all hover:scale-105 shadow-lg uppercase tracking-wide text-sm md:text-base"
+                                className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg inline-flex items-center gap-2 transition-all hover:scale-105 shadow-[0_0_20px_rgba(249,180,16,0.2)] uppercase tracking-wide text-sm md:text-base"
                             >
-                                JUNTE-SE A +1000 PROPRIETÁRIOS
+                                QUERO FAZER PARTE DESSA HISTÓRIA
                             </a>
                         </div>
 
                         {/* Video Thumbnail */}
-                        <div className="order-1 lg:order-2 relative group cursor-pointer">
-                            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl aspect-video bg-gray-900 group-hover:scale-[1.02] transition-transform duration-500">
-                                {/* Thumbnail Image */}
+                        <div className="order-1 lg:order-2 group cursor-pointer">
+                            <div className="relative rounded-2xl overflow-hidden aspect-video border border-white/10 shadow-2xl transition-all duration-500 group-hover:border-bee-gold/50 group-hover:shadow-[0_0_30px_rgba(249,180,16,0.15)]">
+                                {/* Thumbnail Image (Darkened) */}
                                 <img 
                                     src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1000" 
-                                    className="w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500" 
+                                    className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500" 
                                     alt="Fernando - CEO BeeStay" 
                                 />
                                 
-                                {/* Play Button Overlay */}
+                                {/* Custom Play Button */}
                                 <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border-2 border-white group-hover:scale-110 transition-transform duration-300">
-                                        <div className="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-white border-b-[12px] border-b-transparent ml-1"></div>
+                                    <div className="w-20 h-20 bg-bee-gold rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 relative">
+                                        <div className="absolute inset-0 bg-bee-gold rounded-full animate-ping opacity-20"></div>
+                                        <svg className="w-8 h-8 text-bee-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M8 5v14l11-7z" />
+                                        </svg>
                                     </div>
                                 </div>
 
-                                {/* CEO Tag */}
-                                <div className="absolute bottom-6 left-6 bg-bee-black/80 backdrop-blur px-6 py-3 rounded-xl border-l-4 border-bee-gold">
-                                    <p className="text-white font-bold text-lg">Fernando</p>
-                                    <p className="text-gray-300 text-sm">CEO BeeStay</p>
-                                </div>
-
-                                {/* Brand Watermark */}
-                                <div className="absolute top-6 right-6 opacity-50">
-                                    <img src="/logo.svg" className="h-8 brightness-0 invert" alt="BeeStay" />
+                                {/* Minimal Tag */}
+                                <div className="absolute bottom-6 left-6 text-left">
+                                    <p className="text-white font-bold text-xl">Fernando</p>
+                                    <p className="text-bee-gold text-sm font-medium tracking-wide">CEO BeeStay</p>
                                 </div>
                             </div>
-                            
-                            {/* Decorative Blob */}
-                            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-blue-200/50 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                         </div>
 
                     </div>
