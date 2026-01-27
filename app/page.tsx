@@ -734,64 +734,59 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Prova Social - Quem Confia */}
-            <section className="py-20 lg:py-32 bg-white">
-                <div className="container mx-auto px-6 lg:px-16 max-w-6xl">
-
-                    {/* Section Header */}
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl text-bee-black mb-4 font-bold">
-                            Proprietários que confiam na BeeStay
-                        </h2>
-                    </div>
-
-                    {/* Testimonials Grid */}
-                    <div className="grid md:grid-cols-2 gap-8">
-
-                        {/* Depoimento 1 */}
-                        <div className="bg-bg-cream border border-mid-gray rounded-lg p-8 relative">
-                            <div className="relative z-10">
-                                <p className="text-text-gray leading-relaxed mb-6">
-                                    Desde que contratei a BeeStay, durmo tranquilo. Eles realmente tratam meu apartamento como se fosse deles.
-                                </p>
-
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-md shrink-0">
-                                        <img 
-                                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200" 
-                                            alt="Mariana Costa" 
-                                            className="w-full h-full object-cover" 
-                                        />
-                                    </div>
-                                    <div>
-                                        <div className="text-bee-black font-semibold">Mariana Costa</div>
-                                        <div className="text-text-light text-sm">Proprietária há 2 anos</div>
-                                    </div>
-                                </div>
-                            </div>
+            {/* CEO Video Section - Joinville Vision */}
+            <section className="py-20 lg:py-32 bg-blue-50/50">
+                <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        
+                        {/* Text Content */}
+                        <div className="text-center lg:text-left order-2 lg:order-1">
+                            <h2 className="text-3xl md:text-4xl lg:text-5xl text-bee-black mb-6 font-bold leading-tight">
+                                Entenda por que <span className="text-bee-gold">Joinville</span> é o cenário perfeito para seus investimentos.
+                            </h2>
+                            <p className="text-lg text-text-gray mb-10 leading-relaxed">
+                                A BeeStay nasceu da visão de que Joinville é um mercado imobiliário em plena expansão. Assista ao vídeo e descubra o potencial que nos fez apostar tudo aqui.
+                            </p>
+                            
+                            <a 
+                                href="#contato" 
+                                className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-4 px-8 rounded-lg inline-flex items-center gap-2 transition-all hover:scale-105 shadow-lg uppercase tracking-wide text-sm md:text-base"
+                            >
+                                JUNTE-SE A +1000 PROPRIETÁRIOS
+                            </a>
                         </div>
 
-                        {/* Depoimento 2 */}
-                        <div className="bg-bg-cream border border-mid-gray rounded-lg p-8 relative">
-                            <div className="relative z-10">
-                                <p className="text-text-gray leading-relaxed mb-6">
-                                    A transparência nos relatórios e o cuidado com a manutenção preventiva me surpreenderam. É gestão profissional de verdade.
-                                </p>
-
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-md shrink-0">
-                                        <img 
-                                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200" 
-                                            alt="Roberto Silva" 
-                                            className="w-full h-full object-cover" 
-                                        />
-                                    </div>
-                                    <div>
-                                        <div className="text-bee-black font-semibold">Roberto Silva</div>
-                                        <div className="text-text-light text-sm">Proprietário há 1 ano</div>
+                        {/* Video Thumbnail */}
+                        <div className="order-1 lg:order-2 relative group cursor-pointer">
+                            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl aspect-video bg-gray-900 group-hover:scale-[1.02] transition-transform duration-500">
+                                {/* Thumbnail Image */}
+                                <img 
+                                    src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1000" 
+                                    className="w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500" 
+                                    alt="Fernando - CEO BeeStay" 
+                                />
+                                
+                                {/* Play Button Overlay */}
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border-2 border-white group-hover:scale-110 transition-transform duration-300">
+                                        <div className="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-white border-b-[12px] border-b-transparent ml-1"></div>
                                     </div>
                                 </div>
+
+                                {/* CEO Tag */}
+                                <div className="absolute bottom-6 left-6 bg-bee-black/80 backdrop-blur px-6 py-3 rounded-xl border-l-4 border-bee-gold">
+                                    <p className="text-white font-bold text-lg">Fernando</p>
+                                    <p className="text-gray-300 text-sm">CEO BeeStay</p>
+                                </div>
+
+                                {/* Brand Watermark */}
+                                <div className="absolute top-6 right-6 opacity-50">
+                                    <img src="/logo.svg" className="h-8 brightness-0 invert" alt="BeeStay" />
+                                </div>
                             </div>
+                            
+                            {/* Decorative Blob */}
+                            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-blue-200/50 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                         </div>
 
                     </div>
@@ -839,7 +834,7 @@ export default function HomePage() {
                             </div>
 
                             {/* Trust Bar (Static & Clean) */}
-                            <div className="border-t border-white/10 pt-8">
+                            <div className="border-t border-white/10 pt-2">
                                 <p className="text-sm text-gray-500 mb-4">Seu imóvel presente nas maiores plataformas:</p>
                                 <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 sm:gap-6 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
                                     <img src="/Airbnb.svg" className="h-6 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Airbnb" />
