@@ -798,75 +798,73 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* CTA Section - Gestão Profissional (Seazone Style) */}
+            {/* CTA Section - High Conversion Premium (Fixed) */}
             <section className="py-20 px-4 md:px-8 lg:px-16 bg-white">
-                <div className="bg-bee-black rounded-[2.5rem] md:rounded-[3rem] overflow-hidden relative">
-                    
-                    <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center p-8 md:p-12 lg:p-20">
+                <div className="bg-bee-black rounded-[2rem] md:rounded-[3rem] overflow-hidden relative isolate shadow-2xl max-w-7xl mx-auto">
+                    {/* Background Texture & Glow */}
+                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
+                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-bee-gold/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+
+                    <div className="grid lg:grid-cols-2 gap-0 lg:gap-12 items-stretch">
                         
-                        {/* Left - Visual Collage */}
-                        <div className="relative w-full flex items-center justify-center lg:justify-end pr-0 lg:pr-12">
+                        {/* Left - Image Side (Full Height Cover) */}
+                        <div className="relative h-[300px] lg:h-auto min-h-[400px] w-full">
+                            <img 
+                                src="https://images.unsplash.com/photo-1600596542815-6ad4c12756ab?q=80&w=1000" 
+                                className="absolute inset-0 w-full h-full object-cover" 
+                                alt="Interior de alto padrão" 
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-r from-bee-black/50 to-transparent lg:bg-gradient-to-t lg:from-bee-black/20"></div>
                             
-                            {/* Inner Cluster Container - Keeps everything tight */}
-                            <div className="relative w-[320px] h-[380px] md:w-[420px] md:h-[450px]">
-                                
-                                {/* 1. Back Layer: Property Image (Landscape) */}
-                                <div className="absolute top-0 left-0 w-[240px] md:w-[300px] aspect-[16/10] rounded-2xl overflow-hidden border-4 border-white/20 shadow-lg rotate-[-6deg] z-0">
-                                    <img 
-                                        src="/hero-1.webp" 
-                                        className="w-full h-full object-cover" 
-                                        alt="Imóvel de destaque" 
-                                    />
+                            {/* Success Badge (Anchored safely) */}
+                            <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 bg-white/95 backdrop-blur shadow-xl p-4 rounded-xl flex items-center gap-4 max-w-[260px]">
+                                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center shrink-0">
+                                    <Icons.TrendUp className="w-6 h-6 text-green-600" />
                                 </div>
-
-                                {/* 2. Front Layer: People Image (Portrait) */}
-                                <div className="absolute bottom-0 right-4 md:right-8 w-[200px] md:w-[260px] aspect-[4/5] rounded-2xl overflow-hidden border-4 border-white/20 shadow-2xl z-10">
-                                    <img 
-                                        src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800" 
-                                        className="w-full h-full object-cover" 
-                                        alt="Proprietários satisfeitos" 
-                                    />
+                                <div>
+                                    <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Performance</p>
+                                    <p className="text-bee-black font-bold text-lg">+40% Receita</p>
                                 </div>
+                            </div>
+                        </div>
 
-                                {/* 3. Floating Logos - Tightly Orbiting */}
-                                {/* Airbnb - Bottom Left of cluster */}
-                                <div className="absolute bottom-8 -left-4 md:-left-8 bg-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg shadow-xl z-20 animate-float-slow">
-                                    <img src="/Airbnb.svg" className="h-5 md:h-6 w-auto" alt="Airbnb" />
-                                </div>
-
-                                {/* Booking - Top Right of cluster */}
-                                <div className="absolute top-12 -right-4 md:-right-8 bg-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg shadow-xl z-20 animate-float-medium">
-                                    <img src="/Booking.svg" className="h-4 md:h-5 w-auto" alt="Booking.com" />
-                                </div>
-
-                                {/* Expedia - Middle Right edge */}
-                                <div className="absolute top-1/2 -translate-y-1/2 -right-8 md:-right-12 bg-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg shadow-xl z-20 animate-float-fast">
-                                    <img src="/Expedia.svg" className="h-4 md:h-5 w-auto" alt="Expedia" />
-                                </div>
-
-                                {/* Decolar - Top Center/Right */}
-                                <div className="absolute top-0 right-8 md:right-16 bg-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg shadow-xl z-20 animate-float-slow delay-100">
-                                    <img src="/Decolar.svg" className="h-4 md:h-5 w-auto" alt="Decolar" />
+                        {/* Right - Content Side */}
+                        <div className="p-8 md:p-12 lg:p-20 flex flex-col justify-center">
+                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight text-white">
+                                Seu imóvel rendendo <span className="text-bee-gold">muito mais</span>, com zero esforço.
+                            </h2>
+                            <p className="text-gray-300 text-lg mb-10 leading-relaxed">
+                                Transformamos sua propriedade em um ativo de alta performance. Cuidamos da distribuição, precificação, hóspedes e manutenção.
+                            </p>
+                            
+                            <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center mb-12">
+                                <a 
+                                    href="#contato" 
+                                    className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg inline-flex items-center gap-2 transition-all hover:scale-105 shadow-[0_0_20px_rgba(249,180,16,0.4)]"
+                                >
+                                    ANUNCIE AGORA
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                    </svg>
+                                </a>
+                                <div className="text-sm text-gray-400">
+                                    <span className="block text-bee-gold font-bold">Análise Gratuita</span>
+                                    sem compromisso
                                 </div>
                             </div>
 
+                            {/* Trust Bar (Static & Clean) */}
+                            <div className="border-t border-white/10 pt-8">
+                                <p className="text-sm text-gray-500 mb-4">Seu imóvel presente nas maiores plataformas:</p>
+                                <div className="flex flex-wrap gap-6 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+                                    <img src="/Airbnb.svg" className="h-6 w-auto brightness-0 invert" alt="Airbnb" />
+                                    <img src="/Booking.svg" className="h-5 w-auto brightness-0 invert" alt="Booking" />
+                                    <img src="/Expedia.svg" className="h-5 w-auto brightness-0 invert" alt="Expedia" />
+                                    <img src="/Decolar.svg" className="h-5 w-auto brightness-0 invert" alt="Decolar" />
+                                </div>
+                            </div>
                         </div>
 
-                        {/* Right - Copy */}
-                        <div className="text-center lg:text-left relative z-20">
-                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight text-white">
-                                Ganhe tempo com uma <span className="text-bee-gold">gestão profissional</span> de Airbnb
-                            </h2>
-                            <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                                A BeeStay cuida de todas as etapas da locação do seu imóvel. Do anúncio ao checkout, garantimos rentabilidade máxima e zero dor de cabeça.
-                            </p>
-                            <a 
-                                href="#contato" 
-                                className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg inline-flex items-center gap-2 transition-all hover:scale-105 shadow-[0_0_20px_rgba(249,180,16,0.3)] uppercase tracking-wide text-sm md:text-base"
-                            >
-                                Anuncie sem preocupações
-                            </a>
-                        </div>
                     </div>
                 </div>
             </section>
