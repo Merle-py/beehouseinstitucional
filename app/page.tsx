@@ -90,8 +90,8 @@ export default function HomePage() {
             imageSrc: 'https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=800'
         },
         {
-            title: 'Cuidado Artesanal',
-            description: 'Gestor dedicado que trata sua propriedade como única. Atendimento humano em cada detalhe.',
+            title: 'Relatórios Mensais',
+            description: 'Relatórios para acompanhanto do investimento e etc.',
             icon: 'Handshake',
             imageAlt: 'Detalhe de limpeza premium',
             imageSrc: 'https://images.unsplash.com/photo-1584622050111-993a426fbf0a?q=80&w=800'
@@ -344,19 +344,7 @@ export default function HomePage() {
                                 href="#contato"
                                 className="bg-bee-gold hover:bg-bee-gold-dark text-white px-8 py-4 rounded font-semibold transition-all inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
                             >
-                                Simular Receita do Meu Imóvel
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                                </svg>
-                            </a>
-                            <a
-                                href="#servicos"
-                                className="text-white hover:text-bee-gold font-medium inline-flex items-center justify-center gap-2 transition-all px-4 backdrop-blur-sm bg-white/10 hover:bg-white/20 py-4 rounded hover:scale-105 active:scale-95"
-                            >
-                                Ver como cuidamos
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                </svg>
+                                Saiba mais
                             </a>
                         </div>
 
@@ -379,9 +367,118 @@ export default function HomePage() {
                 </div>
             </section>
 
+            {/* O Que Cuidamos - Seu imóvel em boas mãos */}
+            <section id="servicos" className="py-20 lg:py-32 bg-warm-linen relative overflow-hidden">
+                <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
+                    {/* Section Header */}
+                    <div className="text-center mb-12 lg:mb-16">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl text-bee-black mb-4 leading-tight font-bold">
+                            Seu imóvel em boas mãos
+                        </h2>
+                        <p className="text-base text-text-gray max-w-2xl mx-auto">
+                            Operação hoteleira completa para sua propriedade
+                        </p>
+                    </div>
+
+                    {/* Carousel Container */}
+                    <div className="relative">
+                        {/* Navigation Buttons - Visible only on mobile/tablet */}
+                        <button
+                            onClick={scrollPrev}
+                            className="flex lg:hidden absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 z-10 w-10 h-10 md:w-12 md:h-12 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
+                            aria-label="Anterior"
+                        >
+                            <svg className="w-5 h-5 md:w-6 md:h-6 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+
+                        <button
+                            onClick={scrollNext}
+                            className="flex lg:hidden absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 z-10 w-10 h-10 md:w-12 md:h-12 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
+                            aria-label="Próximo"
+                        >
+                            <svg className="w-5 h-5 md:w-6 md:h-6 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+
+                        {/* Mobile/Tablet Carousel */}
+                        <div className="lg:hidden overflow-hidden" ref={servicesRef}>
+                            <div className="flex touch-pan-y -ml-6">
+                                {services.map((service, index) => {
+                                    const IconComponent = Icons[service.icon as keyof typeof Icons] as React.ComponentType<{ className?: string }>
+                                    return (
+                                        <div
+                                            key={index}
+                                            className="flex-[0_0_100%] md:flex-[0_0_50%] pl-6 min-w-0"
+                                        >
+                                            <div className="group h-full bg-white border border-mid-gray rounded-2xl p-10 hover:border-bee-gold transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden">
+                                                <div className="absolute top-0 left-0 w-1 h-full bg-bee-gold transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
+                                                <div className="mb-6">
+                                                    <IconComponent className="w-10 h-10 text-bee-gold" />
+                                                </div>
+                                                <h3 className="text-2xl font-semibold text-bee-black mb-4">
+                                                    {service.title}
+                                                </h3>
+                                                <p className="text-text-gray leading-relaxed">
+                                                    {service.description}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+
+                        {/* Desktop Grid - All 4 cards visible */}
+                        <div className="hidden lg:grid lg:grid-cols-4 gap-6">
+                            {services.map((service, index) => {
+                                const IconComponent = Icons[service.icon as keyof typeof Icons] as React.ComponentType<{ className?: string }>
+                                return (
+                                    <div key={index}>
+                                        <div className="group h-full bg-white border border-mid-gray rounded-2xl p-8 hover:border-bee-gold transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden">
+                                            <div className="absolute top-0 left-0 w-1 h-full bg-bee-gold transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
+                                            <div className="mb-6">
+                                                <IconComponent className="w-10 h-10 text-bee-gold" />
+                                            </div>
+                                            <h3 className="text-xl font-semibold text-bee-black mb-4">
+                                                {service.title}
+                                            </h3>
+                                            <p className="text-text-gray leading-relaxed text-sm">
+                                                {service.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+
+                        {/* Dots Indicator - Only for mobile/tablet */}
+                        <div className="flex lg:hidden justify-center gap-2 mt-8">
+                            {services.map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => scrollTo(index)}
+                                    className={`w-2 h-2 rounded-full transition-all ${
+                                        index === currentServiceIndex ? 'bg-bee-gold w-8' : 'bg-mid-gray'
+                                    }`}
+                                    aria-label={`Ir para serviço ${index + 1}`}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Logo Bar - Sutil */}
-            <section className="py-10 bg-light-gray border-y border-mid-gray">
+            <section className="py-10 bg-warm-linen border-y border-mid-gray">
                 <div className="container mx-auto px-8 lg:px-16">
+                    <div className="text-center mb-8">
+                        <h2 className="text-2xl md:text-4xl text-bee-black font-bold">
+                            Presença nas principais plataformas
+                        </h2>
+                    </div>
                     <div className="overflow-hidden" ref={emblaRef}>
                         <div className="flex touch-pan-y">
                             {repeatedLogos.map((logo, index) => (
@@ -430,7 +527,7 @@ export default function HomePage() {
                                 Seu imóvel rendendo <span className="text-bee-gold">muito mais</span>, enquanto cuidamos de tudo.
                             </h2>
                             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                                Transformamos sua propriedade em um ativo de alta performance. Cuidamos da distribuição, precificação, hóspedes e manutenção.
+                                Transformamos sua propriedade em um ativo de alta performance. Cuidamos da divulgação, precificação, atendimento aos hóspedes, limpeza e manutenção.
                             </p>
                             
                             <div className="mb-10">
@@ -438,26 +535,93 @@ export default function HomePage() {
                                     href="#contato"
                                     className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg w-full inline-flex justify-center items-center gap-2 transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(249,180,16,0.4)] hover:shadow-[0_0_30px_rgba(249,180,16,0.6)]"
                                 >
-                                    SIMULAR RECEITA DO MEU IMÓVEL
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                                    </svg>
+                                    Começar Agora
                                 </a>
-                            </div>
-
-                            {/* Trust Bar (Static & Clean) */}
-                            <div className="border-t border-white/10 pt-8">
-                                <p className="text-sm text-gray-500 mb-4">Seu imóvel presente nas maiores plataformas:</p>
-                                <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 sm:gap-6 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-                                    <Image src={getImagePath("/Airbnb.svg")} className="h-6 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Airbnb" width={100} height={24} />
-                                    <Image src={getImagePath("/Booking.svg")} className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Booking" width={100} height={20} />
-                                    <Image src={getImagePath("/Expedia.svg")} className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Expedia" width={100} height={20} />
-                                    <Image src={getImagePath("/Decolar.svg")} className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Decolar" width={100} height={20} />
-                                </div>
                             </div>
                         </div>
 
                     </div>
+                </div>
+            </section>
+
+            {/* Processo - Como Funciona (Timeline) */}
+            <section id="processo" className="py-20 lg:py-32 bg-white relative overflow-hidden">
+                <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
+
+                    {/* Section Header */}
+                    <div className="text-center mb-16 lg:mb-24">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl text-bee-black mb-6 leading-tight font-bold">
+                            Simples para você,<br />completo para seu imóvel
+                        </h2>
+                        <p className="text-lg text-text-gray max-w-2xl mx-auto">
+                            Transformamos sua propriedade em um negócio rentável em apenas 4 passos.
+                        </p>
+                    </div>
+
+                    {/* Mobile & Tablet Timeline (Vertical) */}
+                    <div className="lg:hidden relative max-w-4xl mx-auto">
+                        {/* Continuous Vertical Line */}
+                        <div className="absolute left-[19px] md:left-[39px] top-0 bottom-0 w-px bg-gradient-to-b from-gray-200 via-gray-300 to-gray-200"></div>
+
+                        <div className="space-y-12">
+                            {timelineSteps.map((item, index) => (
+                                <div key={index} className="relative pl-16 md:pl-28 group">
+                                    {/* Marker */}
+                                    <div className="absolute left-0 md:left-[20px] top-0 w-10 h-10 md:w-10 md:h-10 bg-white border-2 border-bee-gold rounded-full flex items-center justify-center z-10 shadow-[0_0_0_4px_#ffffff] group-hover:bg-bee-gold transition-colors duration-300">
+                                        <div className="w-2.5 h-2.5 bg-bee-gold rounded-full group-hover:bg-white transition-colors duration-300"></div>
+                                    </div>
+
+                                    {/* Card */}
+                                    <div className="bg-white border border-gray-100 p-6 md:p-8 rounded-2xl shadow-sm hover:shadow-xl hover:border-bee-gold/30 transition-all duration-300 hover:-translate-y-1">
+                                        <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-3">
+                                            <span className="text-4xl md:text-5xl font-bold text-gray-100 group-hover:text-bee-gold/20 transition-colors duration-300 font-sans tracking-tighter">
+                                                {item.step}
+                                            </span>
+                                            <h3 className="text-xl md:text-2xl font-bold text-bee-black group-hover:text-bee-gold transition-colors">
+                                                {item.title}
+                                            </h3>
+                                        </div>
+                                        <p className="text-text-gray leading-relaxed text-base md:text-lg">
+                                            {item.description}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Desktop Timeline (Horizontal) */}
+                    <div className="hidden lg:block relative">
+                        {/* Horizontal Line */}
+                        <div className="absolute top-12 left-0 right-0 h-px bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200"></div>
+
+                        <div className="grid grid-cols-4 gap-6">
+                            {timelineSteps.map((item, index) => (
+                                <div key={index} className="relative group">
+                                    {/* Marker */}
+                                    <div className="absolute left-1/2 -translate-x-1/2 top-8 w-10 h-10 bg-white border-2 border-bee-gold rounded-full flex items-center justify-center z-10 shadow-[0_0_0_4px_#ffffff] group-hover:bg-bee-gold transition-colors duration-300">
+                                        <div className="w-2.5 h-2.5 bg-bee-gold rounded-full group-hover:bg-white transition-colors duration-300"></div>
+                                    </div>
+
+                                    {/* Card */}
+                                    <div className="bg-white border border-gray-100 p-6 rounded-2xl shadow-sm hover:shadow-xl hover:border-bee-gold/30 transition-all duration-300 hover:-translate-y-1 mt-24">
+                                        <div className="text-center mb-4">
+                                            <span className="text-5xl font-bold text-gray-100 group-hover:text-bee-gold/20 transition-colors duration-300 font-sans tracking-tighter">
+                                                {item.step}
+                                            </span>
+                                        </div>
+                                        <h3 className="text-xl font-bold text-bee-black group-hover:text-bee-gold transition-colors mb-3 text-center">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-text-gray leading-relaxed text-sm text-center">
+                                            {item.description}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
@@ -560,168 +724,6 @@ export default function HomePage() {
                             ))}
                         </div>
                     </div>
-                </div>
-            </section>
-
-            {/* O Que Cuidamos - Carrossel (Moved Down) */}
-            <section id="servicos" className="py-20 lg:py-32 bg-warm-linen relative overflow-hidden">
-                <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
-                    {/* Section Header */}
-                    <div className="text-center mb-12 lg:mb-16">
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl text-bee-black mb-4 leading-tight font-bold">
-                            Seu imóvel em boas mãos
-                        </h2>
-                        <p className="text-base text-text-gray max-w-2xl mx-auto">
-                            Operação hoteleira completa para sua propriedade
-                        </p>
-                    </div>
-
-                    {/* Carousel Container */}
-                    <div className="relative">
-                        {/* Navigation Buttons - Visible on all devices */}
-                        <button
-                            onClick={scrollPrev}
-                            className="flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 z-10 w-10 h-10 md:w-12 md:h-12 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
-                            aria-label="Anterior"
-                        >
-                            <svg className="w-5 h-5 md:w-6 md:h-6 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
-
-                        <button
-                            onClick={scrollNext}
-                            className="flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 z-10 w-10 h-10 md:w-12 md:h-12 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
-                            aria-label="Próximo"
-                        >
-                            <svg className="w-5 h-5 md:w-6 md:h-6 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
-
-                        {/* Cards Container with smooth transition */}
-                        <div className="overflow-hidden" ref={servicesRef}>
-                            <div className="flex touch-pan-y -ml-6">
-                                {services.map((service, index) => {
-                                    const IconComponent = Icons[service.icon as keyof typeof Icons] as React.ComponentType<{ className?: string }>
-                                    return (
-                                        <div
-                                            key={index}
-                                            className="flex-[0_0_100%] md:flex-[0_0_50%] pl-6 min-w-0"
-                                        >
-                                            <div className="group h-full bg-white border border-mid-gray rounded-2xl p-10 hover:border-bee-gold transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden">
-                                                <div className="absolute top-0 left-0 w-1 h-full bg-bee-gold transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
-                                                <div className="mb-6">
-                                                    <IconComponent className="w-10 h-10 text-bee-gold" />
-                                                </div>
-                                                <h3 className="text-2xl font-semibold text-bee-black mb-4">
-                                                    {service.title}
-                                                </h3>
-                                                <p className="text-text-gray leading-relaxed">
-                                                    {service.description}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </div>
-
-                        {/* Dots Indicator */}
-                        <div className="flex justify-center gap-2 mt-8">
-                            {services.map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => scrollTo(index)}
-                                    className={`w-2 h-2 rounded-full transition-all ${
-                                        index === currentServiceIndex ? 'bg-bee-gold w-8' : 'bg-mid-gray'
-                                    }`}
-                                    aria-label={`Ir para serviço ${index + 1}`}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Processo - Como Funciona (Timeline) */}
-            <section id="processo" className="py-20 lg:py-32 bg-white relative overflow-hidden">
-                <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
-
-                    {/* Section Header */}
-                    <div className="text-center mb-16 lg:mb-24">
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl text-bee-black mb-6 leading-tight font-bold">
-                            Simples para você,<br />completo para seu imóvel
-                        </h2>
-                        <p className="text-lg text-text-gray max-w-2xl mx-auto">
-                            Transformamos sua propriedade em um negócio rentável em apenas 4 passos.
-                        </p>
-                    </div>
-
-                    {/* Mobile & Tablet Timeline (Vertical) */}
-                    <div className="lg:hidden relative max-w-4xl mx-auto">
-                        {/* Continuous Vertical Line */}
-                        <div className="absolute left-[19px] md:left-[39px] top-0 bottom-0 w-px bg-gradient-to-b from-gray-200 via-gray-300 to-gray-200"></div>
-
-                        <div className="space-y-12">
-                            {timelineSteps.map((item, index) => (
-                                <div key={index} className="relative pl-16 md:pl-28 group">
-                                    {/* Marker */}
-                                    <div className="absolute left-0 md:left-[20px] top-0 w-10 h-10 md:w-10 md:h-10 bg-white border-2 border-bee-gold rounded-full flex items-center justify-center z-10 shadow-[0_0_0_4px_#ffffff] group-hover:bg-bee-gold transition-colors duration-300">
-                                        <div className="w-2.5 h-2.5 bg-bee-gold rounded-full group-hover:bg-white transition-colors duration-300"></div>
-                                    </div>
-
-                                    {/* Card */}
-                                    <div className="bg-white border border-gray-100 p-6 md:p-8 rounded-2xl shadow-sm hover:shadow-xl hover:border-bee-gold/30 transition-all duration-300 hover:-translate-y-1">
-                                        <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-3">
-                                            <span className="text-4xl md:text-5xl font-bold text-gray-100 group-hover:text-bee-gold/20 transition-colors duration-300 font-sans tracking-tighter">
-                                                {item.step}
-                                            </span>
-                                            <h3 className="text-xl md:text-2xl font-bold text-bee-black group-hover:text-bee-gold transition-colors">
-                                                {item.title}
-                                            </h3>
-                                        </div>
-                                        <p className="text-text-gray leading-relaxed text-base md:text-lg">
-                                            {item.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Desktop Timeline (Horizontal) */}
-                    <div className="hidden lg:block relative">
-                        {/* Horizontal Line */}
-                        <div className="absolute top-12 left-0 right-0 h-px bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200"></div>
-
-                        <div className="grid grid-cols-4 gap-6">
-                            {timelineSteps.map((item, index) => (
-                                <div key={index} className="relative group">
-                                    {/* Marker */}
-                                    <div className="absolute left-1/2 -translate-x-1/2 top-8 w-10 h-10 bg-white border-2 border-bee-gold rounded-full flex items-center justify-center z-10 shadow-[0_0_0_4px_#ffffff] group-hover:bg-bee-gold transition-colors duration-300">
-                                        <div className="w-2.5 h-2.5 bg-bee-gold rounded-full group-hover:bg-white transition-colors duration-300"></div>
-                                    </div>
-
-                                    {/* Card */}
-                                    <div className="bg-white border border-gray-100 p-6 rounded-2xl shadow-sm hover:shadow-xl hover:border-bee-gold/30 transition-all duration-300 hover:-translate-y-1 mt-24">
-                                        <div className="text-center mb-4">
-                                            <span className="text-5xl font-bold text-gray-100 group-hover:text-bee-gold/20 transition-colors duration-300 font-sans tracking-tighter">
-                                                {item.step}
-                                            </span>
-                                        </div>
-                                        <h3 className="text-xl font-bold text-bee-black group-hover:text-bee-gold transition-colors mb-3 text-center">
-                                            {item.title}
-                                        </h3>
-                                        <p className="text-text-gray leading-relaxed text-sm text-center">
-                                            {item.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
                 </div>
             </section>
 
@@ -890,11 +892,8 @@ export default function HomePage() {
                     
                     {/* Mobile Title (Visible only on mobile) */}
                     <div className="lg:hidden text-center mb-10">
-                        <div className="inline-block px-3 py-1 mb-4 border border-bee-gold/30 rounded-full bg-bee-gold/10 text-bee-gold text-xs font-bold tracking-wider uppercase">
-                            Palavra do CEO
-                        </div>
                         <h2 className="text-3xl font-bold leading-tight">
-                            Por que escolhi <span className="text-bee-gold">Joinville</span> para começar essa revolução?
+                            Por que escolhemos <span className="text-bee-gold">Joinville</span> para começar essa jornada?
                         </h2>
                     </div>
 
@@ -903,25 +902,16 @@ export default function HomePage() {
                         {/* Text Content (Desktop Title + All Text/Button) */}
                         <div className="text-center lg:text-left order-2 lg:order-1">
                             <div className="hidden lg:block">
-                                <div className="inline-block px-3 py-1 mb-6 border border-bee-gold/30 rounded-full bg-bee-gold/10 text-bee-gold text-xs font-bold tracking-wider uppercase">
-                                    Palavra do CEO
-                                </div>
                                 <h2 className="text-3xl md:text-4xl lg:text-5xl mb-6 font-bold leading-tight">
-                                    Por que escolhi <span className="text-bee-gold">Joinville</span> para começar essa revolução?
+                                    Por que escolhemos <span className="text-bee-gold">Joinville</span> para começar essa jornada?
                                 </h2>
                             </div>
-                            <p className="text-lg text-gray-400 mb-10 leading-relaxed">
-                                "Encontramos aqui o cenário perfeito: um mercado imobiliário sólido e uma demanda reprimida por gestão profissional. A BeeStay não é apenas uma empresa, é a nossa visão de futuro para a cidade."
-                            </p>
                             
                             <a
                                 href="#contato"
                                 className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg w-full inline-flex justify-center items-center gap-2 transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(249,180,16,0.2)] hover:shadow-[0_0_30px_rgba(249,180,16,0.4)] uppercase tracking-wide text-sm md:text-base"
                             >
-                                SIMULAR RECEITA DO MEU IMÓVEL
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                                </svg>
+                                Ver potencial
                             </a>
                         </div>
 
@@ -932,7 +922,7 @@ export default function HomePage() {
                                 <Image
                                     src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1000"
                                     className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500"
-                                    alt="André - CEO BeeStay"
+                                    alt="André - BeeStay"
                                     fill
                                     sizes="(max-width: 1024px) 100vw, 50vw"
                                 />
@@ -950,7 +940,7 @@ export default function HomePage() {
                                 {/* Minimal Tag */}
                                 <div className="absolute bottom-6 left-6 text-left">
                                     <p className="text-white font-bold text-xl">André</p>
-                                    <p className="text-bee-gold text-sm font-medium tracking-wide">CEO BeeStay</p>
+                                    <p className="text-bee-gold text-sm font-medium tracking-wide">BeeStay</p>
                                 </div>
                             </div>
                         </div>
@@ -1127,31 +1117,6 @@ export default function HomePage() {
                 <Icons.WhatsappLogo className="w-6 h-6 md:w-8 md:h-8 text-white" />
             </a>*/}
 
-            {/* Sticky Desktop CTA - Bottom Right Corner */}
-            <a
-                href="#contato"
-                className="hidden md:flex fixed bottom-8 right-8 z-50 bg-bee-gold hover:bg-bee-gold-dark text-bee-black px-6 py-4 rounded-full font-bold transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 items-center gap-2 group"
-            >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-                <span className="whitespace-nowrap">Simular Receita</span>
-            </a>
-
-            {/* Sticky Mobile CTA Bar - Visible only on mobile */}
-            <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 shadow-lg">
-                <div className="px-4 py-3">
-                    <a
-                        href="#contato"
-                        className="bg-bee-gold hover:bg-bee-gold-dark text-white px-6 py-3.5 rounded-lg font-bold transition-all w-full flex items-center justify-center gap-2 shadow-md active:scale-95"
-                    >
-                        Simular Receita
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
         </main>
     )
 }

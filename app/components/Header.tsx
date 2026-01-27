@@ -77,7 +77,7 @@ export function Header() {
                                 Processo
                             </a>
                             <a href="#contato" className="bg-bee-gold hover:bg-bee-gold-dark text-white px-6 py-2.5 rounded font-semibold transition-all text-sm hover:shadow-lg hover:scale-105 active:scale-95">
-                                Agendar Consultoria
+                                Fale Conosco
                             </a>
                         </div>
 
