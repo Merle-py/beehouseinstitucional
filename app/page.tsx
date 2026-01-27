@@ -70,7 +70,7 @@ export default function HomePage() {
         {
             title: 'Transparência Total',
             description: 'Receita e reservas em tempo real no seu dashboard. Sem letras miúdas.',
-            icon: 'Cpu', // Using Cpu as placeholder match
+            icon: 'ChartLineUp',
             imageAlt: 'Dashboard em laptop'
         },
         {
@@ -82,7 +82,7 @@ export default function HomePage() {
         {
             title: 'Cuidado Artesanal',
             description: 'Gestor dedicado e atendimento humano. Seu imóvel é único para nós.',
-            icon: 'Star',
+            icon: 'Handshake',
             imageAlt: 'Detalhe de limpeza premium'
         }
     ]
@@ -633,7 +633,7 @@ export default function HomePage() {
             </section>
 
             {/* Diferenciais Section - Gestão Que Você Pode Acompanhar */}
-            <section id="diferenciais" className="py-20 lg:py-32 bg-bg-cream">
+            <section id="diferenciais" className="py-20 lg:py-32 bg-gray-50">
                 <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
 
                     {/* Section Header */}
@@ -648,51 +648,59 @@ export default function HomePage() {
                         {/* Navigation Buttons - Hidden on desktop since it shows all 3 items */}
                         <button
                             onClick={scrollPrevDiferenciais}
-                            className="flex lg:hidden absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 z-10 w-10 h-10 md:w-12 md:h-12 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
+                            className="flex lg:hidden absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 w-10 h-10 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
                             aria-label="Anterior"
                         >
-                            <svg className="w-5 h-5 md:w-6 md:h-6 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
 
                         <button
                             onClick={scrollNextDiferenciais}
-                            className="flex lg:hidden absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 z-10 w-10 h-10 md:w-12 md:h-12 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
+                            className="flex lg:hidden absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 w-10 h-10 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
                             aria-label="Próximo"
                         >
-                            <svg className="w-5 h-5 md:w-6 md:h-6 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
 
                         {/* Embla Viewport */}
                         <div className="overflow-hidden" ref={diferenciaisRef}>
-                            <div className="flex touch-pan-y lg:cursor-default -ml-6">
+                            <div className="flex touch-pan-y lg:cursor-default -ml-4 md:-ml-6">
                                 {diferenciaisData.map((item, index) => {
                                     const IconComponent = Icons[item.icon as keyof typeof Icons] as React.ComponentType<{ className?: string }>
                                     return (
                                         <div 
                                             key={index}
-                                            className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] pl-6 min-w-0"
+                                            className="flex-[0_0_85%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] pl-4 md:pl-6 min-w-0"
                                         >
-                                            <div className="group h-full">
-                                                {/* Image placeholder */}
-                                                <div className="aspect-[4/3] bg-light-gray rounded mb-6 overflow-hidden relative">
-                                                    <div className="w-full h-full flex items-center justify-center text-text-light">
-                                                        <div className="text-center p-6">
-                                                            <IconComponent className="w-14 h-14 mx-auto mb-2 opacity-20" />
-                                                            <p className="text-xs opacity-40">{item.imageAlt}</p>
-                                                        </div>
+                                            <div className="h-full bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-bee-gold/30 transition-all duration-300 group flex flex-col">
+                                                {/* Visual Placeholder / Image Area */}
+                                                <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden shrink-0">
+                                                     {/* Decorative circles */}
+                                                     <div className="absolute top-[-20%] right-[-10%] w-32 h-32 bg-bee-gold/5 rounded-full blur-2xl group-hover:bg-bee-gold/10 transition-colors"></div>
+                                                     <div className="absolute bottom-[-20%] left-[-10%] w-24 h-24 bg-bee-gold/5 rounded-full blur-2xl group-hover:bg-bee-gold/10 transition-colors"></div>
+                                                     
+                                                     <IconComponent className="w-16 h-16 text-gray-300 group-hover:text-bee-gold group-hover:scale-110 transition-all duration-300 relative z-10" />
+                                                </div>
+                                                
+                                                <div className="p-8 flex flex-col grow">
+                                                    <h3 className="text-xl font-bold text-bee-black mb-4 group-hover:text-bee-gold transition-colors">
+                                                        {item.title}
+                                                    </h3>
+                                                    <p className="text-text-gray leading-relaxed text-sm md:text-base">
+                                                        {item.description}
+                                                    </p>
+                                                    {/* Fake CTA to encourage interaction perception */}
+                                                    <div className="mt-auto pt-6 flex items-center text-bee-gold font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
+                                                        <span>Saiba mais</span>
+                                                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                                        </svg>
                                                     </div>
                                                 </div>
-
-                                                <h3 className="text-xl font-semibold text-bee-black mb-3">
-                                                    {item.title}
-                                                </h3>
-                                                <p className="text-text-gray leading-relaxed text-sm">
-                                                    {item.description}
-                                                </p>
                                             </div>
                                         </div>
                                     )
