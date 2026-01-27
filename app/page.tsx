@@ -2,7 +2,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import AutoScroll from 'embla-carousel-auto-scroll'
+import Image from 'next/image'
 import { Icons } from './components/Icons'
+import { Header } from './components/Header'
 
 // Helper to add basePath for images
 const basePath = '/teste'
@@ -195,38 +197,7 @@ export default function HomePage() {
 
     return (
         <main>
-            {/* Navigation - Sutil e Limpo */}
-            <nav className="fixed top-0 w-full z-50 bg-white/98 backdrop-blur-sm border-b border-gray-100">
-                <div className="container mx-auto px-6 lg:px-16">
-                    <div className="flex justify-between items-center h-20">
-                        {/* Logo */}
-                        <img src={getImagePath("/logo.svg")} alt="BeeStay" className="h-10" />
-
-                        {/* Desktop Navigation */}
-                        <div className="hidden md:flex items-center gap-10">
-                            <a href="#home" className="text-sm text-text-gray hover:text-bee-gold transition-colors font-medium">
-                                Início
-                            </a>
-                            <a href="#servicos" className="text-sm text-text-gray hover:text-bee-gold transition-colors font-medium">
-                                Serviços
-                            </a>
-                            <a href="#processo" className="text-sm text-text-gray hover:text-bee-gold transition-colors font-medium">
-                                Processo
-                            </a>
-                            <a href="#contato" className="bg-bee-gold hover:bg-bee-gold-dark text-white px-6 py-2.5 rounded font-semibold transition-all text-sm">
-                                Agendar Consultoria
-                            </a>
-                        </div>
-
-                        {/* Mobile Menu Button */}
-                        <button className="md:hidden text-bee-black">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </nav>
+            <Header />
 
             {/* Hero Section - Full Width com Slideshow */}
             <section id="home" className="min-h-screen pt-20 relative overflow-hidden">
@@ -270,7 +241,7 @@ export default function HomePage() {
                         <div className="flex flex-col sm:flex-row gap-4 mb-8">
                             <a
                                 href="#contato"
-                                className="bg-bee-gold hover:bg-bee-gold-dark text-white px-8 py-4 rounded font-semibold transition-all inline-flex items-center justify-center gap-2 shadow-lg"
+                                className="bg-bee-gold hover:bg-bee-gold-dark text-white px-8 py-4 rounded font-semibold transition-all inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
                             >
                                 Agendar Consultoria
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -279,7 +250,7 @@ export default function HomePage() {
                             </a>
                             <a
                                 href="#servicos"
-                                className="text-white hover:text-bee-gold font-medium inline-flex items-center justify-center gap-2 transition-colors px-4 backdrop-blur-sm bg-white/10 py-4 rounded"
+                                className="text-white hover:text-bee-gold font-medium inline-flex items-center justify-center gap-2 transition-all px-4 backdrop-blur-sm bg-white/10 hover:bg-white/20 py-4 rounded hover:scale-105 active:scale-95"
                             >
                                 Ver como cuidamos
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -313,16 +284,15 @@ export default function HomePage() {
                     <div className="overflow-hidden" ref={emblaRef}>
                         <div className="flex touch-pan-y">
                             {repeatedLogos.map((logo, index) => (
-                                <div 
-                                    key={index} 
+                                <div
+                                    key={index}
                                     className="flex-[0_0_auto] min-w-0 px-8 flex items-center justify-center opacity-30 hover:opacity-60 transition-opacity duration-1200"
                                 >
-                                    <img 
-                                        src={logo.src} 
-                                        alt={logo.alt} 
-                                        loading="lazy" 
-                                        width="120" 
-                                        height="40" 
+                                    <Image
+                                        src={logo.src}
+                                        alt={logo.alt}
+                                        width={120}
+                                        height={40}
                                         className="h-10 w-auto object-contain"
                                     />
                                 </div>
@@ -343,10 +313,12 @@ export default function HomePage() {
                         
                         {/* Left - Image Side (Full Height Cover) */}
                         <div className="relative h-[300px] lg:h-auto min-h-[400px] w-full">
-                            <img 
-                                src="https://images.unsplash.com/photo-1600596542815-6ad4c12756ab?q=80&w=1000" 
-                                className="absolute inset-0 w-full h-full object-cover" 
-                                alt="Interior de alto padrão" 
+                            <Image
+                                src="https://images.unsplash.com/photo-1600596542815-6ad4c12756ab?q=80&w=1000"
+                                className="absolute inset-0 w-full h-full object-cover"
+                                alt="Interior de alto padrão"
+                                fill
+                                sizes="(max-width: 1024px) 100vw, 50vw"
                             />
                             <div className="absolute inset-0 bg-gradient-to-r from-bee-black/50 to-transparent lg:bg-gradient-to-t lg:from-bee-black/20"></div>
                         </div>
@@ -361,9 +333,9 @@ export default function HomePage() {
                             </p>
                             
                             <div className="mb-10">
-                                <a 
-                                    href="#contato" 
-                                    className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg w-full inline-flex justify-center items-center gap-2 transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(249,180,16,0.4)]"
+                                <a
+                                    href="#contato"
+                                    className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg w-full inline-flex justify-center items-center gap-2 transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(249,180,16,0.4)] hover:shadow-[0_0_30px_rgba(249,180,16,0.6)]"
                                 >
                                     ANUNCIE AGORA
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -376,10 +348,10 @@ export default function HomePage() {
                             <div className="border-t border-white/10 pt-8">
                                 <p className="text-sm text-gray-500 mb-4">Seu imóvel presente nas maiores plataformas:</p>
                                 <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 sm:gap-6 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-                                    <img src={getImagePath("/Airbnb.svg")} className="h-6 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Airbnb" />
-                                    <img src={getImagePath("/Booking.svg")} className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Booking" />
-                                    <img src={getImagePath("/Expedia.svg")} className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Expedia" />
-                                    <img src={getImagePath("/Decolar.svg")} className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Decolar" />
+                                    <Image src={getImagePath("/Airbnb.svg")} className="h-6 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Airbnb" width={100} height={24} />
+                                    <Image src={getImagePath("/Booking.svg")} className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Booking" width={100} height={20} />
+                                    <Image src={getImagePath("/Expedia.svg")} className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Expedia" width={100} height={20} />
+                                    <Image src={getImagePath("/Decolar.svg")} className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Decolar" width={100} height={20} />
                                 </div>
                             </div>
                         </div>
@@ -435,14 +407,16 @@ export default function HomePage() {
                                             <div className="h-full bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-bee-gold/30 transition-all duration-300 group flex flex-col">
                                                 {/* Visual Area with Image */}
                                                 <div className="h-48 relative overflow-hidden shrink-0">
-                                                     <img
+                                                     <Image
                                                         src={item.imageSrc || getImagePath('/hero-1.webp')}
                                                         alt={item.imageAlt}
                                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                                        fill
+                                                        sizes="(max-width: 768px) 85vw, (max-width: 1024px) 50vw, 33vw"
                                                      />
                                                      {/* Overlay */}
                                                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-80 group-hover:opacity-70 transition-opacity"></div>
-                                                     
+
                                                      {/* Icon Badge */}
                                                      <div className="absolute bottom-4 right-4 z-10 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20">
                                                         <IconComponent className="w-6 h-6 text-white" />
@@ -828,9 +802,9 @@ export default function HomePage() {
                                 "Encontramos aqui o cenário perfeito: um mercado imobiliário sólido e uma demanda reprimida por gestão profissional. A BeeStay não é apenas uma empresa, é a nossa visão de futuro para a cidade."
                             </p>
                             
-                            <a 
-                                href="#contato" 
-                                className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg w-full inline-flex justify-center items-center gap-2 transition-all hover:scale-105 shadow-[0_0_20px_rgba(249,180,16,0.2)] uppercase tracking-wide text-sm md:text-base"
+                            <a
+                                href="#contato"
+                                className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg w-full inline-flex justify-center items-center gap-2 transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(249,180,16,0.2)] hover:shadow-[0_0_30px_rgba(249,180,16,0.4)] uppercase tracking-wide text-sm md:text-base"
                             >
                                 QUERO FAZER PARTE DESSA HISTÓRIA
                             </a>
@@ -840,10 +814,12 @@ export default function HomePage() {
                         <div className="order-1 lg:order-2 group cursor-pointer">
                             <div className="relative rounded-2xl overflow-hidden aspect-video border border-white/10 shadow-2xl transition-all duration-500 group-hover:border-bee-gold/50 group-hover:shadow-[0_0_30px_rgba(249,180,16,0.15)]">
                                 {/* Thumbnail Image (Darkened) */}
-                                <img 
-                                    src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1000" 
-                                    className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500" 
-                                    alt="Fernando - CEO BeeStay" 
+                                <Image
+                                    src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1000"
+                                    className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500"
+                                    alt="Fernando - CEO BeeStay"
+                                    fill
+                                    sizes="(max-width: 1024px) 100vw, 50vw"
                                 />
                                 
                                 {/* Custom Play Button */}
@@ -1020,7 +996,7 @@ export default function HomePage() {
 
                         {/* Logo & Tagline */}
                         <div>
-                            <img src={getImagePath("/logo.svg")} alt="BeeStay" className="h-8 mb-4" />
+                            <Image src={getImagePath("/logo.svg")} alt="BeeStay" width={120} height={32} className="h-8 w-auto mb-4" />
                             <p className="text-gray-400 text-sm leading-relaxed">
                                 Gestão profissional de imóveis de temporada com excelência hoteleira.
                             </p>
@@ -1077,9 +1053,24 @@ export default function HomePage() {
             <a href="https://wa.me/5547999999999?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20BeeStay"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="fixed bottom-6 right-6 z-50 w-14 h-14 md:w-16 md:h-16 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 group">
+                className="fixed bottom-6 right-6 z-50 w-14 h-14 md:w-16 md:h-16 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 group md:bottom-6 bottom-24">
                 <Icons.WhatsappLogo className="w-6 h-6 md:w-8 md:h-8 text-white" />
             </a>
+
+            {/* Sticky Mobile CTA Bar - Visible only on mobile */}
+            <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 shadow-lg">
+                <div className="px-4 py-3">
+                    <a
+                        href="#contato"
+                        className="bg-bee-gold hover:bg-bee-gold-dark text-white px-6 py-3.5 rounded-lg font-bold transition-all w-full flex items-center justify-center gap-2 shadow-md active:scale-95"
+                    >
+                        Agendar Consultoria
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
         </main>
     )
 }
