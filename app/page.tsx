@@ -805,45 +805,49 @@ export default function HomePage() {
                     <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center p-8 md:p-12 lg:p-20">
                         
                         {/* Left - Visual Collage */}
-                        <div className="relative h-[400px] md:h-[500px] w-full flex items-center justify-center lg:justify-start">
+                        <div className="relative w-full flex items-center justify-center lg:justify-end pr-0 lg:pr-12">
                             
-                            {/* 1. Back Layer: Property Image (Landscape) */}
-                            <div className="absolute top-0 left-0 md:left-8 w-[280px] md:w-[320px] aspect-video rounded-2xl overflow-hidden border-4 border-white/20 shadow-lg rotate-[-4deg] opacity-90">
-                                <img 
-                                    src="/hero-1.webp" 
-                                    className="w-full h-full object-cover" 
-                                    alt="Imóvel de destaque" 
-                                />
-                            </div>
+                            {/* Inner Cluster Container - Keeps everything tight */}
+                            <div className="relative w-[320px] h-[380px] md:w-[420px] md:h-[450px]">
+                                
+                                {/* 1. Back Layer: Property Image (Landscape) */}
+                                <div className="absolute top-0 left-0 w-[240px] md:w-[300px] aspect-[16/10] rounded-2xl overflow-hidden border-4 border-white/20 shadow-lg rotate-[-6deg] z-0">
+                                    <img 
+                                        src="/hero-1.webp" 
+                                        className="w-full h-full object-cover" 
+                                        alt="Imóvel de destaque" 
+                                    />
+                                </div>
 
-                            {/* 2. Front Layer: People Image (Portrait/Square) */}
-                            <div className="relative z-10 top-12 md:top-16 left-8 md:left-16 w-[240px] md:w-[280px] aspect-square rounded-2xl overflow-hidden border-4 border-white/20 shadow-2xl">
-                                <img 
-                                    src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800" 
-                                    className="w-full h-full object-cover" 
-                                    alt="Proprietários satisfeitos" 
-                                />
-                            </div>
+                                {/* 2. Front Layer: People Image (Portrait) */}
+                                <div className="absolute bottom-0 right-4 md:right-8 w-[200px] md:w-[260px] aspect-[4/5] rounded-2xl overflow-hidden border-4 border-white/20 shadow-2xl z-10">
+                                    <img 
+                                        src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800" 
+                                        className="w-full h-full object-cover" 
+                                        alt="Proprietários satisfeitos" 
+                                    />
+                                </div>
 
-                            {/* 3. Floating Logos */}
-                            {/* Airbnb - Bottom Left */}
-                            <div className="absolute bottom-4 left-0 bg-white px-4 py-2 rounded-lg shadow-xl z-20 animate-float-slow">
-                                <img src="/Airbnb.svg" className="h-6 w-auto" alt="Airbnb" />
-                            </div>
+                                {/* 3. Floating Logos - Tightly Orbiting */}
+                                {/* Airbnb - Bottom Left of cluster */}
+                                <div className="absolute bottom-8 -left-4 md:-left-8 bg-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg shadow-xl z-20 animate-float-slow">
+                                    <img src="/Airbnb.svg" className="h-5 md:h-6 w-auto" alt="Airbnb" />
+                                </div>
 
-                            {/* Booking - Top Right */}
-                            <div className="absolute top-12 right-4 md:right-12 bg-white px-4 py-2 rounded-lg shadow-xl z-20 animate-float-medium">
-                                <img src="/Booking.svg" className="h-5 w-auto" alt="Booking.com" />
-                            </div>
+                                {/* Booking - Top Right of cluster */}
+                                <div className="absolute top-12 -right-4 md:-right-8 bg-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg shadow-xl z-20 animate-float-medium">
+                                    <img src="/Booking.svg" className="h-4 md:h-5 w-auto" alt="Booking.com" />
+                                </div>
 
-                            {/* Expedia - Middle Right */}
-                            <div className="absolute top-1/2 -translate-y-1/2 right-0 md:right-4 bg-white px-4 py-2 rounded-lg shadow-xl z-20 animate-float-fast">
-                                <img src="/Expedia.svg" className="h-5 w-auto" alt="Expedia" />
-                            </div>
+                                {/* Expedia - Middle Right edge */}
+                                <div className="absolute top-1/2 -translate-y-1/2 -right-8 md:-right-12 bg-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg shadow-xl z-20 animate-float-fast">
+                                    <img src="/Expedia.svg" className="h-4 md:h-5 w-auto" alt="Expedia" />
+                                </div>
 
-                            {/* Decolar - Bottom Right */}
-                            <div className="absolute bottom-12 right-8 md:right-16 bg-white px-4 py-2 rounded-lg shadow-xl z-20 animate-float-slow delay-100">
-                                <img src="/Decolar.svg" className="h-5 w-auto" alt="Decolar" />
+                                {/* Decolar - Top Center/Right */}
+                                <div className="absolute top-0 right-8 md:right-16 bg-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg shadow-xl z-20 animate-float-slow delay-100">
+                                    <img src="/Decolar.svg" className="h-4 md:h-5 w-auto" alt="Decolar" />
+                                </div>
                             </div>
 
                         </div>
