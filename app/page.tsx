@@ -4,6 +4,10 @@ import useEmblaCarousel from 'embla-carousel-react'
 import AutoScroll from 'embla-carousel-auto-scroll'
 import { Icons } from './components/Icons'
 
+// Helper to add basePath for images
+const basePath = '/teste'
+const getImagePath = (path: string) => `${basePath}${path}`
+
 export default function HomePage() {
     const [openFaq, setOpenFaq] = useState<number | null>(null)
     const [currentSlide, setCurrentSlide] = useState(0)
@@ -22,10 +26,10 @@ export default function HomePage() {
     const [diferenciaisRef, diferenciaisApi] = useEmblaCarousel({ loop: true, align: 'center', slidesToScroll: 1 })
 
     const logos = [
-        { src: '/Airbnb.svg', alt: 'Airbnb' },
-        { src: '/Booking.svg', alt: 'Booking' },
-        { src: '/Decolar.svg', alt: 'Decolar' },
-        { src: '/Expedia.svg', alt: 'Expedia' },
+        { src: getImagePath('/Airbnb.svg'), alt: 'Airbnb' },
+        { src: getImagePath('/Booking.svg'), alt: 'Booking' },
+        { src: getImagePath('/Decolar.svg'), alt: 'Decolar' },
+        { src: getImagePath('/Expedia.svg'), alt: 'Expedia' },
     ]
     // Repeat logos to ensure smooth infinite loop on all screen sizes
     const repeatedLogos = [...logos, ...logos, ...logos, ...logos]
@@ -36,9 +40,9 @@ export default function HomePage() {
 
     // Hero slideshow images
     const heroImages = [
-        '/hero-1.webp', // Adicione suas imagens aqui
-        '/hero-2.webp',
-        '/hero-1.webp',
+        getImagePath('/hero-1.webp'), // Adicione suas imagens aqui
+        getImagePath('/hero-2.webp'),
+        getImagePath('/hero-1.webp'),
     ]
 
     // Services carousel data
@@ -196,7 +200,7 @@ export default function HomePage() {
                 <div className="container mx-auto px-6 lg:px-16">
                     <div className="flex justify-between items-center h-20">
                         {/* Logo */}
-                        <img src="/logo.svg" alt="BeeStay" className="h-10" />
+                        <img src={getImagePath("/logo.svg")} alt="BeeStay" className="h-10" />
 
                         {/* Desktop Navigation */}
                         <div className="hidden md:flex items-center gap-10">
@@ -372,10 +376,10 @@ export default function HomePage() {
                             <div className="border-t border-white/10 pt-8">
                                 <p className="text-sm text-gray-500 mb-4">Seu imóvel presente nas maiores plataformas:</p>
                                 <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 sm:gap-6 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-                                    <img src="/Airbnb.svg" className="h-6 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Airbnb" />
-                                    <img src="/Booking.svg" className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Booking" />
-                                    <img src="/Expedia.svg" className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Expedia" />
-                                    <img src="/Decolar.svg" className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Decolar" />
+                                    <img src={getImagePath("/Airbnb.svg")} className="h-6 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Airbnb" />
+                                    <img src={getImagePath("/Booking.svg")} className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Booking" />
+                                    <img src={getImagePath("/Expedia.svg")} className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Expedia" />
+                                    <img src={getImagePath("/Decolar.svg")} className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Decolar" />
                                 </div>
                             </div>
                         </div>
@@ -431,10 +435,10 @@ export default function HomePage() {
                                             <div className="h-full bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-bee-gold/30 transition-all duration-300 group flex flex-col">
                                                 {/* Visual Area with Image */}
                                                 <div className="h-48 relative overflow-hidden shrink-0">
-                                                     <img 
-                                                        src={item.imageSrc || '/hero-1.webp'} 
-                                                        alt={item.imageAlt} 
-                                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                                                     <img
+                                                        src={item.imageSrc || getImagePath('/hero-1.webp')}
+                                                        alt={item.imageAlt}
+                                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                                      />
                                                      {/* Overlay */}
                                                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-80 group-hover:opacity-70 transition-opacity"></div>
@@ -1016,7 +1020,7 @@ export default function HomePage() {
 
                         {/* Logo & Tagline */}
                         <div>
-                            <img src="/logo.svg" alt="BeeStay" className="h-8 mb-4" />
+                            <img src={getImagePath("/logo.svg")} alt="BeeStay" className="h-8 mb-4" />
                             <p className="text-gray-400 text-sm leading-relaxed">
                                 Gestão profissional de imóveis de temporada com excelência hoteleira.
                             </p>

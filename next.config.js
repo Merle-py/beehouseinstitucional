@@ -4,8 +4,8 @@ const nextConfig = {
     images: {
         unoptimized: true
     },
-    // Ensure assets work when deployed to any hosting environment
-    basePath: '',
+    // Configure basePath for subdirectory deployment
+    basePath: '/teste',
     trailingSlash: true,
 }
 
