@@ -5,9 +5,10 @@ import AutoScroll from 'embla-carousel-auto-scroll'
 import Image from 'next/image'
 import { Icons } from './components/Icons'
 import { Header } from './components/Header'
+import type { Logo, Service, Diferencial, FAQItem, TimelineStep } from './types'
 
 // Helper to add basePath for images
-const basePath = '/teste'
+const basePath = process.env.NODE_ENV === 'production' ? '/teste' : ''
 const getImagePath = (path: string) => `${basePath}${path}`
 
 export default function HomePage() {
@@ -15,6 +16,7 @@ export default function HomePage() {
     const [currentSlide, setCurrentSlide] = useState(0)
     const [currentServiceIndex, setCurrentServiceIndex] = useState(0)
     const [currentDiferenciaisIndex, setCurrentDiferenciaisIndex] = useState(0)
+    const [formLoaded, setFormLoaded] = useState(false)
     
     // Embla Carousel for Logos
     const [emblaRef] = useEmblaCarousel({ loop: true, watchDrag: false }, [
@@ -27,14 +29,14 @@ export default function HomePage() {
     // Embla Carousel for Diferenciais
     const [diferenciaisRef, diferenciaisApi] = useEmblaCarousel({ loop: true, align: 'center', slidesToScroll: 1 })
 
-    const logos = [
+    const logos: Logo[] = [
         { src: getImagePath('/Airbnb.svg'), alt: 'Airbnb' },
         { src: getImagePath('/Booking.svg'), alt: 'Booking' },
         { src: getImagePath('/Decolar.svg'), alt: 'Decolar' },
         { src: getImagePath('/Expedia.svg'), alt: 'Expedia' },
     ]
     // Repeat logos to ensure smooth infinite loop on all screen sizes
-    const repeatedLogos = [...logos, ...logos, ...logos, ...logos]
+    const repeatedLogos: Logo[] = [...logos, ...logos, ...logos, ...logos]
 
     const toggleFaq = (index: number) => {
         setOpenFaq(openFaq === index ? null : index)
@@ -48,7 +50,7 @@ export default function HomePage() {
     ]
 
     // Services carousel data
-    const services = [
+    const services: Service[] = [
         {
             icon: 'BroomOutline',
             title: 'Limpeza Profissional',
@@ -72,7 +74,7 @@ export default function HomePage() {
     ]
 
     // Diferenciais carousel data
-    const diferenciaisData = [
+    const diferenciaisData: Diferencial[] = [
         {
             title: 'Transparência Total',
             description: 'Receita e reservas em tempo real no seu dashboard. Sem letras miúdas.',
@@ -97,6 +99,99 @@ export default function HomePage() {
     ]
 
     const heroImageRefs = useRef<(HTMLDivElement | null)[]>([])
+
+    // Timeline steps data
+    const timelineSteps: TimelineStep[] = [
+        {
+            step: '01',
+            title: 'Consultoria Personalizada',
+            description: 'Análise de potencial e proposta personalizada. Entendemos seus objetivos e definimos a melhor estratégia.'
+        },
+        {
+            step: '02',
+            title: 'Preparação do Espaço',
+            description: 'Fotos profissionais, criação de anúncios e setup completo. Deixamos tudo pronto para receber os hóspedes.'
+        },
+        {
+            step: '03',
+            title: 'Gestão Ativa 24/7',
+            description: 'Operação diária, check-in/out, limpeza e manutenção. Cuidamos de tudo para você não se preocupar com nada.'
+        },
+        {
+            step: '04',
+            title: 'Resultados Transparentes',
+            description: 'Acompanhamento total via dashboard e repasses mensais. Você vê o dinheiro entrar, sem a dor de cabeça.'
+        }
+    ]
+
+    // FAQ data
+    const faqData: FAQItem[] = [
+        // 💼 Sobre começar a operação
+        {
+            question: "Quanto preciso investir para colocar meu imóvel na Beestay?",
+            answer: "O investimento inicial depende do estado atual do imóvel. Normalmente o custo de implantação envolve possíveis ajustes de ambientação e adequações operacionais, tais como a disponibilização do enxoval de cama e banho. Após a primeira vistoria, apresentamos um diagnóstico claro com tudo o que é necessário antes do início da operação."
+        },
+        {
+            question: "Meu imóvel precisa estar mobiliado?",
+            answer: "Sim. O imóvel precisa estar mobiliado e equipado para short stay. Caso ainda não esteja, a Beestay pode orientar sobre padrão, layout e itens essenciais para garantir boa performance e avaliações positivas."
+        },
+        {
+            question: "A Beestay compra móveis ou enxoval para o imóvel?",
+            answer: "Parte do enxoval de cama e banho, bem como as amenidades fazem parte da operação e são disponibilizados pela Beestay, sem transferência de propriedade ao investidor. Já móveis e eletros estruturais são de responsabilidade do proprietário, conforme definido em vistoria e contrato."
+        },
+        // 📝 Sobre contrato e modelo de gestão
+        {
+            question: "Como funciona o contrato com a Beestay?",
+            answer: "O contrato define as responsabilidades de cada parte, o modelo de remuneração, prazos, regras operacionais e critérios de rescisão. É um contrato claro, transparente e pensado para proteger tanto o proprietário quanto a operação."
+        },
+        {
+            question: "Existe prazo mínimo de contrato?",
+            answer: "Sim. Trabalhamos com contratos com prazo determinado, que permitem estabilidade operacional e planejamento. Ao final do período, o contrato pode ser renovado mediante acordo entre as partes."
+        },
+        {
+            question: "Posso usar meu imóvel eventualmente?",
+            answer: "Sim. O uso pelo proprietário é permitido, dentro de limites previamente acordados em contrato. Nesses casos, há cobrança da taxa de limpeza, que é descontada no repasse seguinte."
+        },
+        // 🔐 Segurança, riscos e governança
+        {
+            question: "Como a Beestay garante a segurança do meu imóvel?",
+            answer: "Utilizamos critérios rigorosos de seleção de hóspedes, controle de acesso (fechaduras eletrônicas), vistorias recorrentes, monitoramento de ocorrências e plataformas com políticas de proteção ao anfitrião."
+        },
+        {
+            question: "E se houver danos ao imóvel?",
+            answer: "Em caso de danos causados por hóspedes, a Beestay atua diretamente na mediação com as plataformas, seguros e responsáveis, além de providenciar reparos quando necessário, com total transparência ao proprietário."
+        },
+        {
+            question: "Meu imóvel fica protegido juridicamente?",
+            answer: "Sim. A operação é estruturada para evitar caracterização de locação residencial tradicional (quando aplicável), com contratos, regras e controles adequados ao modelo de curta temporada."
+        },
+        // 📊 Resultados, performance e repasses
+        {
+            question: "Em quanto tempo começo a ver resultados?",
+            answer: "Normalmente, os primeiros resultados aparecem já nos primeiros meses de operação, à medida que o imóvel ganha avaliações, histórico e posicionamento nos canais. A performance tende a melhorar de forma progressiva."
+        },
+        {
+            question: "A Beestay garante uma rentabilidade mínima?",
+            answer: "Não trabalhamos com promessas ou garantias irreais. O foco é maximizar o potencial do imóvel com gestão profissional, precificação dinâmica e alta qualidade operacional."
+        },
+        {
+            question: "Como e quando recebo meus repasses?",
+            answer: "Os repasses são feitos mensalmente, com relatório detalhado de receitas, despesas, taxas e resultados. Tudo de forma clara e auditável."
+        },
+        {
+            question: "Consigo acompanhar os resultados do meu imóvel?",
+            answer: "Sim. Você terá acesso a relatórios e indicadores como taxa de ocupação, ADR e desempenho mensal do seu imóvel."
+        },
+        // 🤝 Relacionamento e diferencial
+        {
+            question: "O que diferencia a Beestay de uma gestão amadora ou tradicional?",
+            answer: "A Beestay opera com processos, tecnologia, indicadores e padronização. Isso garante mais eficiência, melhor experiência para o hóspede, maior competitividade e proteção do seu ativo ao longo do tempo."
+        },
+        {
+            question: "A Beestay administra muitos imóveis ao mesmo tempo?",
+            answer: "Crescemos de forma planejada e responsável, mantendo padrão de qualidade, controle operacional e atendimento adequado para cada imóvel sob gestão."
+        }
+    ]
 
     // Hero slideshow effect
     useEffect(() => {
@@ -185,12 +280,18 @@ export default function HomePage() {
         const container = document.getElementById('bitrix-form-container')
         if (container) {
             container.appendChild(script)
-        }
 
-        return () => {
-            // Cleanup
-            if (container && script.parentNode) {
-                container.removeChild(script)
+            // Set a timeout to hide skeleton after form likely loaded
+            const timeout = setTimeout(() => {
+                setFormLoaded(true)
+            }, 2000)
+
+            return () => {
+                clearTimeout(timeout)
+                // Cleanup
+                if (script.parentNode) {
+                    script.parentNode.removeChild(script)
+                }
             }
         }
     }, [])
@@ -430,13 +531,6 @@ export default function HomePage() {
                                                     <p className="text-text-gray leading-relaxed text-sm md:text-base">
                                                         {item.description}
                                                     </p>
-                                                    {/* Fake CTA to encourage interaction perception */}
-                                                    <div className="mt-auto pt-6 flex items-center text-bee-gold font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
-                                                        <span>Saiba mais</span>
-                                                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                                        </svg>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -563,28 +657,7 @@ export default function HomePage() {
                         <div className="absolute left-[19px] md:left-[39px] top-0 bottom-0 w-px bg-gradient-to-b from-gray-200 via-gray-300 to-gray-200"></div>
 
                         <div className="space-y-12">
-                            {[
-                                {
-                                    step: '01',
-                                    title: 'Consultoria Personalizada',
-                                    description: 'Análise de potencial e proposta personalizada. Entendemos seus objetivos e definimos a melhor estratégia.'
-                                },
-                                {
-                                    step: '02',
-                                    title: 'Preparação do Espaço',
-                                    description: 'Fotos profissionais, criação de anúncios e setup completo. Deixamos tudo pronto para receber os hóspedes.'
-                                },
-                                {
-                                    step: '03',
-                                    title: 'Gestão Ativa 24/7',
-                                    description: 'Operação diária, check-in/out, limpeza e manutenção. Cuidamos de tudo para você não se preocupar com nada.'
-                                },
-                                {
-                                    step: '04',
-                                    title: 'Resultados Transparentes',
-                                    description: 'Acompanhamento total via dashboard e repasses mensais. Você vê o dinheiro entrar, sem a dor de cabeça.'
-                                }
-                            ].map((item, index) => (
+                            {timelineSteps.map((item, index) => (
                                 <div key={index} className="relative pl-16 md:pl-28 group">
                                     {/* Marker */}
                                     <div className="absolute left-0 md:left-[20px] top-0 w-10 h-10 md:w-10 md:h-10 bg-white border-2 border-bee-gold rounded-full flex items-center justify-center z-10 shadow-[0_0_0_4px_#ffffff] group-hover:bg-bee-gold transition-colors duration-300">
@@ -852,77 +925,7 @@ export default function HomePage() {
                     </div>
 
                     <div className="bg-white rounded-lg shadow-sm border border-mid-gray overflow-hidden">
-                        {[
-                            // 💼 Sobre começar a operação
-                            {
-                                question: "Quanto preciso investir para colocar meu imóvel na Beestay?",
-                                answer: "O investimento inicial depende do estado atual do imóvel. Normalmente o custo de implantação envolve possíveis ajustes de ambientação e adequações operacionais, tais como a disponibilização do enxoval de cama e banho. Após a primeira vistoria, apresentamos um diagnóstico claro com tudo o que é necessário antes do início da operação."
-                            },
-                            {
-                                question: "Meu imóvel precisa estar mobiliado?",
-                                answer: "Sim. O imóvel precisa estar mobiliado e equipado para short stay. Caso ainda não esteja, a Beestay pode orientar sobre padrão, layout e itens essenciais para garantir boa performance e avaliações positivas."
-                            },
-                            {
-                                question: "A Beestay compra móveis ou enxoval para o imóvel?",
-                                answer: "Parte do enxoval de cama e banho, bem como as amenidades fazem parte da operação e são disponibilizados pela Beestay, sem transferência de propriedade ao investidor. Já móveis e eletros estruturais são de responsabilidade do proprietário, conforme definido em vistoria e contrato."
-                            },
-
-                            // 📝 Sobre contrato e modelo de gestão
-                            {
-                                question: "Como funciona o contrato com a Beestay?",
-                                answer: "O contrato define as responsabilidades de cada parte, o modelo de remuneração, prazos, regras operacionais e critérios de rescisão. É um contrato claro, transparente e pensado para proteger tanto o proprietário quanto a operação."
-                            },
-                            {
-                                question: "Existe prazo mínimo de contrato?",
-                                answer: "Sim. Trabalhamos com contratos com prazo determinado, que permitem estabilidade operacional e planejamento. Ao final do período, o contrato pode ser renovado mediante acordo entre as partes."
-                            },
-                            {
-                                question: "Posso usar meu imóvel eventualmente?",
-                                answer: "Sim. O uso pelo proprietário é permitido, dentro de limites previamente acordados em contrato. Nesses casos, há cobrança da taxa de limpeza, que é descontada no repasse seguinte."
-                            },
-
-                            // 🔐 Segurança, riscos e governança
-                            {
-                                question: "Como a Beestay garante a segurança do meu imóvel?",
-                                answer: "Utilizamos critérios rigorosos de seleção de hóspedes, controle de acesso (fechaduras eletrônicas), vistorias recorrentes, monitoramento de ocorrências e plataformas com políticas de proteção ao anfitrião."
-                            },
-                            {
-                                question: "E se houver danos ao imóvel?",
-                                answer: "Em caso de danos causados por hóspedes, a Beestay atua diretamente na mediação com as plataformas, seguros e responsáveis, além de providenciar reparos quando necessário, com total transparência ao proprietário."
-                            },
-                            {
-                                question: "Meu imóvel fica protegido juridicamente?",
-                                answer: "Sim. A operação é estruturada para evitar caracterização de locação residencial tradicional (quando aplicável), com contratos, regras e controles adequados ao modelo de curta temporada."
-                            },
-
-                            // 📊 Resultados, performance e repasses
-                            {
-                                question: "Em quanto tempo começo a ver resultados?",
-                                answer: "Normalmente, os primeiros resultados aparecem já nos primeiros meses de operação, à medida que o imóvel ganha avaliações, histórico e posicionamento nos canais. A performance tende a melhorar de forma progressiva."
-                            },
-                            {
-                                question: "A Beestay garante uma rentabilidade mínima?",
-                                answer: "Não trabalhamos com promessas ou garantias irreais. O foco é maximizar o potencial do imóvel com gestão profissional, precificação dinâmica e alta qualidade operacional."
-                            },
-                            {
-                                question: "Como e quando recebo meus repasses?",
-                                answer: "Os repasses são feitos mensalmente, com relatório detalhado de receitas, despesas, taxas e resultados. Tudo de forma clara e auditável."
-                            },
-                            {
-                                question: "Consigo acompanhar os resultados do meu imóvel?",
-                                answer: "Sim. Você terá acesso a relatórios e indicadores como taxa de ocupação, ADR e desempenho mensal do seu imóvel."
-                            },
-
-                            // 🤝 Relacionamento e diferencial
-                            {
-                                question: "O que diferencia a Beestay de uma gestão amadora ou tradicional?",
-                                answer: "A Beestay opera com processos, tecnologia, indicadores e padronização. Isso garante mais eficiência, melhor experiência para o hóspede, maior competitividade e proteção do seu ativo ao longo do tempo."
-                            },
-                            {
-                                question: "A Beestay administra muitos imóveis ao mesmo tempo?",
-                                answer: "Crescemos de forma planejada e responsável, mantendo padrão de qualidade, controle operacional e atendimento adequado para cada imóvel sob gestão."
-                            }
-                        ].map((faq, index) => (
+                        {faqData.map((faq, index) => (
                             <div key={index} className="faq-item">
                                 <button
                                     onClick={() => toggleFaq(index)}
@@ -976,10 +979,34 @@ export default function HomePage() {
                         </div>
 
                         {/* Right Form */}
-                        <div id="form" className="bg-white/5 border border-white/10 rounded-lg p-8">
+                        <div id="form" className="bg-white/5 border border-white/10 rounded-lg p-8 relative">
+                            {/* Loading Skeleton */}
+                            {!formLoaded && (
+                                <div className="space-y-4 animate-pulse">
+                                    <div className="space-y-2">
+                                        <div className="h-4 bg-white/10 rounded w-1/4"></div>
+                                        <div className="h-10 bg-white/10 rounded"></div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="h-4 bg-white/10 rounded w-1/3"></div>
+                                        <div className="h-10 bg-white/10 rounded"></div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="h-4 bg-white/10 rounded w-1/4"></div>
+                                        <div className="h-10 bg-white/10 rounded"></div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="h-4 bg-white/10 rounded w-2/5"></div>
+                                        <div className="h-24 bg-white/10 rounded"></div>
+                                    </div>
+                                    <div className="h-12 bg-bee-gold/30 rounded mt-6"></div>
+                                </div>
+                            )}
+
                             {/* Bitrix24 Form Container */}
                             <div
                                 id="bitrix-form-container"
+                                className={`transition-opacity duration-500 ${formLoaded ? 'opacity-100' : 'opacity-0 absolute inset-0'}`}
                                 style={{ minHeight: '300px' }}
                             ></div>
                         </div>
@@ -1049,13 +1076,13 @@ export default function HomePage() {
                 </div>
             </footer>
 
-            {/* WhatsApp Floating Button*/}
+            {/* WhatsApp Floating Button
             <a href="https://wa.me/5547999999999?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20BeeStay"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fixed bottom-6 right-6 z-50 w-14 h-14 md:w-16 md:h-16 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 group md:bottom-6 bottom-24">
                 <Icons.WhatsappLogo className="w-6 h-6 md:w-8 md:h-8 text-white" />
-            </a>
+            </a>*/}
 
             {/* Sticky Mobile CTA Bar - Visible only on mobile */}
             <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 shadow-lg">
