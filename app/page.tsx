@@ -695,13 +695,6 @@ export default function HomePage() {
                                                     <p className="text-text-gray leading-relaxed text-sm md:text-base">
                                                         {item.description}
                                                     </p>
-                                                    {/* Fake CTA to encourage interaction perception */}
-                                                    <div className="mt-auto pt-6 flex items-center text-bee-gold font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
-                                                        <span>Saiba mais</span>
-                                                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                                        </svg>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

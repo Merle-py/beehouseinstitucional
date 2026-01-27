@@ -48,31 +48,28 @@ export function Header() {
                 <div className="container mx-auto px-6 lg:px-16">
                     <div className="flex justify-between items-center h-20">
                         {/* Logo */}
-                        <Image src={getImagePath("/logo.svg")} alt="BeeStay" width={120} height={40} className="h-10 w-auto" priority />
+                        <Image src={getImagePath("/logo.svg")} alt="BeeStay" width={180} height={60} className="h-15 w-auto" priority />
 
                         {/* Desktop Navigation */}
                         <div className="hidden md:flex items-center gap-10">
                             <a
                                 href="#home"
-                                className={`text-sm transition-colors font-medium ${
-                                    activeSection === 'home' ? 'text-bee-gold' : 'text-text-gray hover:text-bee-gold'
-                                }`}
+                                className={`text-sm transition-colors font-medium ${activeSection === 'home' ? 'text-bee-gold' : 'text-text-gray hover:text-bee-gold'
+                                    }`}
                             >
                                 Início
                             </a>
                             <a
                                 href="#servicos"
-                                className={`text-sm transition-colors font-medium ${
-                                    activeSection === 'servicos' ? 'text-bee-gold' : 'text-text-gray hover:text-bee-gold'
-                                }`}
+                                className={`text-sm transition-colors font-medium ${activeSection === 'servicos' ? 'text-bee-gold' : 'text-text-gray hover:text-bee-gold'
+                                    }`}
                             >
                                 Serviços
                             </a>
                             <a
                                 href="#processo"
-                                className={`text-sm transition-colors font-medium ${
-                                    activeSection === 'processo' ? 'text-bee-gold' : 'text-text-gray hover:text-bee-gold'
-                                }`}
+                                className={`text-sm transition-colors font-medium ${activeSection === 'processo' ? 'text-bee-gold' : 'text-text-gray hover:text-bee-gold'
+                                    }`}
                             >
                                 Processo
                             </a>
@@ -108,27 +105,24 @@ export function Header() {
                         <div className="flex flex-col p-6 space-y-4">
                             <a
                                 href="#home"
-                                className={`text-lg transition-colors font-medium py-3 border-b border-gray-100 ${
-                                    activeSection === 'home' ? 'text-bee-gold' : 'text-text-gray hover:text-bee-gold'
-                                }`}
+                                className={`text-lg transition-colors font-medium py-3 border-b border-gray-100 ${activeSection === 'home' ? 'text-bee-gold' : 'text-text-gray hover:text-bee-gold'
+                                    }`}
                                 onClick={closeMenu}
                             >
                                 Início
                             </a>
                             <a
                                 href="#servicos"
-                                className={`text-lg transition-colors font-medium py-3 border-b border-gray-100 ${
-                                    activeSection === 'servicos' ? 'text-bee-gold' : 'text-text-gray hover:text-bee-gold'
-                                }`}
+                                className={`text-lg transition-colors font-medium py-3 border-b border-gray-100 ${activeSection === 'servicos' ? 'text-bee-gold' : 'text-text-gray hover:text-bee-gold'
+                                    }`}
                                 onClick={closeMenu}
                             >
                                 Serviços
                             </a>
                             <a
                                 href="#processo"
-                                className={`text-lg transition-colors font-medium py-3 border-b border-gray-100 ${
-                                    activeSection === 'processo' ? 'text-bee-gold' : 'text-text-gray hover:text-bee-gold'
-                                }`}
+                                className={`text-lg transition-colors font-medium py-3 border-b border-gray-100 ${activeSection === 'processo' ? 'text-bee-gold' : 'text-text-gray hover:text-bee-gold'
+                                    }`}
                                 onClick={closeMenu}
                             >
                                 Processo
