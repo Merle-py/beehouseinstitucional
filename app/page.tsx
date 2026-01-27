@@ -1049,7 +1049,7 @@ export default function HomePage() {
 
                         {/* Logo & Tagline */}
                         <div>
-                            <Image src={getImagePath("/logo.svg")} alt="BeeStay" width={120} height={32} className="h-8 w-auto mb-4" />
+                            <Image src={getImagePath("/logo_branco.svg")} alt="BeeStay" width={240} height={64} className="h-8 w-auto mb-4" />
                             <p className="text-gray-400 text-sm leading-relaxed">
                                 Gestão profissional de imóveis de temporada com excelência hoteleira.
                             </p>

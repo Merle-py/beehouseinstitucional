@@ -48,7 +48,7 @@ export function Header() {
                 <div className="container mx-auto px-6 lg:px-16">
                     <div className="flex justify-between items-center h-20">
                         {/* Logo */}
-                        <Image src={getImagePath("/logo.svg")} alt="BeeStay" width={180} height={60} className="h-15 w-auto" priority />
+                        <Image src={getImagePath("/logo_preto.svg")} alt="BeeStay" width={240} height={64} className="h-15 w-auto" priority />
 
                         {/* Desktop Navigation */}
                         <div className="hidden md:flex items-center gap-10">
