@@ -253,8 +253,7 @@ export default function HomePage() {
 
                         {/* Headline */}
                         <h1 className="text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-8 font-bold drop-shadow-lg">
-                            Cuidamos do seu patrimônio<br />
-                            como se fosse <span className="text-bee-gold">nosso</span>
+                            Cuidamos do seu patrimônio como se fosse <span className="text-bee-gold">nosso</span>
                         </h1>
 
                         {/* Subheadline */}
@@ -795,6 +794,85 @@ export default function HomePage() {
                             </div>
                         </div>
 
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section - Gestão Profissional (New) */}
+            <section className="py-20 px-4 md:px-8 lg:px-16 bg-white">
+                <div className="bg-bee-black rounded-[2rem] md:rounded-[3rem] overflow-hidden relative isolate">
+                    {/* Decorative Gradients */}
+                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-bee-gold/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-bee-gold/5 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2"></div>
+
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center p-8 md:p-12 lg:p-20 relative z-10">
+                        {/* Left - Visual Composition */}
+                        <div className="relative h-[400px] md:h-[500px] w-full flex items-center justify-center">
+                            {/* Background Blob/Shape */}
+                            <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-white/0 rounded-full scale-90"></div>
+
+                            {/* Main Character Image (Couple) */}
+                            <div className="relative z-10 w-[280px] md:w-[340px] aspect-[3/4] rounded-2xl overflow-hidden border-4 border-white/10 shadow-2xl rotate-[-3deg]">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800" 
+                                    className="w-full h-full object-cover" 
+                                    alt="Proprietários felizes usando app" 
+                                />
+                            </div>
+
+                            {/* Floating Element 1: Property Photo */}
+                            <div className="absolute top-0 left-0 md:left-4 w-32 md:w-40 bg-white p-2 rounded-xl shadow-xl rotate-[-6deg] z-20 animate-float-slow">
+                                <div className="w-full aspect-square rounded-lg overflow-hidden relative">
+                                    <img src="/hero-1.webp" className="w-full h-full object-cover" alt="Foto do imóvel" />
+                                </div>
+                            </div>
+
+                            {/* Floating Element 2: Listing Card Mockup */}
+                            <div className="absolute top-10 right-0 md:right-4 w-40 md:w-48 bg-white p-3 rounded-xl shadow-xl rotate-[6deg] z-20 animate-float-medium">
+                                {/* Mini Listing UI */}
+                                <div className="flex flex-col gap-2">
+                                    <div className="h-20 md:h-24 bg-gray-100 rounded-lg overflow-hidden">
+                                        <img src="/hero-2.webp" className="w-full h-full object-cover" alt="Listing" />
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <div className="h-2 w-3/4 bg-gray-200 rounded"></div>
+                                        <div className="flex justify-between items-center">
+                                            <div className="h-2 w-1/4 bg-gray-200 rounded"></div>
+                                            <div className="h-4 w-12 bg-bee-gold/20 rounded flex items-center justify-center">
+                                                <div className="w-8 h-1 bg-bee-gold rounded"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Floating Logos */}
+                            <div className="absolute bottom-12 left-0 md:left-8 bg-white px-4 py-2 rounded-full shadow-lg z-30 flex items-center gap-2 animate-float-fast">
+                                <img src="/Airbnb.svg" className="h-6 w-auto" alt="Airbnb" />
+                            </div>
+                            <div className="absolute bottom-32 right-0 md:right-8 bg-white px-4 py-2 rounded-full shadow-lg z-30 flex items-center gap-2 animate-float-slow">
+                                <img src="/Booking.svg" className="h-5 w-auto" alt="Booking.com" />
+                            </div>
+                        </div>
+
+                        {/* Right - Copy */}
+                        <div className="text-center lg:text-left">
+                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight text-white">
+                                Ganhe tempo com uma <span className="text-bee-gold">gestão profissional</span> de aluguel por temporada
+                            </h2>
+                            <p className="text-gray-300 text-lg mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                                A BeeStay cuida de todas as etapas da locação do seu imóvel. Do anúncio ao checkout, garantimos rentabilidade máxima e zero dor de cabeça.
+                            </p>
+                            <a 
+                                href="#contato" 
+                                className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg inline-flex items-center gap-2 transition-all hover:scale-105 shadow-[0_0_20px_rgba(249,180,16,0.3)]"
+                            >
+                                ANUNCIE SEM PREOCUPAÇÕES
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
