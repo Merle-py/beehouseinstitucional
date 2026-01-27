@@ -798,93 +798,69 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* CTA Section - Gestão Profissional (New) */}
+            {/* CTA Section - Gestão Profissional (Seazone Style) */}
             <section className="py-20 px-4 md:px-8 lg:px-16 bg-white">
-                <div className="bg-bee-black rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden relative isolate shadow-2xl">
-                    {/* Decorative Gradients & Texture */}
-                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-soft-light"></div>
-                    <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-bee-gold/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-                    <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-bee-gold/5 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4"></div>
-
-                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center p-8 md:p-16 lg:p-24 relative z-10">
+                <div className="bg-bee-black rounded-[2.5rem] md:rounded-[3rem] overflow-hidden relative">
+                    
+                    <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center p-8 md:p-12 lg:p-20">
                         
-                        {/* Left - Visual Composition (Exploded View) */}
-                        <div className="relative h-[450px] md:h-[550px] w-full flex items-center justify-center">
+                        {/* Left - Visual Collage */}
+                        <div className="relative h-[400px] md:h-[500px] w-full flex items-center justify-center lg:justify-start">
                             
-                            {/* Main Character Image (Lifestyle/Host) */}
-                            <div className="relative z-10 w-[260px] md:w-[320px] aspect-[3/4] rounded-3xl overflow-hidden border-[6px] border-white/10 shadow-2xl rotate-[-2deg] group">
+                            {/* 1. Back Layer: Property Image (Landscape) */}
+                            <div className="absolute top-0 left-0 md:left-8 w-[280px] md:w-[320px] aspect-video rounded-2xl overflow-hidden border-4 border-white/20 shadow-lg rotate-[-4deg] opacity-90">
+                                <img 
+                                    src="/hero-1.webp" 
+                                    className="w-full h-full object-cover" 
+                                    alt="Imóvel de destaque" 
+                                />
+                            </div>
+
+                            {/* 2. Front Layer: People Image (Portrait/Square) */}
+                            <div className="relative z-10 top-12 md:top-16 left-8 md:left-16 w-[240px] md:w-[280px] aspect-square rounded-2xl overflow-hidden border-4 border-white/20 shadow-2xl">
                                 <img 
                                     src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800" 
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                                    alt="Hosts felizes" 
+                                    className="w-full h-full object-cover" 
+                                    alt="Proprietários satisfeitos" 
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                             </div>
 
-                            {/* Floating Element 1: Polaroid Property Photo */}
-                            <div className="absolute top-4 left-0 md:-left-4 w-40 md:w-48 bg-white p-3 pb-8 rounded-lg shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)] rotate-[-8deg] z-20 animate-float-slow transition-transform hover:scale-105 hover:rotate-[-6deg] duration-300">
-                                <div className="w-full aspect-video rounded overflow-hidden relative bg-gray-100">
-                                    <img src="/hero-1.webp" className="w-full h-full object-cover" alt="Interior luxuoso" />
-                                </div>
+                            {/* 3. Floating Logos */}
+                            {/* Airbnb - Bottom Left */}
+                            <div className="absolute bottom-4 left-0 bg-white px-4 py-2 rounded-lg shadow-xl z-20 animate-float-slow">
+                                <img src="/Airbnb.svg" className="h-6 w-auto" alt="Airbnb" />
                             </div>
 
-                            {/* Floating Element 2: Listing Card UI (Cleaner) */}
-                            <div className="absolute bottom-12 right-0 md:-right-4 w-44 md:w-52 bg-white rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)] rotate-[6deg] z-20 animate-float-medium overflow-hidden transition-transform hover:scale-105 hover:rotate-[4deg] duration-300">
-                                <div className="h-28 bg-gray-100 relative">
-                                    <img src="/hero-2.webp" className="w-full h-full object-cover" alt="Listing" />
-                                    <div className="absolute top-2 right-2 bg-white/90 backdrop-blur px-2 py-0.5 rounded text-[10px] font-bold">
-                                        ★ 5.0
-                                    </div>
-                                </div>
-                                <div className="p-3 space-y-2">
-                                    <div className="h-2 w-3/4 bg-gray-200 rounded-full"></div>
-                                    <div className="flex justify-between items-center">
-                                        <div className="h-2 w-1/3 bg-gray-200 rounded-full"></div>
-                                        <div className="text-xs font-bold text-bee-gold">R$ 950/noite</div>
-                                    </div>
-                                </div>
+                            {/* Booking - Top Right */}
+                            <div className="absolute top-12 right-4 md:right-12 bg-white px-4 py-2 rounded-lg shadow-xl z-20 animate-float-medium">
+                                <img src="/Booking.svg" className="h-5 w-auto" alt="Booking.com" />
                             </div>
 
-                            {/* Floating Icons/Badges (More diverse) */}
-                            
-                            {/* Superhost Badge */}
-                            <div className="absolute top-20 right-4 md:right-8 bg-white p-2.5 rounded-2xl shadow-lg z-30 animate-float-fast">
-                                <Icons.Trophy className="w-6 h-6 text-bee-gold" />
+                            {/* Expedia - Middle Right */}
+                            <div className="absolute top-1/2 -translate-y-1/2 right-0 md:right-4 bg-white px-4 py-2 rounded-lg shadow-xl z-20 animate-float-fast">
+                                <img src="/Expedia.svg" className="h-5 w-auto" alt="Expedia" />
                             </div>
 
-                            {/* 5-Star Rating Bubble */}
-                            <div className="absolute bottom-32 left-0 md:left-8 bg-white px-3 py-1.5 rounded-full shadow-lg z-30 flex items-center gap-1.5 animate-float-medium">
-                                <Icons.Star className="w-4 h-4 text-bee-gold fill-bee-gold" />
-                                <span className="text-xs font-bold text-bee-black">5.0 (128)</span>
+                            {/* Decolar - Bottom Right */}
+                            <div className="absolute bottom-12 right-8 md:right-16 bg-white px-4 py-2 rounded-lg shadow-xl z-20 animate-float-slow delay-100">
+                                <img src="/Decolar.svg" className="h-5 w-auto" alt="Decolar" />
                             </div>
 
-                            {/* Revenue Chart Icon */}
-                            <div className="absolute top-1/2 -translate-x-[140px] md:-translate-x-[180px] bg-white p-3 rounded-2xl shadow-xl z-10 animate-float-slow delay-75">
-                                <Icons.TrendUp className="w-6 h-6 text-green-500" />
-                            </div>
-
-                            {/* Platform Logos */}
-                            <div className="absolute -bottom-4 left-12 bg-white px-4 py-2 rounded-full shadow-lg z-30 flex items-center gap-2 animate-float-fast delay-100">
-                                <img src="/Airbnb.svg" className="h-5 w-auto" alt="Airbnb" />
-                            </div>
                         </div>
 
                         {/* Right - Copy */}
                         <div className="text-center lg:text-left relative z-20">
                             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight text-white">
-                                Ganhe tempo com uma <span className="text-bee-gold">gestão profissional</span> de aluguel por temporada
+                                Ganhe tempo com uma <span className="text-bee-gold">gestão profissional</span> de Airbnb
                             </h2>
-                            <p className="text-gray-300 text-lg mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                            <p className="text-gray-300 text-lg mb-8 leading-relaxed">
                                 A BeeStay cuida de todas as etapas da locação do seu imóvel. Do anúncio ao checkout, garantimos rentabilidade máxima e zero dor de cabeça.
                             </p>
                             <a 
                                 href="#contato" 
-                                className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg inline-flex items-center gap-2 transition-all hover:scale-105 shadow-[0_0_20px_rgba(249,180,16,0.3)] group"
+                                className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg inline-flex items-center gap-2 transition-all hover:scale-105 shadow-[0_0_20px_rgba(249,180,16,0.3)] uppercase tracking-wide text-sm md:text-base"
                             >
-                                ANUNCIE SEM PREOCUPAÇÕES
-                                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
+                                Anuncie sem preocupações
                             </a>
                         </div>
                     </div>
