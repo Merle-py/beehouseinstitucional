@@ -128,8 +128,8 @@ export const Icons = {
 
     // Outline Icons for Premium Sections
     BroomOutline: ({ className = "" }: IconProps) => (
-        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l1.5 1.5m0 0L9 9m-1.5-1.5L6 9m1.5-1.5L9 6M3 20l4-4m0 0l2 2m-2-2l-2-2m2 2l2-2M20 9l-1.5 1.5m0 0L17 12m1.5-1.5L20 12m-1.5-1.5L17 9" />
+        <svg className={className} viewBox="0 0 256 256" fill="currentColor">
+            <path d="M228,104a8,8,0,0,1-16,0V88H196a8,8,0,0,1,0-16h16V56a8,8,0,0,1,16,0V72h16a8,8,0,0,1,0,16H228ZM128,160a8,8,0,0,1-8,8H88v32a8,8,0,0,1-16,0V168H40a8,8,0,0,1,0-16H72V120a8,8,0,0,1,16,0v32h32A8,8,0,0,1,128,160Zm80,32a8,8,0,0,1-16,0V176H176a8,8,0,0,1,0-16h16V144a8,8,0,0,1,16,0v16h16a8,8,0,0,1,0,16H208Zm-64-80a8,8,0,0,1-16,0V80H112a8,8,0,0,1,0-16h16V32a8,8,0,0,1,16,0V64h16a8,8,0,0,1,0,16H144Z" />
         </svg>
     ),
 

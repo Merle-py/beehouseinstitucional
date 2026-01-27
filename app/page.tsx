@@ -328,7 +328,163 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* O Que Cuidamos - Carrossel */}
+            {/* CTA Section - High Conversion Premium (Moved Up) */}
+            <section className="py-20 px-4 md:px-8 lg:px-16 bg-white">
+                <div className="bg-bee-black rounded-[2rem] md:rounded-[3rem] overflow-hidden relative isolate shadow-2xl max-w-7xl mx-auto">
+                    {/* Background Texture & Glow */}
+                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
+                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-bee-gold/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+
+                    <div className="grid lg:grid-cols-2 gap-0 lg:gap-12 items-stretch">
+                        
+                        {/* Left - Image Side (Full Height Cover) */}
+                        <div className="relative h-[300px] lg:h-auto min-h-[400px] w-full">
+                            <img 
+                                src="https://images.unsplash.com/photo-1600596542815-6ad4c12756ab?q=80&w=1000" 
+                                className="absolute inset-0 w-full h-full object-cover" 
+                                alt="Interior de alto padrão" 
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-r from-bee-black/50 to-transparent lg:bg-gradient-to-t lg:from-bee-black/20"></div>
+                        </div>
+
+                        {/* Right - Content Side */}
+                        <div className="p-8 md:p-12 lg:p-20 flex flex-col justify-center relative z-10">
+                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight text-white">
+                                Seu imóvel rendendo <span className="text-bee-gold">muito mais</span>, com zero esforço.
+                            </h2>
+                            <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+                                Transformamos sua propriedade em um ativo de alta performance. Cuidamos da distribuição, precificação, hóspedes e manutenção.
+                            </p>
+                            
+                            <div className="mb-10">
+                                <a 
+                                    href="#contato" 
+                                    className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg w-full inline-flex justify-center items-center gap-2 transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(249,180,16,0.4)]"
+                                >
+                                    ANUNCIE AGORA
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                    </svg>
+                                </a>
+                            </div>
+
+                            {/* Trust Bar (Static & Clean) */}
+                            <div className="border-t border-white/10 pt-8">
+                                <p className="text-sm text-gray-500 mb-4">Seu imóvel presente nas maiores plataformas:</p>
+                                <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 sm:gap-6 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+                                    <img src="/Airbnb.svg" className="h-6 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Airbnb" />
+                                    <img src="/Booking.svg" className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Booking" />
+                                    <img src="/Expedia.svg" className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Expedia" />
+                                    <img src="/Decolar.svg" className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Decolar" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            {/* Diferenciais Section - Gestão Que Você Pode Acompanhar (Moved Up) */}
+            <section id="diferenciais" className="py-20 lg:py-32 bg-gray-50">
+                <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
+
+                    {/* Section Header */}
+                    <div className="text-center mb-12 lg:mb-16">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl text-bee-black mb-4 leading-tight font-bold">
+                            Gestão que você pode acompanhar
+                        </h2>
+                    </div>
+
+                    {/* Carousel Container */}
+                    <div className="relative">
+                        {/* Navigation Buttons - Hidden on desktop since it shows all 3 items */}
+                        <button
+                            onClick={scrollPrevDiferenciais}
+                            className="flex lg:hidden absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 w-10 h-10 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
+                            aria-label="Anterior"
+                        >
+                            <svg className="w-5 h-5 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+
+                        <button
+                            onClick={scrollNextDiferenciais}
+                            className="flex lg:hidden absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 w-10 h-10 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
+                            aria-label="Próximo"
+                        >
+                            <svg className="w-5 h-5 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+
+                        {/* Embla Viewport */}
+                        <div className="overflow-hidden" ref={diferenciaisRef}>
+                            <div className="flex touch-pan-y lg:cursor-default">
+                                {diferenciaisData.map((item, index) => {
+                                    const IconComponent = Icons[item.icon as keyof typeof Icons] as React.ComponentType<{ className?: string }>
+                                    return (
+                                        <div 
+                                            key={index}
+                                            className="flex-[0_0_85%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] px-3 md:px-4 min-w-0"
+                                        >
+                                            <div className="h-full bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-bee-gold/30 transition-all duration-300 group flex flex-col">
+                                                {/* Visual Area with Image */}
+                                                <div className="h-48 relative overflow-hidden shrink-0">
+                                                     <img 
+                                                        src={item.imageSrc || '/hero-1.webp'} 
+                                                        alt={item.imageAlt} 
+                                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                                                     />
+                                                     {/* Overlay */}
+                                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-80 group-hover:opacity-70 transition-opacity"></div>
+                                                     
+                                                     {/* Icon Badge */}
+                                                     <div className="absolute bottom-4 right-4 z-10 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20">
+                                                        <IconComponent className="w-6 h-6 text-white" />
+                                                     </div>
+                                                </div>
+                                                
+                                                <div className="p-8 flex flex-col grow">
+                                                    <h3 className="text-xl font-bold text-bee-black mb-4 group-hover:text-bee-gold transition-colors">
+                                                        {item.title}
+                                                    </h3>
+                                                    <p className="text-text-gray leading-relaxed text-sm md:text-base">
+                                                        {item.description}
+                                                    </p>
+                                                    {/* Fake CTA to encourage interaction perception */}
+                                                    <div className="mt-auto pt-6 flex items-center text-bee-gold font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
+                                                        <span>Saiba mais</span>
+                                                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+
+                        {/* Dots Indicator - Hidden on desktop */}
+                        <div className="flex lg:hidden justify-center gap-2 mt-8">
+                            {diferenciaisData.map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => scrollToDiferenciais(index)}
+                                    className={`w-2 h-2 rounded-full transition-all ${
+                                        index === currentDiferenciaisIndex ? 'bg-bee-gold w-8' : 'bg-mid-gray'
+                                    }`}
+                                    aria-label={`Ir para diferencial ${index + 1}`}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* O Que Cuidamos - Carrossel (Moved Down) */}
             <section id="servicos" className="py-20 lg:py-32 bg-bg-cream relative overflow-hidden">
                 <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
                     {/* Section Header */}
@@ -374,7 +530,8 @@ export default function HomePage() {
                                             key={index}
                                             className="flex-[0_0_100%] md:flex-[0_0_50%] pl-6 min-w-0"
                                         >
-                                            <div className="group h-full bg-white border border-mid-gray rounded-lg p-10 hover:border-bee-gold transition-all duration-300 hover:shadow-lg">
+                                            <div className="group h-full bg-white border border-mid-gray rounded-2xl p-10 hover:border-bee-gold transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden">
+                                                <div className="absolute top-0 left-0 w-1 h-full bg-bee-gold transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
                                                 <div className="mb-6">
                                                     <IconComponent className="w-10 h-10 text-bee-gold" />
                                                 </div>
@@ -634,106 +791,6 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Diferenciais Section - Gestão Que Você Pode Acompanhar */}
-            <section id="diferenciais" className="py-20 lg:py-32 bg-gray-50">
-                <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
-
-                    {/* Section Header */}
-                    <div className="text-center mb-12 lg:mb-16">
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl text-bee-black mb-4 leading-tight font-bold">
-                            Gestão que você pode acompanhar
-                        </h2>
-                    </div>
-
-                    {/* Carousel Container */}
-                    <div className="relative">
-                        {/* Navigation Buttons - Hidden on desktop since it shows all 3 items */}
-                        <button
-                            onClick={scrollPrevDiferenciais}
-                            className="flex lg:hidden absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 w-10 h-10 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
-                            aria-label="Anterior"
-                        >
-                            <svg className="w-5 h-5 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
-
-                        <button
-                            onClick={scrollNextDiferenciais}
-                            className="flex lg:hidden absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 w-10 h-10 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
-                            aria-label="Próximo"
-                        >
-                            <svg className="w-5 h-5 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
-
-                        {/* Embla Viewport */}
-                        <div className="overflow-hidden" ref={diferenciaisRef}>
-                            <div className="flex touch-pan-y lg:cursor-default">
-                                {diferenciaisData.map((item, index) => {
-                                    const IconComponent = Icons[item.icon as keyof typeof Icons] as React.ComponentType<{ className?: string }>
-                                    return (
-                                        <div 
-                                            key={index}
-                                            className="flex-[0_0_85%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] px-3 md:px-4 min-w-0"
-                                        >
-                                            <div className="h-full bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-bee-gold/30 transition-all duration-300 group flex flex-col">
-                                                {/* Visual Area with Image */}
-                                                <div className="h-48 relative overflow-hidden shrink-0">
-                                                     <img 
-                                                        src={item.imageSrc || '/hero-1.webp'} 
-                                                        alt={item.imageAlt} 
-                                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                                                     />
-                                                     {/* Overlay */}
-                                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-80 group-hover:opacity-70 transition-opacity"></div>
-                                                     
-                                                     {/* Icon Badge */}
-                                                     <div className="absolute bottom-4 right-4 z-10 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20">
-                                                        <IconComponent className="w-6 h-6 text-white" />
-                                                     </div>
-                                                </div>
-                                                
-                                                <div className="p-8 flex flex-col grow">
-                                                    <h3 className="text-xl font-bold text-bee-black mb-4 group-hover:text-bee-gold transition-colors">
-                                                        {item.title}
-                                                    </h3>
-                                                    <p className="text-text-gray leading-relaxed text-sm md:text-base">
-                                                        {item.description}
-                                                    </p>
-                                                    {/* Fake CTA to encourage interaction perception */}
-                                                    <div className="mt-auto pt-6 flex items-center text-bee-gold font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
-                                                        <span>Saiba mais</span>
-                                                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </div>
-
-                        {/* Dots Indicator - Hidden on desktop */}
-                        <div className="flex lg:hidden justify-center gap-2 mt-8">
-                            {diferenciaisData.map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => scrollToDiferenciais(index)}
-                                    className={`w-2 h-2 rounded-full transition-all ${
-                                        index === currentDiferenciaisIndex ? 'bg-bee-gold w-8' : 'bg-mid-gray'
-                                    }`}
-                                    aria-label={`Ir para diferencial ${index + 1}`}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* CEO Video Section - Vision & Premium Dark */}
             <section className="py-20 lg:py-32 bg-neutral-900 text-white relative overflow-hidden">
                 {/* Background Accents */}
@@ -743,8 +800,11 @@ export default function HomePage() {
                     
                     {/* Mobile Title (Visible only on mobile) */}
                     <div className="lg:hidden text-center mb-10">
+                        <div className="inline-block px-3 py-1 mb-4 border border-bee-gold/30 rounded-full bg-bee-gold/10 text-bee-gold text-xs font-bold tracking-wider uppercase">
+                            Palavra do CEO
+                        </div>
                         <h2 className="text-3xl font-bold leading-tight">
-                            Por que escolhemos <span className="text-bee-gold">Joinville</span> para começar essa revolução?
+                            Por que escolhi <span className="text-bee-gold">Joinville</span> para começar essa revolução?
                         </h2>
                     </div>
 
@@ -753,10 +813,16 @@ export default function HomePage() {
                         {/* Text Content (Desktop Title + All Text/Button) */}
                         <div className="text-center lg:text-left order-2 lg:order-1">
                             <div className="hidden lg:block">
+                                <div className="inline-block px-3 py-1 mb-6 border border-bee-gold/30 rounded-full bg-bee-gold/10 text-bee-gold text-xs font-bold tracking-wider uppercase">
+                                    Palavra do CEO
+                                </div>
                                 <h2 className="text-3xl md:text-4xl lg:text-5xl mb-6 font-bold leading-tight">
-                                    Por que escolhemos <span className="text-bee-gold">Joinville</span> para começar essa revolução?
+                                    Por que escolhi <span className="text-bee-gold">Joinville</span> para começar essa revolução?
                                 </h2>
                             </div>
+                            <p className="text-lg text-gray-400 mb-10 leading-relaxed">
+                                "Encontramos aqui o cenário perfeito: um mercado imobiliário sólido e uma demanda reprimida por gestão profissional. A BeeStay não é apenas uma empresa, é a nossa visão de futuro para a cidade."
+                            </p>
                             
                             <a 
                                 href="#contato" 
@@ -773,7 +839,7 @@ export default function HomePage() {
                                 <img 
                                     src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1000" 
                                     className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500" 
-                                    alt="André Andrade - CEO BeeStay" 
+                                    alt="Fernando - CEO BeeStay" 
                                 />
                                 
                                 {/* Custom Play Button */}
@@ -788,64 +854,8 @@ export default function HomePage() {
 
                                 {/* Minimal Tag */}
                                 <div className="absolute bottom-6 left-6 text-left">
-                                    <p className="text-white font-bold text-xl">André A.</p>
+                                    <p className="text-white font-bold text-xl">Fernando</p>
                                     <p className="text-bee-gold text-sm font-medium tracking-wide">CEO BeeStay</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-            {/* CTA Section - High Conversion Premium (Fixed) */}
-            <section className="py-20 px-4 md:px-8 lg:px-16 bg-white">
-                <div className="bg-bee-black rounded-[2rem] md:rounded-[3rem] overflow-hidden relative isolate shadow-2xl max-w-7xl mx-auto">
-                    {/* Background Texture & Glow */}
-                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
-                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-bee-gold/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-
-                    <div className="grid lg:grid-cols-2 gap-0 lg:gap-12 items-stretch">
-                        
-                        {/* Left - Image Side (Full Height Cover) */}
-                        <div className="relative h-[300px] lg:h-auto min-h-[400px] w-full">
-                            <img 
-                                src="/hero-1.webp" 
-                                className="absolute inset-0 w-full h-full object-cover" 
-                                alt="Interior de alto padrão" 
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-r from-bee-black/50 to-transparent lg:bg-gradient-to-t lg:from-bee-black/20"></div>
-                        </div>
-
-                        {/* Right - Content Side */}
-                        <div className="p-8 md:p-12 lg:p-20 flex flex-col justify-center relative z-10">
-                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight text-white">
-                                Seu imóvel rendendo <span className="text-bee-gold">muito mais</span>, com zero esforço.
-                            </h2>
-                            <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                                Transformamos sua propriedade em um ativo de alta performance. Cuidamos da distribuição, precificação, hóspedes e manutenção.
-                            </p>
-                            
-                            <div className="mb-10">
-                                <a 
-                                    href="#contato" 
-                                    className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg w-full inline-flex justify-center items-center gap-2 transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(249,180,16,0.4)]"
-                                >
-                                    ANUNCIE AGORA
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                    </svg>
-                                </a>
-                            </div>
-
-                            {/* Trust Bar (Static & Clean) */}
-                            <div className="border-t border-white/10 pt-2">
-                                <p className="text-sm text-gray-500 mb-4">Seu imóvel presente nas maiores plataformas:</p>
-                                <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 sm:gap-6 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-                                    <img src="/Airbnb.svg" className="h-6 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Airbnb" />
-                                    <img src="/Booking.svg" className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Booking" />
-                                    <img src="/Expedia.svg" className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Expedia" />
-                                    <img src="/Decolar.svg" className="h-5 w-auto brightness-0 invert mx-auto sm:mx-0" alt="Decolar" />
                                 </div>
                             </div>
                         </div>
@@ -955,12 +965,13 @@ export default function HomePage() {
             {/* Final CTA Section - Sutil e Elegante */}
             <section id="contato" className="py-20 md:py-32 bg-bee-black text-white relative overflow-hidden">
                 <div className="container mx-auto px-6 md:px-8 lg:px-16 max-w-6xl relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-2 md:gap-16 items-center">
+                    <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
 
                         {/* Left Content */}
                         <div className="text-center lg:text-left">
                             <h2 className="text-3xl sm:text-4xl md:text-5xl mb-6 leading-tight font-bold">
-                                Pronto para uma gestão sem <span className="text-bee-gold">preocupações</span>?
+                                Pronto para uma gestão<br />
+                                sem <span className="text-bee-gold">preocupações</span>?
                             </h2>
 
                             <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
