@@ -829,7 +829,7 @@ export default function HomePage() {
                             <div className="mb-10">
                                 <a 
                                     href="#contato" 
-                                    className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg w-full sm:w-auto inline-flex justify-center items-center gap-2 transition-all hover:scale-105 shadow-[0_0_20px_rgba(249,180,16,0.4)]"
+                                    className="bg-bee-gold hover:bg-bee-gold-dark text-bee-black font-bold py-4 px-8 rounded-lg w-full inline-flex justify-center items-center gap-2 transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(249,180,16,0.4)]"
                                 >
                                     ANUNCIE AGORA
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -955,7 +955,7 @@ export default function HomePage() {
             {/* Final CTA Section - Sutil e Elegante */}
             <section id="contato" className="py-20 md:py-32 bg-bee-black text-white relative overflow-hidden">
                 <div className="container mx-auto px-6 md:px-8 lg:px-16 max-w-6xl relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
+                    <div className="grid lg:grid-cols-2 gap-2 md:gap-16 items-center">
 
                         {/* Left Content */}
                         <div className="text-center lg:text-left">
