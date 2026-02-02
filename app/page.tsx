@@ -65,7 +65,7 @@ export default function HomePage() {
         {
             icon: 'BroomOutline',
             title: 'Limpeza Profissional',
-            description: 'Padrão hoteleiro com vistoria fotográfica a cada troca de hóspede.'
+            description: 'Higienização completa e preparação impecável para receber cada novo hóspede.'
         },
         {
             icon: 'ToolOutline',
@@ -95,7 +95,7 @@ export default function HomePage() {
         },
         {
             title: 'Relatórios Mensais',
-            description: 'Relatórios para acompanhanto do investimento e etc.',
+            description: 'Relatórios detalhados para o acompanhamento do seu investimento e performance mensal.',
             icon: 'Handshake',
             imageAlt: 'Detalhe de limpeza premium',
             imageSrc: getImagePath('/img2.webp')
@@ -626,23 +626,29 @@ export default function HomePage() {
                                 Anunciamos seu imóvel nas maiores plataformas do mercado e cuidamos de toda a gestão operacional para garantir performance máxima e tranquilidade total para você.
                             </p>
 
-                            <div className="overflow-hidden w-full max-w-full" ref={emblaRef}>
-                                <div className="flex touch-pan-y">
-                                    {repeatedLogos.map((logo, index) => (
-                                        <div
-                                            key={index}
-                                            className="flex-[0_0_auto] min-w-0 px-4 md:px-8 flex items-center justify-center opacity-30 hover:opacity-60 transition-opacity duration-1200"
-                                        >
-                                            <Image
-                                                src={logo.src}
-                                                alt={logo.alt}
-                                                width={120}
-                                                height={40}
-                                                className="h-8 md:h-10 w-auto object-contain"
-                                            />
-                                        </div>
-                                    ))}
+                            <div className="relative w-full max-w-full">
+                                <div className="overflow-hidden w-full max-w-full" ref={emblaRef}>
+                                    <div className="flex touch-pan-y">
+                                        {repeatedLogos.map((logo, index) => (
+                                            <div
+                                                key={index}
+                                                className="flex-[0_0_auto] min-w-0 px-4 md:px-8 flex items-center justify-center opacity-30 hover:opacity-60 transition-opacity duration-1200"
+                                            >
+                                                <Image
+                                                    src={logo.src}
+                                                    alt={logo.alt}
+                                                    width={120}
+                                                    height={40}
+                                                    className="h-8 md:h-10 w-auto object-contain"
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
+                                {/* Left Fade */}
+                                <div className="pointer-events-none absolute inset-y-0 -left-4 w-24 bg-gradient-to-r from-bee-black to-transparent z-10"></div>
+                                {/* Right Fade */}
+                                <div className="pointer-events-none absolute inset-y-0 -right-4 w-24 bg-gradient-to-l from-bee-black to-transparent z-10"></div>
                             </div>
                             <div className="pt-10 mb-10">
                                 <a
@@ -914,7 +920,7 @@ export default function HomePage() {
                                 </div>
                                 <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4">Experiência Premium</h3>
                                 <p className="text-gray-600 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
-                                    Padrão hoteleiro em cada detalhe, do staging ao check-out
+                                    Excelência em cada detalhe, do staging ao check-out
                                 </p>
                                 <ul className="space-y-3">
                                     <li className="flex items-center gap-3 text-gray-700">
@@ -1125,8 +1131,8 @@ export default function HomePage() {
                         <div className="text-center md:text-left">
                             <h4 className="text-white font-semibold mb-4 text-sm">Contato</h4>
                             <ul className="space-y-2 text-sm text-gray-400 mb-6">
-                                <li>(47) 99999-9999</li>
-                                <li>contato@beestay.com.br</li>
+                                <li>(47) 99287-9066</li>
+                                <li>andre.andrade@beehouse.imb.br</li>
                             </ul>
 
                             {/* Social Icons */}
