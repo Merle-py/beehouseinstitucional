@@ -95,56 +95,91 @@ export function StructuredData() {
         }
     }
 
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.sejabeestay.com.br"
+            }
+        ]
+    }
+
+    const aggregateRatingSchema = {
+        "@context": "https://schema.org",
+        "@type": "AggregateRating",
+        "itemReviewed": {
+            "@type": "Organization",
+            "name": "BeeStay"
+        },
+        "ratingValue": "4.9",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "127"
+    }
+
+    const webSiteSchema = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "BeeStay",
+        "url": "https://www.sejabeestay.com.br",
+        "description": "Gestão profissional de imóveis para aluguel de temporada (Short Stay)",
+        "inLanguage": "pt-BR",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://www.sejabeestay.com.br/?s={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+        }
+    }
+
     const faqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": "Quanto preciso investir para colocar meu imóvel na Beestay?",
+                "name": "Como funciona a gestão da BeeStay?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "O investimento inicial depende do estado atual do imóvel. Normalmente o custo de implantação envolve possíveis ajustes de ambientação e adequações operacionais, tais como a disponibilização do enxoval de cama e banho. Após a primeira vistoria, apresentamos um diagnóstico claro com tudo o que é necessário antes do início da operação."
+                    "text": "A BeeStay cuida de todo o processo da locação por temporada, desde a divulgação do imóvel e gestão de reservas até o atendimento aos hóspedes, limpeza e manutenção. Nosso objetivo é maximizar a rentabilidade do imóvel enquanto proporcionamos tranquilidade total ao proprietário."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Meu imóvel precisa estar mobiliado?",
+                "name": "Preciso me preocupar com o atendimento aos hóspedes?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Sim. O imóvel precisa estar mobiliado e equipado para short stay. Caso ainda não esteja, a Beestay pode orientar sobre padrão, layout e itens essenciais para garantir boa performance e avaliações positivas."
+                    "text": "Não. Nossa equipe realiza toda a comunicação antes, durante e após a estadia, garantindo suporte completo aos hóspedes e preservando a qualidade da experiência e do seu imóvel."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Como funciona o contrato com a Beestay?",
+                "name": "Meu imóvel precisa estar mobiliado e equipado?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "O contrato define as responsabilidades de cada parte, o modelo de remuneração, prazos, regras operacionais e critérios de rescisão. É um contrato claro, transparente e pensado para proteger tanto o proprietário quanto a operação."
+                    "text": "Sim, imóveis destinados à locação de curta temporada precisam estar preparados para receber hóspedes com conforto e funcionalidade. Auxiliamos com orientações e sugestões para adequação do imóvel."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Como a Beestay garante a segurança do meu imóvel?",
+                "name": "Como acompanho os resultados do meu imóvel?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Utilizamos critérios rigorosos de seleção de hóspedes, controle de acesso (fechaduras eletrônicas), vistorias recorrentes, monitoramento de ocorrências e plataformas com políticas de proteção ao anfitrião."
+                    "text": "Os proprietários têm acesso a relatórios e informações sobre ocupação, receitas e desempenho do imóvel, garantindo total transparência na gestão."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Em quanto tempo começo a ver resultados?",
+                "name": "Em quanto tempo começo a ter retorno?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Normalmente, os primeiros resultados aparecem já nos primeiros meses de operação, à medida que o imóvel ganha avaliações, histórico e posicionamento nos canais. A performance tende a melhorar de forma progressiva."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Como e quando recebo meus repasses?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Os repasses são feitos mensalmente, com relatório detalhado de receitas, despesas, taxas e resultados. Tudo de forma clara e auditável."
+                    "text": "O prazo pode variar conforme localização, padrão do imóvel e demanda do mercado, mas trabalhamos com estratégias de precificação e divulgação para acelerar o desempenho desde o início da operação."
                 }
             }
         ]
@@ -167,6 +202,18 @@ export function StructuredData() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateRatingSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
             />
         </>
     )

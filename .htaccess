@@ -41,10 +41,6 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   AddType font/ttf .ttf
 </IfModule>
 
-# Enable compression
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json image/svg+xml
-</IfModule>
 
 # Cache control for static assets
 <IfModule mod_expires.c>
@@ -64,9 +60,55 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 # Prevent directory listing
 Options -Indexes
 
-# Security headers
+# Security headers - Enterprise Level (Google/Amazon/Netflix)
 <IfModule mod_headers.c>
+  # Basic Security
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
   Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Content Security Policy - Protects against XSS
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdn.bitrix24.com.br; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://cdn.bitrix24.com.br; frame-src 'self' https://cdn.bitrix24.com.br;"
+
+  # Permissions Policy - Controls browser features
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
+
+  # Strict Transport Security - Force HTTPS (after confirming HTTPS works)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+  # Performance Headers
+  Header set X-DNS-Prefetch-Control "on"
+  Header set Connection "keep-alive"
+
+  # Cache Control for different file types
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=2592000, immutable"
+  </FilesMatch>
+
+  <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico|woff|woff2|ttf|eot)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Early Hints for critical resources
+  <FilesMatch "\.html$">
+    Header add Link "</hero-1.webp>; rel=preload; as=image; type=image/webp"
+    Header add Link "</logo_preto.svg>; rel=preload; as=image; type=image/svg+xml"
+  </FilesMatch>
+</IfModule>
+
+# Brotli Compression (better than gzip) - Airbnb/Google use this
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# If Brotli not available, use gzip
+<IfModule !mod_brotli.c>
+  <IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json image/svg+xml
+  </IfModule>
 </IfModule>
