@@ -275,6 +275,14 @@ export default function HomePage() {
                         inputs.forEach((input: Element) => {
                             const inputElement = input as HTMLInputElement | HTMLTextAreaElement
 
+                            // Add aria-label for accessibility if not present
+                            if (!inputElement.getAttribute('aria-label') && !inputElement.getAttribute('aria-labelledby')) {
+                                const placeholder = inputElement.getAttribute('placeholder')
+                                if (placeholder) {
+                                    inputElement.setAttribute('aria-label', placeholder)
+                                }
+                            }
+
                             const checkValue = () => {
                                 if (inputElement.value && inputElement.value.trim() !== '') {
                                     inputElement.classList.add('has-value')
@@ -491,20 +499,20 @@ export default function HomePage() {
                         {/* Navigation Buttons - Visible only on mobile/tablet */}
                         <button
                             onClick={scrollPrev}
-                            className="flex lg:hidden absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 z-10 w-10 h-10 md:w-12 md:h-12 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
+                            className="flex lg:hidden absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 z-10 w-12 h-12 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
                             aria-label="Anterior"
                         >
-                            <svg className="w-5 h-5 md:w-6 md:h-6 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-6 h-6 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
 
                         <button
                             onClick={scrollNext}
-                            className="flex lg:hidden absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 z-10 w-10 h-10 md:w-12 md:h-12 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
+                            className="flex lg:hidden absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 z-10 w-12 h-12 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
                             aria-label="Próximo"
                         >
-                            <svg className="w-5 h-5 md:w-6 md:h-6 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-6 h-6 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
@@ -566,10 +574,12 @@ export default function HomePage() {
                                 <button
                                     key={index}
                                     onClick={() => scrollTo(index)}
-                                    className={`w-2 h-2 rounded-full transition-all ${index === currentServiceIndex ? 'bg-bee-gold w-8' : 'bg-mid-gray'
+                                    className={`p-2 rounded-full transition-all ${index === currentServiceIndex ? 'bg-bee-gold' : 'bg-transparent'
                                         }`}
                                     aria-label={`Ir para serviço ${index + 1}`}
-                                />
+                                >
+                                    <div className={`w-3 h-3 rounded-full transition-all ${index === currentServiceIndex ? 'bg-bee-gold w-10' : 'bg-mid-gray'}`} />
+                                </button>
                             ))}
                         </div>
                     </div>
@@ -618,7 +628,7 @@ export default function HomePage() {
                             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight text-white">
                                 Seu imóvel rendendo <span className="text-bee-gold">muito mais</span>, enquanto cuidamos de tudo.
                             </h2>
-                            <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+                            <p className="text-gray-100 text-lg mb-8 leading-relaxed">
                                 Anunciamos seu imóvel nas maiores plataformas do mercado e cuidamos de toda a gestão operacional para garantir performance máxima e tranquilidade total para você.
                             </p>
 
@@ -757,20 +767,20 @@ export default function HomePage() {
                         {/* Navigation Buttons - Hidden on desktop since it shows all 3 items */}
                         <button
                             onClick={scrollPrevDiferenciais}
-                            className="flex lg:hidden absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 w-10 h-10 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
+                            className="flex lg:hidden absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 w-12 h-12 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
                             aria-label="Anterior"
                         >
-                            <svg className="w-5 h-5 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-6 h-6 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
 
                         <button
                             onClick={scrollNextDiferenciais}
-                            className="flex lg:hidden absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 w-10 h-10 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
+                            className="flex lg:hidden absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 w-12 h-12 bg-white border border-mid-gray rounded-full items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all shadow-lg"
                             aria-label="Próximo"
                         >
-                            <svg className="w-5 h-5 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-6 h-6 text-bee-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
@@ -825,10 +835,12 @@ export default function HomePage() {
                                 <button
                                     key={index}
                                     onClick={() => scrollToDiferenciais(index)}
-                                    className={`w-2 h-2 rounded-full transition-all ${index === currentDiferenciaisIndex ? 'bg-bee-gold w-8' : 'bg-mid-gray'
+                                    className={`p-2 rounded-full transition-all ${index === currentDiferenciaisIndex ? 'bg-bee-gold' : 'bg-transparent'
                                         }`}
                                     aria-label={`Ir para diferencial ${index + 1}`}
-                                />
+                                >
+                                    <div className={`w-3 h-3 rounded-full transition-all ${index === currentDiferenciaisIndex ? 'bg-bee-gold w-10' : 'bg-mid-gray'}`} />
+                                </button>
                             ))}
                         </div>
                     </div>
@@ -886,12 +898,12 @@ export default function HomePage() {
                                 Pronto para uma gestão sem <span className="text-bee-gold">preocupações</span>?
                             </h2>
 
-                            <p className="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
+                            <p className="text-lg md:text-xl text-gray-100 mb-6 leading-relaxed">
                                 Descubra o potencial do seu imóvel em uma análise gratuita.
                             </p>
 
                             {/* Trust badges */}
-                            <div className="flex flex-wrap gap-4 justify-center lg:justify-start text-sm text-gray-400 mb-0 lg:mb-0">
+                            <div className="flex flex-wrap gap-4 justify-center lg:justify-start text-sm text-gray-200 mb-0 lg:mb-0">
                                 <div className="flex items-center gap-2">
                                     <svg className="w-4 h-4 text-bee-gold" fill="currentColor" viewBox="0 0 20 20">
                                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -954,28 +966,28 @@ export default function HomePage() {
                         {/* Logo & Tagline */}
                         <div className="text-center md:text-left">
                             <Image src={getImagePath("/logo_branco.svg")} alt="BeeStay" width={240} height={64} className="h-8 w-auto mb-4 mx-auto md:mx-0" />
-                            <p className="text-gray-400 text-sm leading-relaxed">
+                            <p className="text-gray-200 text-sm leading-relaxed">
                                 Gestão profissional de locação curta temporada com excelência hoteleira.
                             </p>
                         </div>
 
                         {/* Links */}
                         <div className="text-center md:text-left">
-                            <h4 className="text-white font-semibold mb-4 text-sm">Links</h4>
+                            <h3 className="text-white font-semibold mb-4 text-sm">Links</h3>
                             <ul className="space-y-2 text-sm">
-                                <li><a href="#home" className="text-gray-400 hover:text-bee-gold transition-colors">Início</a></li>
-                                <li><a href="#servicos" className="text-gray-400 hover:text-bee-gold transition-colors">Serviços</a></li>
-                                <li><a href="#processo" className="text-gray-400 hover:text-bee-gold transition-colors">Processo</a></li>
-                                <li><a href="#faq" className="text-gray-400 hover:text-bee-gold transition-colors">FAQ</a></li>
-                                <li><a href="/politica-privacidade" className="text-gray-400 hover:text-bee-gold transition-colors">Política de Privacidade</a></li>
-                                <li><a href="/termos-uso" className="text-gray-400 hover:text-bee-gold transition-colors">Termos de Uso</a></li>
+                                <li><a href="#home" className="text-gray-200 hover:text-bee-gold transition-colors">Início</a></li>
+                                <li><a href="#servicos" className="text-gray-200 hover:text-bee-gold transition-colors">Serviços</a></li>
+                                <li><a href="#processo" className="text-gray-200 hover:text-bee-gold transition-colors">Processo</a></li>
+                                <li><a href="#faq" className="text-gray-200 hover:text-bee-gold transition-colors">FAQ</a></li>
+                                <li><a href="/politica-privacidade" className="text-gray-200 hover:text-bee-gold transition-colors">Política de Privacidade</a></li>
+                                <li><a href="/termos-uso" className="text-gray-200 hover:text-bee-gold transition-colors">Termos de Uso</a></li>
                             </ul>
                         </div>
 
                         {/* Contato */}
                         <div className="text-center md:text-left">
-                            <h4 className="text-white font-semibold mb-4 text-sm">Contato</h4>
-                            <ul className="space-y-2 text-sm text-gray-400 mb-6">
+                            <h3 className="text-white font-semibold mb-4 text-sm">Contato</h3>
+                            <ul className="space-y-2 text-sm text-gray-200 mb-6">
                                 <li>
                                     <a href="tel:+5547992879066" className="hover:text-bee-gold transition-colors">
                                         (47) 99287-9066
@@ -1007,28 +1019,28 @@ export default function HomePage() {
                                     href="https://www.linkedin.com/company/beestay"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all group"
+                                    className="w-12 h-12 border border-white/10 rounded-full flex items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all group"
                                     aria-label="LinkedIn da BeeStay"
                                 >
-                                    <Icons.LinkedinLogo className="w-5 h-5 text-gray-400 group-hover:text-bee-gold transition-colors" />
+                                    <Icons.LinkedinLogo className="w-5 h-5 text-gray-200 group-hover:text-bee-gold transition-colors" />
                                 </a>
                                 <a
                                     href="https://www.facebook.com/beestay"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all group"
+                                    className="w-12 h-12 border border-white/10 rounded-full flex items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all group"
                                     aria-label="Facebook da BeeStay"
                                 >
-                                    <Icons.FacebookLogo className="w-5 h-5 text-gray-400 group-hover:text-bee-gold transition-colors" />
+                                    <Icons.FacebookLogo className="w-5 h-5 text-gray-200 group-hover:text-bee-gold transition-colors" />
                                 </a>
                                 <a
                                     href="https://www.youtube.com/@beestay"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all group"
+                                    className="w-12 h-12 border border-white/10 rounded-full flex items-center justify-center hover:border-bee-gold hover:bg-bee-gold/10 transition-all group"
                                     aria-label="YouTube da BeeStay"
                                 >
-                                    <Icons.YoutubeLogo className="w-5 h-5 text-gray-400 group-hover:text-bee-gold transition-colors" />
+                                    <Icons.YoutubeLogo className="w-5 h-5 text-gray-200 group-hover:text-bee-gold transition-colors" />
                                 </a>
                             </div>
                         </div>
@@ -1036,7 +1048,7 @@ export default function HomePage() {
                     </div>
 
                     {/* Bottom Bar */}
-                    <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+                    <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-300">
                         <p>© 2026 BeeStay. Todos os direitos reservados.</p>
                         <div className="flex gap-6">
                             <a href="/politica-privacidade" className="hover:text-bee-gold transition-colors">Política de Privacidade</a>
