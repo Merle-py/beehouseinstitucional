@@ -3,7 +3,10 @@
   "short_name": "BeeStay",
   "description": "Gestão completa de imóveis para aluguel de temporada",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
   "background_color": "#ffffff",
   "theme_color": "#F9B410",
   "icons": [
@@ -12,6 +15,60 @@
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/hero-1.webp",
+      "sizes": "1920x1080",
+      "type": "image/webp",
+      "platform": "wide",
+      "label": "BeeStay - Gestão Profissional"
+    },
+    {
+      "src": "/mobile1.webp",
+      "sizes": "390x844",
+      "type": "image/webp",
+      "platform": "narrow",
+      "label": "BeeStay Mobile"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Contato",
+      "short_name": "Contato",
+      "description": "Entre em contato conosco",
+      "url": "/#contato",
+      "icons": [
+        {
+          "src": "/icone.svg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Serviços",
+      "short_name": "Serviços",
+      "description": "Conheça nossos serviços",
+      "url": "/#servicos",
+      "icons": [
+        {
+          "src": "/icone.svg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "FAQ",
+      "short_name": "FAQ",
+      "description": "Perguntas frequentes",
+      "url": "/#faq",
+      "icons": [
+        {
+          "src": "/icone.svg",
+          "sizes": "96x96"
+        }
+      ]
     }
   ],
   "categories": ["business", "productivity"],

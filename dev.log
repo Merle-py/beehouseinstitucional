@@ -41,3 +41,18 @@ Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
 ✓ Compiled in 158ms
 ✓ Compiled in 73ms
 ✓ Compiled in 106ms
+✓ Compiled in 1774ms
+ GET / 200 in 917ms (compile: 732ms, render: 185ms)
+ GET / 200 in 271ms (compile: 164ms, render: 107ms)
+ GET / 200 in 177ms (compile: 93ms, render: 84ms)
+Image with src "/hero-1.webp" is using quality "85" which is not configured in images.qualities [75]. Please update your config to [75, 85].
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
+Image with src "/hero-2.webp" is using quality "85" which is not configured in images.qualities [75]. Please update your config to [75, 85].
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
+Image with src "/mobile1.webp" is using quality "85" which is not configured in images.qualities [75]. Please update your config to [75, 85].
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
+Image with src "/mobile2.webp" is using quality "85" which is not configured in images.qualities [75]. Please update your config to [75, 85].
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
+Image with src "/mobile3.webp" is using quality "85" which is not configured in images.qualities [75]. Please update your config to [75, 85].
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
+ GET / 200 in 496ms (compile: 7ms, render: 489ms)

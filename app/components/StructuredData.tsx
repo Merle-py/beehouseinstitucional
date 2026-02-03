@@ -32,10 +32,13 @@ export function StructuredData() {
         "priceRange": "$$",
         "address": {
             "@type": "PostalAddress",
-            "addressCountry": "BR",
-            "addressLocality": "Brasil"
+            "streetAddress": "Serviço de Gestão de Locação de Curta Temporada",
+            "addressLocality": "Brasil",
+            "addressRegion": "Nacional",
+            "postalCode": "89203-070",
+            "addressCountry": "BR"
         },
-        "description": "Gestão completa de imóveis para aluguel de temporada. Tecnologia de ponta, precificação dinâmica e distribuição global em Airbnb, Booking e Expedia.",
+        "description": "Gestão completa de imóveis para aluguel de Curta Temporada. Tecnologia de ponta, precificação dinâmica e distribuição global em Airbnb, Booking e Expedia.",
         "areaServed": {
             "@type": "Country",
             "name": "Brasil"
