@@ -3,7 +3,11 @@
     "allow": [
       "Bash(npm run dev:*)",
       "Bash(npm install:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(dir:*)",
+      "Bash(cat:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nImplementa otimizações completas de SEO para melhor indexação e ranking\n\nAdiciona estrutura completa de SEO técnico para maximizar a visibilidade nos mecanismos de busca e melhorar a experiência do usuário:\n\n- Sitemap.xml e robots.txt para facilitar indexação pelos crawlers\n- Schema.org JSON-LD \\(Organization, LocalBusiness, Service, FAQPage\\) para rich snippets\n- Meta tags completas: Open Graph, Twitter Cards, canonical URLs\n- Viewport configurado seguindo Next.js 16+ best practices\n- Manifest.json para PWA compliance\n- DNS prefetch e preconnect para melhor performance\n- Alt text descritivo e SEO-friendly em todas as imagens\n- Páginas legais: Política de Privacidade \\(LGPD\\) e Termos de Uso\n- Links funcionais: telefone, email, WhatsApp, redes sociais\n- Acessibilidade WCAG 2.1: skip-to-content, aria-labels, roles\n- Classes sr-only para screen readers\n- BasePath removido para URLs limpas e amigáveis\n- Domínio atualizado para https://www.sejabeestay.com.br\n\nImpacto esperado: melhoria no ranking Google, rich snippets, indexação mais rápida, maior taxa de conversão.\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   }
 }
