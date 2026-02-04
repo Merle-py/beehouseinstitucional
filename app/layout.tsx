@@ -106,8 +106,8 @@ export default function RootLayout({
 
                 {/* Preload Critical Resources - Google Best Practices */}
                 <link rel="preload" href="/logo_preto.svg" as="image" type="image/svg+xml" />
-                <link rel="preload" href="/hero-1.webp" as="image" type="image/webp" fetchPriority="high" />
-                <link rel="preload" href="/mobile1.webp" as="image" type="image/webp" media="(max-width: 768px)" />
+                <link rel="preload" href="/mobile1.webp" as="image" type="image/webp" media="(max-width: 768px)" fetchPriority="high" />
+                <link rel="preload" href="/hero-1.webp" as="image" type="image/webp" media="(min-width: 769px)" fetchPriority="high" />
 
                 {/* Preload Only Critical Font Weight - Inter 400 for body text */}
                 <link

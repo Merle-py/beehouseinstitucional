@@ -392,6 +392,9 @@ export default function HomePage() {
                             'Imóvel de alto padrão gerenciado pela BeeStay para short stay',
                             'Rentabilidade garantida com gestão completa de propriedades'
                         ]
+                        // Only render first slide initially, others after interaction
+                        if (index > 0 && currentSlide === 0) return null
+                        
                         return (
                             <div
                                 key={`desktop-${index}`}
@@ -406,7 +409,7 @@ export default function HomePage() {
                                     fill
                                     priority={index === 0}
                                     loading={index === 0 ? 'eager' : 'lazy'}
-                                    quality={85}
+                                    quality={75}
                                     placeholder="blur"
                                     blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                                     className="object-cover hidden md:block"
@@ -421,6 +424,9 @@ export default function HomePage() {
                             'Imóvel de alto padrão gerenciado pela BeeStay para short stay',
                             'Rentabilidade garantida com gestão completa de propriedades'
                         ]
+                        // Only render first slide initially, others after interaction
+                        if (index > 0 && currentSlide === 0) return null
+                        
                         return (
                             <div
                                 key={`mobile-${index}`}
@@ -432,7 +438,7 @@ export default function HomePage() {
                                     fill
                                     priority={index === 0}
                                     loading={index === 0 ? 'eager' : 'lazy'}
-                                    quality={85}
+                                    quality={70}
                                     placeholder="blur"
                                     blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                                     className="object-cover md:hidden"
