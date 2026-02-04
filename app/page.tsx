@@ -394,8 +394,6 @@ export default function HomePage() {
                             'Imóvel de alto padrão gerenciado pela BeeStay para short stay',
                             'Rentabilidade garantida com gestão completa de propriedades'
                         ]
-                        // Only render first slide initially, others after interaction
-                        if (index > 0 && currentSlide === 0) return null
                         
                         return (
                             <div
@@ -403,7 +401,7 @@ export default function HomePage() {
                                 ref={(el) => {
                                     if (el) heroImageRefs.current[index] = el
                                 }}
-                                className={`hero-slide absolute inset-0 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
+                                className={`hero-slide absolute inset-0 transition-opacity duration-1500 ${index === currentSlide ? 'opacity-100 z-[2]' : 'opacity-0 z-[1]'}`}
                             >
                                 <Image
                                     src={image}
@@ -426,13 +424,11 @@ export default function HomePage() {
                             'Imóvel de alto padrão gerenciado pela BeeStay para short stay',
                             'Rentabilidade garantida com gestão completa de propriedades'
                         ]
-                        // Only render first slide initially, others after interaction
-                        if (index > 0 && currentSlide === 0) return null
                         
                         return (
                             <div
                                 key={`mobile-${index}`}
-                                className={`hero-slide absolute inset-0 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
+                                className={`hero-slide absolute inset-0 transition-opacity duration-1500 ${index === currentSlide ? 'opacity-100 z-[2]' : 'opacity-0 z-[1]'}`}
                             >
                                 <Image
                                     src={image}
@@ -979,7 +975,7 @@ export default function HomePage() {
                         <div className="text-center md:text-left">
                             <Image src={getImagePath("/logo_branco.svg")} alt="BeeStay" width={480} height={128} className="h-16 w-auto mb-4 mx-auto md:mx-0" />
                             <p className="text-gray-400 text-sm leading-relaxed">
-                                Gestão profissional de locação curta temporada com excelência hoteleira.
+                                Gestão profissional de locação de curta temporada com excelência hoteleira.
                             </p>
                         </div>
 
@@ -1000,16 +996,6 @@ export default function HomePage() {
                         <div className="text-center md:text-left">
                             <h4 className="text-white font-semibold mb-4 text-sm">Contato</h4>
                             <div className="space-y-3 mb-6">
-                                {/* Botão Telefone */}
-                                <a 
-                                    href="tel:+5547992879066" 
-                                    className="flex items-center justify-center gap-3 px-4 py-3 border-2 border-white/20 bg-white/5 rounded-lg hover:border-bee-gold hover:bg-bee-gold/10 transition-all group mx-auto md:mx-0 max-w-xs"
-                                >
-                                    <svg className="w-5 h-5 text-gray-300 group-hover:text-bee-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                    </svg>
-                                    <span className="text-sm text-gray-300 group-hover:text-bee-gold transition-colors">(47) 99287-9066</span>
-                                </a>
 
                                 {/* Botão Email */}
                                 <a 

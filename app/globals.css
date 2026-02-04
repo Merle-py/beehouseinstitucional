@@ -36,9 +36,22 @@
     }
 }
 
-.hero-slide {
-    transition: opacity 1.5s ease-in-out !important;
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
+.animate-slideDown {
+    animation: slideDown 0.2s ease-out;
+}
+
+/* Hero slide transition - removed inline style, using class */
 
 @theme {
     /* Paleta BeeStay - Simples e Direta */
