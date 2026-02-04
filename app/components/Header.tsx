@@ -109,76 +109,85 @@ export function Header() {
                 </div>
             </nav>
 
-            {/* Mobile Menu Overlay - Outside nav */}
+            {/* Mobile Menu - Fullscreen Overlay Modern */}
             <div 
-                id="mobile-menu" 
-                className={`md:hidden fixed left-1/4 right-0 top-0 h-[calc(100vh+10px)] bg-white/95 backdrop-blur-md shadow-2xl border-l border-gray-200 overflow-y-auto transition-all duration-300 ${
+                className={`md:hidden fixed inset-0 bg-white transition-all duration-500 z-[60] ${
                     isMenuOpen 
-                        ? 'opacity-100 translate-x-0 pointer-events-auto z-[60]' 
-                        : 'opacity-0 translate-x-full pointer-events-none z-[-1]'
+                        ? 'opacity-100 pointer-events-auto' 
+                        : 'opacity-0 pointer-events-none'
                 }`}
-                role="menu"
             >
-                {/* Botão fechar - Fixo no topo */}
-                <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-md flex justify-end items-center px-6 py-4 border-b border-gray-200">
-                    <button
-                        onClick={closeMenu}
-                        className="text-text-gray hover:text-bee-gold transition-colors p-2 rounded-lg hover:bg-gray-100"
-                        aria-label="Fechar menu"
-                    >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
+                {/* Close Button */}
+                <button
+                    onClick={closeMenu}
+                    className="absolute top-6 right-6 text-text-gray hover:text-bee-gold transition-colors p-2"
+                    aria-label="Fechar menu"
+                >
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
 
-                {/* Menu items */}
-                <div className="flex flex-col px-6 py-6 space-y-1">
+                {/* Menu Content - Centered */}
+                <div className="h-full flex flex-col items-center justify-center px-8">
+                    <nav className="flex flex-col items-center space-y-6 w-full max-w-sm">
                         <a
                             href="#home"
-                            className={`text-sm transition-all font-medium py-2.5 px-4 rounded-lg ${activeSection === 'home' ? 'text-bee-gold bg-bee-gold/5' : 'text-text-gray hover:text-bee-gold hover:bg-gray-50'
-                                }`}
+                            className={`text-2xl font-medium transition-all duration-300 ${
+                                activeSection === 'home' 
+                                    ? 'text-bee-gold scale-110' 
+                                    : 'text-text-gray hover:text-bee-gold hover:scale-105'
+                            }`}
                             onClick={closeMenu}
                         >
                             Início
                         </a>
                         <a
                             href="#servicos"
-                            className={`text-sm transition-all font-medium py-2.5 px-4 rounded-lg ${activeSection === 'servicos' ? 'text-bee-gold bg-bee-gold/5' : 'text-text-gray hover:text-bee-gold hover:bg-gray-50'
-                                }`}
+                            className={`text-2xl font-medium transition-all duration-300 ${
+                                activeSection === 'servicos' 
+                                    ? 'text-bee-gold scale-110' 
+                                    : 'text-text-gray hover:text-bee-gold hover:scale-105'
+                            }`}
                             onClick={closeMenu}
                         >
                             Serviços
                         </a>
                         <a
                             href="#processo"
-                            className={`text-sm transition-all font-medium py-2.5 px-4 rounded-lg ${activeSection === 'processo' ? 'text-bee-gold bg-bee-gold/5' : 'text-text-gray hover:text-bee-gold hover:bg-gray-50'
-                                }`}
+                            className={`text-2xl font-medium transition-all duration-300 ${
+                                activeSection === 'processo' 
+                                    ? 'text-bee-gold scale-110' 
+                                    : 'text-text-gray hover:text-bee-gold hover:scale-105'
+                            }`}
                             onClick={closeMenu}
                         >
                             Processo
                         </a>
                         <a
                             href="#faq"
-                            className={`text-sm transition-all font-medium py-2.5 px-4 rounded-lg ${activeSection === 'faq' ? 'text-bee-gold bg-bee-gold/5' : 'text-text-gray hover:text-bee-gold hover:bg-gray-50'
-                                }`}
+                            className={`text-2xl font-medium transition-all duration-300 ${
+                                activeSection === 'faq' 
+                                    ? 'text-bee-gold scale-110' 
+                                    : 'text-text-gray hover:text-bee-gold hover:scale-105'
+                            }`}
                             onClick={closeMenu}
                         >
                             FAQ
                         </a>
                         
-                        <div className="h-px bg-gray-200 my-2"></div>
+                        <div className="w-16 h-px bg-gray-300 my-4"></div>
                         
                         <a
                             href="/politica-privacidade"
-                            className="text-sm transition-all font-medium py-2.5 px-4 rounded-lg text-text-gray hover:text-bee-gold hover:bg-gray-50"
+                            className="text-sm text-text-light hover:text-bee-gold transition-colors"
                             onClick={closeMenu}
                         >
                             Política de Privacidade
                         </a>
                         <a
                             href="/termos-uso"
-                            className="text-sm transition-all font-medium py-2.5 px-4 rounded-lg text-text-gray hover:text-bee-gold hover:bg-gray-50"
+                            className="text-sm text-text-light hover:text-bee-gold transition-colors"
                             onClick={closeMenu}
                         >
                             Termos de Uso
@@ -186,12 +195,13 @@ export function Header() {
                         
                         <a
                             href="#contato"
-                            className="bg-bee-gold hover:bg-bee-gold-dark text-white px-5 py-2.5 rounded-lg font-semibold transition-all text-center text-sm mt-3 hover:shadow-lg active:scale-95"
+                            className="bg-bee-gold hover:bg-bee-gold-dark text-white px-8 py-3 rounded font-bold transition-all text-base mt-6 hover:shadow-xl hover:scale-105 active:scale-95"
                             onClick={closeMenu}
                         >
                             Agendar Consultoria
                         </a>
-                    </div>
+                    </nav>
+                </div>
             </div>
         </>
     )
