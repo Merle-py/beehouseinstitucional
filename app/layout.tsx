@@ -109,17 +109,10 @@ export default function RootLayout({
                 <link rel="preload" href="/hero-1.webp" as="image" type="image/webp" fetchPriority="high" />
                 <link rel="preload" href="/mobile1.webp" as="image" type="image/webp" media="(max-width: 768px)" />
 
-                {/* Preload Critical Fonts - Netflix Strategy */}
+                {/* Preload Only Critical Font Weight - Inter 400 for body text */}
                 <link
                     rel="preload"
                     href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZ9hiA.woff2"
                     as="font"
                     type="font/woff2"
                     crossOrigin="anonymous"
