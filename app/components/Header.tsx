@@ -137,6 +137,28 @@ export function Header() {
                                 Processo
                             </a>
                             <a
+                                href="#faq"
+                                className={`text-lg transition-colors font-medium py-3 border-b border-gray-100 ${activeSection === 'faq' ? 'text-bee-gold' : 'text-text-gray hover:text-bee-gold'
+                                    }`}
+                                onClick={closeMenu}
+                            >
+                                FAQ
+                            </a>
+                            <a
+                                href="/politica-privacidade"
+                                className="text-lg transition-colors font-medium py-3 border-b border-gray-100 text-text-gray hover:text-bee-gold"
+                                onClick={closeMenu}
+                            >
+                                Política de Privacidade
+                            </a>
+                            <a
+                                href="/termos-uso"
+                                className="text-lg transition-colors font-medium py-3 border-b border-gray-100 text-text-gray hover:text-bee-gold"
+                                onClick={closeMenu}
+                            >
+                                Termos de Uso
+                            </a>
+                            <a
                                 href="#contato"
                                 className="bg-bee-gold hover:bg-bee-gold-dark text-white px-6 py-3 rounded font-semibold transition-all text-center mt-4 hover:shadow-lg active:scale-95"
                                 onClick={closeMenu}

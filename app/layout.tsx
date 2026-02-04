@@ -98,9 +98,7 @@ export default function RootLayout({
         <html lang="pt-BR" className="scroll-smooth">
             <head>
                 {/* DNS Prefetch & Preconnect for external resources - Elite Performance */}
-                <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
-                <link rel="preconnect" href="https://cdn.bitrix24.com.br" crossOrigin="anonymous" />
-                <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+                <link rel="preconnect" href="https://www.googletagmanager.com" />
                 <link rel="dns-prefetch" href="https://cdn.bitrix24.com.br" />
                 <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
@@ -174,13 +172,13 @@ export default function RootLayout({
                 <StructuredData />
                 {children}
 
-                {/* Google Analytics - Optimized with Minimal Performance Impact */}
+                {/* Google Analytics - Lazy loaded for better FCP */}
                 <Script
                     id="gtag-init"
-                    strategy="afterInteractive"
+                    strategy="lazyOnload"
                     src="https://www.googletagmanager.com/gtag/js?id=G-522STP288V"
                 />
-                <Script id="gtag-config" strategy="afterInteractive">
+                <Script id="gtag-config" strategy="lazyOnload">
                     {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -192,9 +190,6 @@ export default function RootLayout({
             });
           `}
                 </Script>
-
-                {/* Preconnect Google Analytics for faster load */}
-                <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
             </body>
         </html>
     )
