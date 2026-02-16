@@ -128,9 +128,9 @@ export function Header() {
                     </svg>
                 </button>
 
-                {/* Menu Content - Centered */}
-                <div className="h-full flex flex-col items-center justify-center px-8">
-                    <nav className="flex flex-col items-center space-y-6 w-full max-w-sm">
+                {/* Menu Content - Right Aligned */}
+                <div className="h-full flex flex-col items-end justify-center px-8 pr-12">
+                    <nav className="flex flex-col items-end space-y-6 w-full max-w-sm">
                         <a
                             href="#home"
                             className={`text-2xl font-medium transition-all duration-300 ${
@@ -144,7 +144,7 @@ export function Header() {
                         </a>
                         <a
                             href="#servicos"
-                            className={`text-2xl font-medium transition-all duration-300 ${
+                            className={`text-2xl font-medium transition-all duration-300 text-right ${
                                 activeSection === 'servicos' 
                                     ? 'text-bee-gold scale-110' 
                                     : 'text-text-gray hover:text-bee-gold hover:scale-105'
@@ -155,7 +155,7 @@ export function Header() {
                         </a>
                         <a
                             href="#processo"
-                            className={`text-2xl font-medium transition-all duration-300 ${
+                            className={`text-2xl font-medium transition-all duration-300 text-right ${
                                 activeSection === 'processo' 
                                     ? 'text-bee-gold scale-110' 
                                     : 'text-text-gray hover:text-bee-gold hover:scale-105'
@@ -166,7 +166,7 @@ export function Header() {
                         </a>
                         <a
                             href="#faq"
-                            className={`text-2xl font-medium transition-all duration-300 ${
+                            className={`text-2xl font-medium transition-all duration-300 text-right ${
                                 activeSection === 'faq' 
                                     ? 'text-bee-gold scale-110' 
                                     : 'text-text-gray hover:text-bee-gold hover:scale-105'
@@ -180,14 +180,14 @@ export function Header() {
                         
                         <a
                             href="/politica-privacidade"
-                            className="text-sm text-text-light hover:text-bee-gold transition-colors"
+                            className="text-sm text-text-light hover:text-bee-gold transition-colors text-right"
                             onClick={closeMenu}
                         >
                             Política de Privacidade
                         </a>
                         <a
                             href="/termos-uso"
-                            className="text-sm text-text-light hover:text-bee-gold transition-colors"
+                            className="text-sm text-text-light hover:text-bee-gold transition-colors text-right"
                             onClick={closeMenu}
                         >
                             Termos de Uso
