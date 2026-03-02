@@ -46,11 +46,11 @@ export const metadata: Metadata = {
         siteName: 'BeeStay',
         images: [
             {
-                url: '/hero-1.webp',
+                url: '/og-image-v2.webp',
                 width: 1200,
                 height: 630,
-                alt: 'BeeStay - Gestão Profissional de Imóveis para Short Stay',
-                type: 'image/webp',
+                alt: 'BeeStay - Gestão eficiente. Estadia perfeita.',
+                type: 'image/png',
             },
         ],
         locale: 'pt_BR',
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'BeeStay - Gestão Profissional para Short Stay',
         description: 'Aumente até 51% a rentabilidade do seu imóvel com gestão profissional',
-        images: ['/hero-1.webp'],
+        images: ['/og-image-v2.webp'],
         creator: '@beestay',
         site: '@beestay',
     },
@@ -97,6 +97,25 @@ export default function RootLayout({
     return (
         <html lang="pt-BR" className="scroll-smooth">
             <head>
+                {/* Google Tag Manager */}
+                <Script
+                    id="gtm-script"
+                    strategy="beforeInteractive"
+                    dangerouslySetInnerHTML={{
+                        __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-M23NHS78');`
+                    }}
+                />
+
+                {/* Google Analytics GA4 - G-8RD8STP4NT */}
+                <Script
+                    id="ga4-init"
+                    strategy="lazyOnload"
+                    src="https://www.googletagmanager.com/gtag/js?id=G-8RD8STP4NT"
+                />
+                <Script id="ga4-config" strategy="lazyOnload">
+                    {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-8RD8STP4NT');`}
+                </Script>
+
                 {/* DNS Prefetch & Preconnect for external resources - Elite Performance */}
                 <link rel="preconnect" href="https://www.googletagmanager.com" />
                 <link rel="dns-prefetch" href="https://cdn.bitrix24.com.br" />
@@ -106,6 +125,15 @@ export default function RootLayout({
                 <link rel="preload" href="/logo_preto.svg" as="image" type="image/svg+xml" />
                 <link rel="preload" href="/mobile1.webp" as="image" type="image/webp" media="(max-width: 768px)" fetchPriority="high" />
                 <link rel="preload" href="/hero-1.webp" as="image" type="image/webp" media="(min-width: 769px)" fetchPriority="high" />
+
+                {/* Preload Verdana Pro - used for headings */}
+                <link
+                    rel="preload"
+                    href="/fonts/verdana-pro/verdana-pro-light.ttf"
+                    as="font"
+                    type="font/ttf"
+                    crossOrigin="anonymous"
+                />
 
                 {/* Preload Only Critical Font Weight - Inter 400 for body text */}
                 <link
@@ -128,10 +156,7 @@ export default function RootLayout({
                 {/* Format Detection - Better UX on Mobile */}
                 <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
 
-                {/* Security & Privacy Headers */}
-                <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
-                <meta httpEquiv="X-Frame-Options" content="SAMEORIGIN" />
-                <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
+                {/* Referrer Policy */}
                 <meta name="referrer" content="strict-origin-when-cross-origin" />
 
                 {/* Geo Tags - Local SEO Boost */}
@@ -162,34 +187,28 @@ export default function RootLayout({
                     *,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:currentColor}
                     html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-feature-settings:normal}
                     body{margin:0;line-height:inherit}
+                    h1,h2{font-family:'Verdana Pro',Georgia,serif;font-weight:100}
                     .scroll-smooth{scroll-behavior:smooth}
                     .bg-white{background-color:#fff}
                     .text-gray-900{color:rgb(17 24 39)}
                     .antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
                 `}} />
             </head>
-            <body className="font-sans bg-white text-gray-900 antialiased" style={{ fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif' }}>
+            <body className="font-sans bg-white text-gray-900 antialiased">
+                {/* Google Tag Manager (noscript) */}
+                <noscript>
+                    <iframe
+                        src="https://www.googletagmanager.com/ns.html?id=GTM-M23NHS78"
+                        height="0"
+                        width="0"
+                        style={{ display: 'none', visibility: 'hidden' }}
+                    />
+                </noscript>
+
                 <StructuredData />
                 {children}
 
-                {/* Google Analytics - Lazy loaded for better FCP */}
-                <Script
-                    id="gtag-init"
-                    strategy="lazyOnload"
-                    src="https://www.googletagmanager.com/gtag/js?id=G-522STP288V"
-                />
-                <Script id="gtag-config" strategy="lazyOnload">
-                    {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-522STP288V', {
-              page_path: window.location.pathname,
-              send_page_view: true,
-              cookie_flags: 'SameSite=None;Secure'
-            });
-          `}
-                </Script>
+
             </body>
         </html>
     )

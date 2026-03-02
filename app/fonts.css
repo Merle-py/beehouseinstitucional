@@ -1,3 +1,12 @@
+/* Verdana Pro - Self-hosted */
+@font-face {
+    font-family: 'Verdana Pro';
+    font-style: normal;
+    font-weight: 100;
+    font-display: swap;
+    src: url('/fonts/verdana-pro/verdana-pro-light.ttf') format('truetype');
+}
+
 /* Inter font - Self-hosted for maximum performance */
 /* Latin character set optimized */
 

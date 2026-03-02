@@ -2,35 +2,37 @@
 
 /* Screen reader only - for accessibility */
 .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
 
 .focus\:not-sr-only:focus {
-  position: static;
-  width: auto;
-  height: auto;
-  padding: 0;
-  margin: 0;
-  overflow: visible;
-  clip: auto;
-  white-space: normal;
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
 }
 
 @keyframes zoomIn {
     0% {
         transform: scale(1);
     }
+
     70% {
         transform: scale(1.05);
     }
+
     100% {
         transform: scale(1.05);
     }
@@ -41,6 +43,7 @@
         opacity: 0;
         transform: translateY(-10px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -137,10 +140,12 @@
     transform: rotate(45deg);
 }
 
-/* Editorial Typography - Playfair Display for Headlines */
-h1, h2, .heading-serif {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 700;
+/* Editorial Typography - Verdana Pro for Headlines */
+h1,
+h2,
+.heading-serif {
+    font-family: 'Verdana Pro', Georgia, serif;
+    font-weight: 100;
     letter-spacing: -0.02em;
 }
 

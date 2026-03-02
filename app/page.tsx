@@ -20,10 +20,11 @@ export default function HomePage() {
     const [isMobile, setIsMobile] = useState(false)
     const [carouselsReady, setCarouselsReady] = useState(false)
     const [showGradients, setShowGradients] = useState(false)
+    const [showVideo, setShowVideo] = useState(false)
 
     // Embla Carousel for Logos - defer initialization
     const [emblaRef] = useEmblaCarousel(
-        { loop: true, watchDrag: false }, 
+        { loop: true, watchDrag: false },
         carouselsReady ? [AutoScroll({ playOnInit: true, stopOnInteraction: false, speed: 0.5 })] : []
     )
 
@@ -54,7 +55,6 @@ export default function HomePage() {
     const heroImagesDesktop = [
         getImagePath('/hero-1.webp'),
         getImagePath('/hero-2.webp'),
-        getImagePath('/hero-1.webp'),
     ]
 
     // Hero slideshow images - Mobile
@@ -117,6 +117,7 @@ export default function HomePage() {
     ]
 
     const heroImageRefs = useRef<(HTMLDivElement | null)[]>([])
+    const heroMobileImageRefs = useRef<(HTMLDivElement | null)[]>([])
 
     // Defer carousels initialization for better FCP
     useEffect(() => {
@@ -125,7 +126,7 @@ export default function HomePage() {
             setCarouselsReady(true)
             setShowGradients(true)
         }, 100)
-        
+
         return () => clearTimeout(timer)
     }, [])
 
@@ -201,12 +202,15 @@ export default function HomePage() {
         return () => clearInterval(interval)
     }, [heroImages.length])
 
-    // Control zoom animation to play only for active slide
+    // Control zoom animation to play only for active slide (desktop + mobile)
     useEffect(() => {
-        heroImageRefs.current.forEach((ref, index) => {
+        const allRefs = [
+            ...heroImageRefs.current.map((ref, i) => ({ ref, index: i })),
+            ...heroMobileImageRefs.current.map((ref, i) => ({ ref, index: i })),
+        ]
+        allRefs.forEach(({ ref, index }) => {
             if (ref) {
                 if (index === currentSlide) {
-                    // Reset and start animation for active slide
                     ref.style.animation = 'none'
                     void ref.offsetWidth // Force reflow
                     ref.style.animation = 'zoomIn 5.5s ease-out forwards'
@@ -269,6 +273,93 @@ export default function HomePage() {
 
     // Load Bitrix24 form script
     useEffect(() => {
+        // Phone mask - user types only digits:
+        // ≤11 digits → Brazilian:      (DD) DDDDD-DDDD
+        // >11 digits → International:  +CC (DD) DDDDD-DDDD (CC auto-detected)
+        const applyPhoneMask = (input: HTMLInputElement) => {
+            const mask = (value: string): string => {
+                // Strip everything except digits — user never needs to type '+'
+                const d = value.replace(/\D/g, '').slice(0, 14)
+
+                if (d.length === 0) return ''
+
+                if (d.length <= 11) {
+                    // Brazilian format: (DD) DDDD-DDDD or (DD) DDDDD-DDDD
+                    if (d.length < 2) return d
+                    if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`
+                    if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`
+                    return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`
+                }
+
+                // International: detect CC length from total digit count
+                // +1 / +7 → 1-digit CC  (12 digits total: 1 CC + 11 local)
+                // +55 etc → 2-digit CC  (13 digits total: 2 CC + 11 local)
+                // +598 etc→ 3-digit CC  (14 digits total: 3 CC + 11 local)
+                let cc: string, local: string
+                if (d[0] === '1' || d[0] === '7') {
+                    cc = d.slice(0, 1); local = d.slice(1)
+                } else if (d.length <= 13) {
+                    cc = d.slice(0, 2); local = d.slice(2)
+                } else {
+                    cc = d.slice(0, 3); local = d.slice(3)
+                }
+
+                if (!local) return `+${cc}`
+                if (local.length <= 2) return `+${cc} (${local}`
+                if (local.length <= 6) return `+${cc} (${local.slice(0, 2)}) ${local.slice(2)}`
+                if (local.length <= 10) return `+${cc} (${local.slice(0, 2)}) ${local.slice(2, 6)}-${local.slice(6)}`
+                return `+${cc} (${local.slice(0, 2)}) ${local.slice(2, 7)}-${local.slice(7, 11)}`
+            }
+
+            const handler = () => {
+                const pos = input.selectionStart ?? 0
+                const formatted = mask(input.value)
+                input.value = formatted
+                try { input.setSelectionRange(pos, pos) } catch { }
+            }
+
+            input.addEventListener('input', handler)
+            input.addEventListener('change', handler)
+            if (input.value) input.value = mask(input.value)
+        }
+
+        // Hide label directly via JS using correct Bitrix24 selectors
+        const setupLabel = (input: HTMLInputElement | HTMLTextAreaElement) => {
+            // Label is the next sibling with class b24-form-control-label
+            let label = input.nextElementSibling as HTMLElement | null
+            if (!label || !label.classList.contains('b24-form-control-label')) {
+                // fallback: search within parent container
+                const container = input.closest('.b24-form-control-container') as HTMLElement | null
+                label = container?.querySelector('.b24-form-control-label') as HTMLElement | null
+            }
+            if (!label) return
+
+            label.style.transition = 'opacity 0.2s ease'
+
+            const hide = () => {
+                label!.style.opacity = '0'
+                label!.style.pointerEvents = 'none'
+            }
+            const show = () => {
+                if (!input.value || input.value.trim() === '') {
+                    // Clear all inline styles so Bitrix24's default CSS takes over
+                    label!.style.opacity = ''
+                    label!.style.pointerEvents = ''
+                    label!.style.top = ''
+                    label!.style.transform = ''
+                    label!.style.fontSize = ''
+                }
+            }
+
+            if (input.value && input.value.trim() !== '') hide()
+
+            input.addEventListener('focus', hide)
+            input.addEventListener('blur', show)
+            input.addEventListener('input', () => {
+                if (input.value && input.value.trim() !== '') hide()
+            })
+        }
+
         // Create the script element with the exact Bitrix24 code
         const script = document.createElement('script')
         script.setAttribute('data-b24-form', 'inline/391/tud5rt')
@@ -284,7 +375,7 @@ export default function HomePage() {
             const timeout = setTimeout(() => {
                 setFormLoaded(true)
 
-                // Add input listeners for placeholder control
+                // Poll until inputs are available
                 const formCheckInterval = setInterval(() => {
                     const inputs = container.querySelectorAll('input, textarea')
                     if (inputs.length > 0) {
@@ -293,32 +384,29 @@ export default function HomePage() {
                         inputs.forEach((input: Element) => {
                             const inputElement = input as HTMLInputElement | HTMLTextAreaElement
 
-                            const checkValue = () => {
-                                if (inputElement.value && inputElement.value.trim() !== '') {
-                                    inputElement.classList.add('has-value')
-                                } else {
-                                    inputElement.classList.remove('has-value')
-                                }
+                            // Detect phone field by type, name, placeholder or autocomplete
+                            const isPhone =
+                                inputElement.getAttribute('type') === 'tel' ||
+                                (inputElement.getAttribute('placeholder') || '').toLowerCase().includes('telef') ||
+                                (inputElement.getAttribute('name') || '').toLowerCase().includes('phone') ||
+                                (inputElement.getAttribute('name') || '').toLowerCase().includes('tel')
+
+                            if (isPhone && inputElement instanceof HTMLInputElement) {
+                                applyPhoneMask(inputElement)
                             }
 
-                            // Check initial value
-                            checkValue()
-
-                            // Add listeners
-                            inputElement.addEventListener('input', checkValue)
-                            inputElement.addEventListener('change', checkValue)
-                            inputElement.addEventListener('blur', checkValue)
+                            // Setup label hiding
+                            setupLabel(inputElement)
                         })
                     }
                 }, 100)
 
-                // Clear interval after 5 seconds if form doesn't load
-                setTimeout(() => clearInterval(formCheckInterval), 5000)
+                // Clear interval after 10 seconds if form doesn't load
+                setTimeout(() => clearInterval(formCheckInterval), 10000)
             }, 2000)
 
             return () => {
                 clearTimeout(timeout)
-                // Cleanup
                 if (script.parentNode) {
                     script.parentNode.removeChild(script)
                 }
@@ -381,6 +469,32 @@ export default function HomePage() {
                 #bitrix-form-container textarea.has-value::placeholder {
                     opacity: 0;
                 }
+
+                /* --- Bitrix24 Floating Label Fix --- */
+                /* Label is .b24-form-control-label, sibling of .b24-form-control */
+
+                /* Base transition on the label */
+                #bitrix-form-container .b24-form-control-label {
+                    transition: opacity 0.2s ease, top 0.18s linear !important;
+                }
+
+                /* Hide when input is focused */
+                #bitrix-form-container .b24-form-control-container:focus-within .b24-form-control-label {
+                    opacity: 0 !important;
+                    pointer-events: none !important;
+                    top: 26px !important;
+                    transform: none !important;
+                    font-size: 14px !important;
+                }
+
+                /* Hide when input has value (.b24-form-control-not-empty is added by Bitrix24) */
+                #bitrix-form-container .b24-form-control.b24-form-control-not-empty ~ .b24-form-control-label {
+                    opacity: 0 !important;
+                    pointer-events: none !important;
+                    top: 26px !important;
+                    transform: none !important;
+                    font-size: 14px !important;
+                }
             `}</style>
             <Header />
 
@@ -394,14 +508,14 @@ export default function HomePage() {
                             'Imóvel de alto padrão gerenciado pela BeeStay para short stay',
                             'Rentabilidade garantida com gestão completa de propriedades'
                         ]
-                        
+
                         return (
                             <div
                                 key={`desktop-${index}`}
                                 ref={(el) => {
                                     if (el) heroImageRefs.current[index] = el
                                 }}
-                                className={`hero-slide absolute inset-0 transition-opacity duration-1500 ${index === currentSlide ? 'opacity-100 z-[2]' : 'opacity-0 z-[1]'}`}
+                                className={`hero-slide absolute inset-0 transition-opacity duration-1500 ${index === currentSlide ? 'opacity-100 z-2' : 'opacity-0 z-1'}`}
                             >
                                 <Image
                                     src={image}
@@ -424,11 +538,12 @@ export default function HomePage() {
                             'Imóvel de alto padrão gerenciado pela BeeStay para short stay',
                             'Rentabilidade garantida com gestão completa de propriedades'
                         ]
-                        
+
                         return (
                             <div
                                 key={`mobile-${index}`}
-                                className={`hero-slide absolute inset-0 transition-opacity duration-1500 ${index === currentSlide ? 'opacity-100 z-[2]' : 'opacity-0 z-[1]'}`}
+                                ref={(el) => { if (el) heroMobileImageRefs.current[index] = el }}
+                                className={`hero-slide absolute inset-0 transition-opacity duration-1500 ${index === currentSlide ? 'opacity-100 z-2' : 'opacity-0 z-1'}`}
                             >
                                 <Image
                                     src={image}
@@ -446,48 +561,60 @@ export default function HomePage() {
                         )
                     })}
                     {/* Dark overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent z-10 pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-black/50 z-10 pointer-events-none"></div>
                 </div>
 
                 {/* Content */}
-                <div className="relative z-10 container mx-auto px-6 lg:px-16 min-h-[calc(100vh-5rem)] flex items-center">
-                    <div className="max-w-2xl py-16 lg:py-0">
+                <div className="relative z-10 w-full min-h-[calc(100vh-5rem)] flex items-center justify-center text-center px-4 md:px-8">
+                    <div className="w-full max-w-6xl py-16 lg:py-0 flex flex-col items-center px-4 md:px-8">
 
                         {/* Headline */}
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-8 font-bold drop-shadow-lg">
-                            Seu imóvel pode <span className="text-bee-gold">render mais</span> no Airbnb.
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-2 font-bold drop-shadow-lg mx-auto max-w-4xl">
+                            Maximize a rentabilidade  do seu imóvel no <span className="text-bee-gold">Airbnb</span>
                         </h1>
 
                         {/* Subheadline */}
-                        <p className="text-lg text-white/90 leading-relaxed mb-10 drop-shadow">
-                            Elevamos a performance do seu imóvel com <span style={{ fontWeight: 'bold' }} className="text-bee-gold">gestão profissional</span> e estadias que geram valor.
+                        <p className="text-lg md:text-xl font-light text-white/90 leading-relaxed mb-16 drop-shadow max-w-2xl mx-auto">
+                            Elevamos seus resultados com <span className="text-bee-gold font-normal">gestão profissional</span> e estratégias que geram valor.
                         </p>
 
+                        {/* Trust indicators */}
+                        <div className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center gap-2 md:gap-4 text-xs md:text-sm text-white/90 w-full mt-2 md:mt-4 mb-12" role="list">
+                            <div className="flex items-center justify-center gap-1.5 md:gap-2 bg-white/10 px-2 py-2 md:px-4 md:py-2 rounded-full border border-white/20 backdrop-blur-sm" role="listitem">
+                                <svg className="w-3.5 h-3.5 md:w-4 md:h-4 text-bee-gold shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
+                                <span className="font-medium whitespace-nowrap">Tecnologia de ponta</span>
+                            </div>
+                            <div className="flex items-center justify-center gap-1.5 md:gap-2 bg-white/10 px-2 py-2 md:px-4 md:py-2 rounded-full border border-white/20 backdrop-blur-sm" role="listitem">
+                                <svg className="w-3.5 h-3.5 md:w-4 md:h-4 text-bee-gold shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
+                                <span className="font-medium whitespace-nowrap">Alta performance</span>
+                            </div>
+                            <div className="flex items-center justify-center gap-1.5 md:gap-2 bg-white/10 px-2 py-2 md:px-4 md:py-2 rounded-full border border-white/20 backdrop-blur-sm" role="listitem">
+                                <svg className="w-3.5 h-3.5 md:w-4 md:h-4 text-bee-gold shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
+                                <span className="font-medium whitespace-nowrap">Padrão de hotelaria</span>
+                            </div>
+                            <div className="flex items-center justify-center gap-1.5 md:gap-2 bg-white/10 px-2 py-2 md:px-4 md:py-2 rounded-full border border-white/20 backdrop-blur-sm" role="listitem">
+                                <svg className="w-3.5 h-3.5 md:w-4 md:h-4 text-bee-gold shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
+                                <span className="font-medium whitespace-nowrap">Governança</span>
+                            </div>
+                        </div>
+
                         {/* CTAs */}
-                        <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                        <div className="flex flex-col sm:flex-row gap-4 mb-4 items-center justify-center w-full">
                             <a
                                 href="#contato"
-                                className="bg-bee-gold hover:bg-bee-gold-dark text-white px-8 py-4 rounded font-semibold transition-all inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                                className="bg-[#1c1c1c]/30 ring-2 ring-bee-gold text-bee-gold hover:bg-bee-gold hover:text-black w-[90vw] sm:w-125 max-w-[90vw] lg:max-w-[14vw] py-2 rounded font-semibold transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 text-lg backdrop-blur-md"
                                 aria-label="Saiba mais sobre gestão de imóveis BeeStay"
                             >
                                 Saiba mais
                             </a>
-                        </div>
-
-                        {/* Trust indicators */}
-                        <div className="flex items-center gap-6 text-sm text-white/90" role="list">
-                            <div className="flex items-center gap-2" role="listitem">
-                                <svg className="w-4 h-4 text-bee-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                </svg>
-                                <span>Responsabilidade total</span>
-                            </div>
-                            <div className="flex items-center gap-2" role="listitem">
-                                <svg className="w-4 h-4 text-bee-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                </svg>
-                                <span>Zelo em cada detalhe</span>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -502,7 +629,7 @@ export default function HomePage() {
                             Seu imóvel em boas mãos
                         </h2>
                         <p className="text-base text-text-gray max-w-2xl mx-auto">
-                            Gestão completa de locação curta temporada para sua propriedade
+                            Gestão completa de locação de curta temporada para sua propriedade
                         </p>
                     </div>
 
@@ -596,45 +723,59 @@ export default function HomePage() {
                 </div>
             </section>
 
-        
+
 
             {/* CTA Section - High Conversion Premium (Moved Up) */}
             <section className="py-12 md:py-16 px-4 md:px-8 lg:px-16 bg-white overflow-hidden">
-                <div className="bg-bee-black rounded-[2rem] md:rounded-[3rem] overflow-hidden relative isolate shadow-2xl max-w-7xl mx-auto">
+                <div className="bg-bee-black rounded-4xl md:rounded-[3rem] overflow-hidden relative isolate shadow-2xl max-w-7xl mx-auto">
                     {/* Background Texture & Glow */}
                     <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-10 mix-blend-overlay"></div>
-                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-bee-gold/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+                    <div className="absolute top-0 right-0 w-125 h-125 bg-bee-gold/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
 
                     <div className="grid lg:grid-cols-2 gap-0 lg:gap-12 items-stretch w-full max-w-full">
 
-                        {/* Left - Video Side (Full Height Cover) */}
-                        <div className="relative h-[300px] lg:h-auto lg:min-h-[400px] w-full flex items-center justify-center p-4 md:p-6 lg:pl-12 lg:pr-6">
-                            <div className="w-full max-w-full group cursor-pointer">
-                                <div className="relative rounded-2xl overflow-hidden aspect-video border border-white/10 shadow-2xl transition-all duration-500 group-hover:border-bee-gold/50 group-hover:shadow-[0_0_30px_rgba(249,180,16,0.15)]">
-                                    {/* Thumbnail Image (Darkened) */}
-                                    <Image
-                                        src="https://images.unsplash.com/photo-1600596542815-6ad4c12756ab?q=80&w=1000"
-                                        className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500"
-                                        alt="Imóvel gerenciado pela BeeStay nas plataformas Airbnb, Booking, Expedia e Decolar"
-                                        fill
-                                        sizes="(max-width: 1024px) 100vw, 50vw"
-                                    />
+                        {/* Left - Video Side (Vertical/Shorts) */}
+                        <div className="relative w-full flex items-center justify-center p-14 md:p-6 lg:pl-12 lg:pr-6">
+                            <div className="w-full max-w-60 md:max-w-[320px] mx-auto group" style={{ cursor: showVideo ? 'default' : 'pointer' }} onClick={() => !showVideo && setShowVideo(true)}>
+                                <div className="relative rounded-2xl overflow-hidden aspect-9/16 border border-white/10 shadow-2xl transition-all duration-500 group-hover:border-bee-gold/50 group-hover:shadow-[0_0_30px_rgba(249,180,16,0.15)]">
+                                    {showVideo ? (
+                                        <iframe
+                                            src="https://www.youtube.com/embed/AU5YxXjzBgY?autoplay=1&mute=1&playsinline=1"
+                                            title="BeeStay - Vídeo institucional"
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            referrerPolicy="strict-origin-when-cross-origin"
+                                            allowFullScreen
+                                            className="absolute inset-0 w-full h-full"
+                                        />
+                                    ) : (
+                                        <>
+                                            {/* Thumbnail Image (Darkened) */}
+                                            <Image
+                                                src="/capa-video.webp"
+                                                className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500"
+                                                alt="Imóvel gerenciado pela BeeStay nas plataformas Airbnb, Booking, Expedia e Decolar"
+                                                fill
+                                                sizes="(max-width: 1024px) 320px, 320px"
+                                            />
 
-                                    {/* Custom Play Button */}
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="w-20 h-20 bg-bee-gold rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 relative">
-                                            <div className="absolute inset-0 bg-bee-gold rounded-full animate-ping opacity-20"></div>
-                                            <svg className="w-8 h-8 text-bee-black ml-1" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M8 5v14l11-7z" />
-                                            </svg>
-                                        </div>
-                                    </div>
+                                            {/* Custom Play Button */}
+                                            <div className="absolute inset-0 flex items-center justify-center">
+                                                <div className="w-20 h-20 bg-bee-gold rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 relative">
+                                                    <div className="absolute inset-0 bg-bee-gold rounded-full animate-ping opacity-20"></div>
+                                                    <svg className="w-8 h-8 text-bee-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M8 5v14l11-7z" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>
 
                         {/* Right - Content Side */}
-                        <div className="p-8 pt-[0px] -mt-6 md:mt-0 md:p-12 lg:p-20 flex flex-col justify-center relative z-10 w-full max-w-full overflow-hidden">
+                        <div className="p-8 pt-0 -mt-6 md:mt-0 md:p-12 lg:p-20 flex flex-col justify-center relative z-10 w-full max-w-full overflow-hidden">
                             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight text-white">
                                 Seu imóvel rendendo <span className="text-bee-gold">muito mais</span>, enquanto cuidamos de tudo.
                             </h2>
@@ -662,9 +803,9 @@ export default function HomePage() {
                                     </div>
                                 </div>
                                 {/* Left Fade */}
-                                <div className="pointer-events-none absolute inset-y-0 -left-4 w-24 bg-gradient-to-r from-bee-black to-transparent z-10"></div>
+                                <div className="pointer-events-none absolute inset-y-0 -left-4 w-24 bg-linear-to-r from-bee-black to-transparent z-10"></div>
                                 {/* Right Fade */}
-                                <div className="pointer-events-none absolute inset-y-0 -right-4 w-24 bg-gradient-to-l from-bee-black to-transparent z-10"></div>
+                                <div className="pointer-events-none absolute inset-y-0 -right-4 w-24 bg-linear-to-l from-bee-black to-transparent z-10"></div>
                             </div>
                             <div className="pt-10 mb-10">
                                 <a
@@ -697,13 +838,13 @@ export default function HomePage() {
                     {/* Mobile & Tablet Timeline (Vertical) */}
                     <div className="lg:hidden relative max-w-4xl mx-auto">
                         {/* Continuous Vertical Line */}
-                        <div className="absolute left-[19px] md:left-[39px] top-0 bottom-0 w-px bg-gradient-to-b from-gray-200 via-gray-300 to-gray-200"></div>
+                        <div className="absolute left-4.75 md:left-9.75 top-0 bottom-0 w-px bg-linear-to-b from-gray-200 via-gray-300 to-gray-200"></div>
 
                         <div className="space-y-12">
                             {timelineSteps.map((item, index) => (
                                 <div key={index} className="relative pl-16 md:pl-28 group">
                                     {/* Marker */}
-                                    <div className="absolute left-0 md:left-[20px] top-0 w-10 h-10 md:w-10 md:h-10 bg-white border-2 border-bee-gold rounded-full flex items-center justify-center z-10 shadow-[0_0_0_4px_#ffffff] group-hover:bg-bee-gold transition-colors duration-300">
+                                    <div className="absolute left-0 md:left-5 top-0 w-10 h-10 md:w-10 md:h-10 bg-white border-2 border-bee-gold rounded-full flex items-center justify-center z-10 shadow-[0_0_0_4px_#ffffff] group-hover:bg-bee-gold transition-colors duration-300">
                                         <div className="w-2.5 h-2.5 bg-bee-gold rounded-full group-hover:bg-white transition-colors duration-300"></div>
                                     </div>
 
@@ -729,7 +870,7 @@ export default function HomePage() {
                     {/* Desktop Timeline (Horizontal) */}
                     <div className="hidden lg:block relative">
                         {/* Horizontal Line */}
-                        <div className="absolute top-12 left-0 right-0 h-px bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200"></div>
+                        <div className="absolute top-12 left-0 right-0 h-px bg-linear-to-r from-gray-200 via-gray-300 to-gray-200"></div>
 
                         <div className="grid grid-cols-4 gap-6">
                             {timelineSteps.map((item, index) => (
@@ -816,7 +957,7 @@ export default function HomePage() {
                                                         sizes="(max-width: 768px) 85vw, (max-width: 1024px) 50vw, 33vw"
                                                     />
                                                     {/* Overlay */}
-                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-80 group-hover:opacity-70 transition-opacity"></div>
+                                                    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-80 group-hover:opacity-70 transition-opacity"></div>
 
                                                     {/* Icon Badge */}
                                                     <div className="absolute bottom-4 right-4 z-10 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20">
@@ -890,12 +1031,12 @@ export default function HomePage() {
             <section id="contato" className="py-10 md:py-32 bg-bee-black text-white relative overflow-hidden">
                 {/* Background Texture & Glow Effects */}
                 <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-10 mix-blend-overlay"></div>
-                <div className="absolute top-1/2 left-0 w-[400px] h-[400px] md:w-[500px] md:h-[500px] bg-bee-gold/20 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2"></div>
-                <div className="absolute bottom-0 right-0 w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-bee-gold/15 rounded-full blur-[100px] translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute top-1/2 left-0 w-100 h-100 md:w-125 md:h-125 bg-bee-gold/20 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2"></div>
+                <div className="absolute bottom-0 right-0 w-75 h-75 md:w-100 md:h-100 bg-bee-gold/15 rounded-full blur-[100px] translate-y-1/2 translate-x-1/2"></div>
                 {/* Additional desktop glows behind form */}
-                <div className="hidden lg:block absolute top-1/4 right-1/4 w-[350px] h-[350px] bg-bee-gold/25 rounded-full blur-[140px]"></div>
-                <div className="hidden lg:block absolute bottom-1/3 right-1/3 w-[300px] h-[300px] bg-amber-400/20 rounded-full blur-[110px]"></div>
-                <div className="hidden lg:block absolute top-1/2 right-0 w-[450px] h-[450px] bg-bee-gold/15 rounded-full blur-[130px] translate-x-1/4"></div>
+                <div className="hidden lg:block absolute top-1/4 right-1/4 w-87.5 h-87.5 bg-bee-gold/25 rounded-full blur-[140px]"></div>
+                <div className="hidden lg:block absolute bottom-1/3 right-1/3 w-75 h-75 bg-amber-400/20 rounded-full blur-[110px]"></div>
+                <div className="hidden lg:block absolute top-1/2 right-0 w-112.5 h-112.5 bg-bee-gold/15 rounded-full blur-[130px] translate-x-1/4"></div>
 
                 <div className="container mx-auto px-6 md:px-8 lg:px-16 max-w-6xl relative z-10">
                     <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
@@ -903,7 +1044,7 @@ export default function HomePage() {
                         {/* Left Content */}
                         <div className="text-center lg:text-left">
                             <h2 className="text-3xl sm:text-4xl md:text-5xl mb-6 leading-tight font-bold">
-                                Pronto para uma gestão sem <span className="text-bee-gold">preocupações</span>?
+                                Pronto para <span className="text-bee-gold">rentabilizar</span> sem preocupações?
                             </h2>
 
                             <p className="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
@@ -969,57 +1110,59 @@ export default function HomePage() {
                 <div className="container mx-auto px-6 md:px-8 lg:px-16 max-w-7xl relative z-10">
 
                     {/* Main Footer Content */}
-                    <div className="grid md:grid-cols-3 gap-12 mb-12">
+                    <div className="grid md:grid-cols-3 gap-5 mb-12">
 
                         {/* Logo & Tagline */}
-                        <div className="text-center md:text-left">
-                            <Image src={getImagePath("/logo_branco.svg")} alt="BeeStay" width={480} height={128} className="h-16 w-auto mb-4 mx-auto md:mx-0" />
+                        <div className="text-center md:text-left flex-1 max-w-lg md:col-span-2">
+                            <Image src={getImagePath("/logo_branco.svg")} alt="BeeStay" width={480} height={128} className="h-32 w-auto mb-4 mx-auto md:mx-0" />
                             <p className="text-gray-400 text-sm leading-relaxed">
                                 Gestão profissional de locação de curta temporada com excelência hoteleira.
                             </p>
                         </div>
 
-                        {/* Links - Hidden on Mobile */}
-                        <div className="text-center md:text-left hidden md:block">
-                            <h4 className="text-white font-semibold mb-4 text-sm">Links</h4>
-                            <ul className="space-y-2 text-sm">
-                                <li><a href="#home" className="text-gray-400 hover:text-bee-gold transition-colors">Início</a></li>
-                                <li><a href="#servicos" className="text-gray-400 hover:text-bee-gold transition-colors">Serviços</a></li>
-                                <li><a href="#processo" className="text-gray-400 hover:text-bee-gold transition-colors">Processo</a></li>
-                                <li><a href="#faq" className="text-gray-400 hover:text-bee-gold transition-colors">FAQ</a></li>
-                                <li><a href="/politica-privacidade" className="text-gray-400 hover:text-bee-gold transition-colors">Política de Privacidade</a></li>
-                                <li><a href="/termos-uso" className="text-gray-400 hover:text-bee-gold transition-colors">Termos de Uso</a></li>
-                            </ul>
-                        </div>
-
                         {/* Contato */}
-                        <div className="text-center md:text-left">
-                            <h4 className="text-white font-semibold mb-4 text-sm">Contato</h4>
-                            <div className="space-y-3 mb-6">
+                        <div className="flex flex-col items-center justify-center w-full">
+                            <div className="w-full sm:max-w-100">
+                                <h4 className="text-white font-semibold mb-4 text-sm text-center">Contato</h4>
+                                <div className="flex flex-col gap-3 mb-6">
 
-                                {/* Botão Email */}
-                                <a 
-                                    href="mailto:andre.andrade@beehouse.imb.br" 
-                                    className="flex items-center justify-center gap-3 px-4 py-3 border-2 border-white/20 bg-white/5 rounded-lg hover:border-bee-gold hover:bg-bee-gold/10 transition-all group mx-auto md:mx-0 max-w-xs"
-                                >
-                                    <svg className="w-5 h-5 text-gray-300 group-hover:text-bee-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                    <span className="text-sm text-gray-300 group-hover:text-bee-gold transition-colors">Email</span>
-                                </a>
+                                    {/* Botão Email */}
+                                    <a
+                                        href="mailto:andre.andrade@beehouse.imb.br"
+                                        className="flex items-center justify-center gap-3 px-4 py-3 border border-white/10 bg-white/5 rounded-lg hover:border-bee-gold hover:bg-bee-gold/10 transition-all group w-full"
+                                    >
+                                        <svg className="w-5 h-5 text-gray-300 group-hover:text-bee-gold transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                        <span className="text-sm text-gray-300 group-hover:text-bee-gold transition-colors font-medium">Email</span>
+                                    </a>
 
-                                {/* Botão WhatsApp */}
-                                <a
-                                    href="https://wa.me/5547992879066?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20gestão%20de%20imóveis%20da%20BeeStay"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center justify-center gap-3 px-4 py-3 border-2 border-white/20 bg-white/5 rounded-lg hover:border-bee-gold hover:bg-bee-gold/10 transition-all group mx-auto md:mx-0 max-w-xs"
-                                >
-                                    <svg className="w-5 h-5 text-gray-300 group-hover:text-bee-gold transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                                    </svg>
-                                    <span className="text-sm text-gray-300 group-hover:text-bee-gold transition-colors">WhatsApp</span>
-                                </a>
+                                    {/* Botão WhatsApp */}
+                                    <a
+                                        href="https://wa.me/5547992879066?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20gestão%20de%20imóveis%20da%20BeeStay"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center justify-center gap-3 px-4 py-3 border border-white/10 bg-white/5 rounded-lg hover:border-bee-gold hover:bg-bee-gold/10 transition-all group w-full"
+                                    >
+                                        <svg className="w-5 h-5 text-gray-300 group-hover:text-bee-gold transition-colors shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                                        </svg>
+                                        <span className="text-sm text-gray-300 group-hover:text-bee-gold transition-colors font-medium">WhatsApp</span>
+                                    </a>
+
+                                    {/* Botão Instagram */}
+                                    <a
+                                        href="https://www.instagram.com/sejabeestay/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center justify-center gap-3 px-4 py-3 border border-white/10 bg-white/5 rounded-lg hover:border-bee-gold hover:bg-bee-gold/10 transition-all group w-full"
+                                    >
+                                        <svg className="w-5 h-5 text-gray-300 group-hover:text-bee-gold transition-colors shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                                        </svg>
+                                        <span className="text-sm text-gray-300 group-hover:text-bee-gold transition-colors font-medium">Instagram</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
 

@@ -43,7 +43,7 @@ export function Header() {
             {/* Skip to main content - Accessibility */}
             <a
                 href="#main-content"
-                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:bg-bee-gold focus:text-white focus:px-4 focus:py-2 focus:rounded focus:font-semibold focus:shadow-lg"
+                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-60 focus:bg-bee-gold focus:text-white focus:px-4 focus:py-2 focus:rounded focus:font-semibold focus:shadow-lg"
             >
                 Pular para conteúdo principal
             </a>
@@ -87,7 +87,7 @@ export function Header() {
 
                         {/* Mobile Menu Button */}
                         <button
-                            className="md:hidden text-bee-black z-[70] relative"
+                            className="md:hidden text-bee-black z-70 relative"
                             onClick={toggleMenu}
                             aria-label={isMenuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
                             aria-expanded={isMenuOpen}
@@ -110,12 +110,11 @@ export function Header() {
             </nav>
 
             {/* Mobile Menu - Fullscreen Overlay Modern */}
-            <div 
-                className={`md:hidden fixed inset-0 bg-white transition-all duration-500 z-[60] ${
-                    isMenuOpen 
-                        ? 'opacity-100 pointer-events-auto' 
-                        : 'opacity-0 pointer-events-none'
-                }`}
+            <div
+                className={`md:hidden fixed inset-0 bg-white transition-all duration-500 z-60 ${isMenuOpen
+                    ? 'opacity-100 pointer-events-auto'
+                    : 'opacity-0 pointer-events-none'
+                    }`}
             >
                 {/* Close Button */}
                 <button
@@ -133,51 +132,47 @@ export function Header() {
                     <nav className="flex flex-col items-end space-y-6 w-full max-w-sm">
                         <a
                             href="#home"
-                            className={`text-2xl font-medium transition-all duration-300 ${
-                                activeSection === 'home' 
-                                    ? 'text-bee-gold scale-110' 
-                                    : 'text-text-gray hover:text-bee-gold hover:scale-105'
-                            }`}
+                            className={`text-2xl font-medium transition-all duration-300 ${activeSection === 'home'
+                                ? 'text-bee-gold scale-110'
+                                : 'text-text-gray hover:text-bee-gold hover:scale-105'
+                                }`}
                             onClick={closeMenu}
                         >
                             Início
                         </a>
                         <a
                             href="#servicos"
-                            className={`text-2xl font-medium transition-all duration-300 text-right ${
-                                activeSection === 'servicos' 
-                                    ? 'text-bee-gold scale-110' 
-                                    : 'text-text-gray hover:text-bee-gold hover:scale-105'
-                            }`}
+                            className={`text-2xl font-medium transition-all duration-300 text-right ${activeSection === 'servicos'
+                                ? 'text-bee-gold scale-110'
+                                : 'text-text-gray hover:text-bee-gold hover:scale-105'
+                                }`}
                             onClick={closeMenu}
                         >
                             Serviços
                         </a>
                         <a
                             href="#processo"
-                            className={`text-2xl font-medium transition-all duration-300 text-right ${
-                                activeSection === 'processo' 
-                                    ? 'text-bee-gold scale-110' 
-                                    : 'text-text-gray hover:text-bee-gold hover:scale-105'
-                            }`}
+                            className={`text-2xl font-medium transition-all duration-300 text-right ${activeSection === 'processo'
+                                ? 'text-bee-gold scale-110'
+                                : 'text-text-gray hover:text-bee-gold hover:scale-105'
+                                }`}
                             onClick={closeMenu}
                         >
                             Processo
                         </a>
                         <a
                             href="#faq"
-                            className={`text-2xl font-medium transition-all duration-300 text-right ${
-                                activeSection === 'faq' 
-                                    ? 'text-bee-gold scale-110' 
-                                    : 'text-text-gray hover:text-bee-gold hover:scale-105'
-                            }`}
+                            className={`text-2xl font-medium transition-all duration-300 text-right ${activeSection === 'faq'
+                                ? 'text-bee-gold scale-110'
+                                : 'text-text-gray hover:text-bee-gold hover:scale-105'
+                                }`}
                             onClick={closeMenu}
                         >
                             FAQ
                         </a>
-                        
+
                         <div className="w-16 h-px bg-gray-300 my-4"></div>
-                        
+
                         <a
                             href="/politica-privacidade"
                             className="text-sm text-text-light hover:text-bee-gold transition-colors text-right"
@@ -192,7 +187,7 @@ export function Header() {
                         >
                             Termos de Uso
                         </a>
-                        
+
                         <a
                             href="#contato"
                             className="bg-bee-gold hover:bg-bee-gold-dark text-white px-8 py-3 rounded font-bold transition-all text-base mt-6 hover:shadow-xl hover:scale-105 active:scale-95"
