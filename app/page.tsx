@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import AutoScroll from 'embla-carousel-auto-scroll'
 import Image from 'next/image'
@@ -19,14 +19,17 @@ export default function HomePage() {
     const [formLoaded, setFormLoaded] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
     const [carouselsReady, setCarouselsReady] = useState(false)
+    const [videoPlaying, setVideoPlaying] = useState(false)
+    const videoRef = useRef<HTMLVideoElement>(null)
     const [showGradients, setShowGradients] = useState(false)
-    const [showVideo, setShowVideo] = useState(false)
+
 
     // Embla Carousel for Logos - defer initialization
-    const [emblaRef] = useEmblaCarousel(
-        { loop: true, watchDrag: false },
-        carouselsReady ? [AutoScroll({ playOnInit: true, stopOnInteraction: false, speed: 0.5 })] : []
+    const logoPlugins = useMemo(
+        () => carouselsReady ? [AutoScroll({ playOnInit: true, stopOnInteraction: false, speed: 0.5 })] : [],
+        [carouselsReady]
     )
+    const [emblaRef] = useEmblaCarousel({ loop: true, watchDrag: false }, logoPlugins)
 
     // Embla Carousel for Services - defer initialization
     const [servicesRef, servicesApi] = useEmblaCarousel(
@@ -311,11 +314,52 @@ export default function HomePage() {
                 return `+${cc} (${local.slice(0, 2)}) ${local.slice(2, 7)}-${local.slice(7, 11)}`
             }
 
-            const handler = () => {
-                const pos = input.selectionStart ?? 0
-                const formatted = mask(input.value)
+            const handler = (e: Event) => {
+                const val = input.value
+                const selectionStart = input.selectionStart ?? 0
+
+                // Count digits before cursor in raw input
+                const digitsBefore = val.slice(0, selectionStart).replace(/\D/g, '').length
+
+                const formatted = mask(val)
+
+                if (val === formatted) return
+
+                // 1. Update the value synchronously to prevent ANY visual flicker/stutter
                 input.value = formatted
-                try { input.setSelectionRange(pos, pos) } catch { }
+
+                const isDeletion = e instanceof InputEvent && 
+                    (e.inputType ? e.inputType.toLowerCase().includes('delete') : false)
+
+                // Find the new cursor position in the formatted value
+                let newPos = 0
+                let digitCount = 0
+                while (newPos < formatted.length && digitCount < digitsBefore) {
+                    if (/\d/.test(formatted[newPos])) {
+                        digitCount++
+                    }
+                    newPos++
+                }
+
+                // Only advance cursor past trailing formatting characters if we are NOT deleting
+                if (!isDeletion) {
+                    while (newPos < formatted.length && !/\d/.test(formatted[newPos])) {
+                        newPos++
+                    }
+                }
+
+                // 2. Set the selection range synchronously first
+                try {
+                    input.setSelectionRange(newPos, newPos)
+                } catch { }
+
+                // 3. Defer another selection range update to the next tick
+                // to override any selection resets done by other synchronous listeners (like Bitrix24).
+                setTimeout(() => {
+                    try {
+                        input.setSelectionRange(newPos, newPos)
+                    } catch { }
+                }, 0)
             }
 
             input.addEventListener('input', handler)
@@ -515,7 +559,7 @@ export default function HomePage() {
                                 ref={(el) => {
                                     if (el) heroImageRefs.current[index] = el
                                 }}
-                                className={`hero-slide absolute inset-0 transition-opacity duration-1500 ${index === currentSlide ? 'opacity-100 z-2' : 'opacity-0 z-1'}`}
+                                className={`hero-slide absolute inset-0 transition-opacity duration-1500 ${index === currentSlide ? 'opacity-100 z-[2]' : 'opacity-0 z-[1]'}`}
                             >
                                 <Image
                                     src={image}
@@ -543,7 +587,7 @@ export default function HomePage() {
                             <div
                                 key={`mobile-${index}`}
                                 ref={(el) => { if (el) heroMobileImageRefs.current[index] = el }}
-                                className={`hero-slide absolute inset-0 transition-opacity duration-1500 ${index === currentSlide ? 'opacity-100 z-2' : 'opacity-0 z-1'}`}
+                                className={`hero-slide absolute inset-0 transition-opacity duration-1500 ${index === currentSlide ? 'opacity-100 z-[2]' : 'opacity-0 z-[1]'}`}
                             >
                                 <Image
                                     src={image}
@@ -610,7 +654,7 @@ export default function HomePage() {
                         <div className="flex flex-col sm:flex-row gap-4 mb-4 items-center justify-center w-full">
                             <a
                                 href="#contato"
-                                className="bg-[#1c1c1c]/30 ring-2 ring-bee-gold text-bee-gold hover:bg-bee-gold hover:text-black w-[90vw] sm:w-125 max-w-[90vw] lg:max-w-[14vw] py-2 rounded font-semibold transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 text-lg backdrop-blur-md"
+                                className="bg-[#1c1c1c]/30 ring-2 ring-bee-gold text-bee-gold hover:bg-bee-gold hover:text-black w-[90vw] sm:w-[500px] max-w-[90vw] lg:max-w-[14vw] py-2 rounded font-semibold transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 text-lg backdrop-blur-md"
                                 aria-label="Saiba mais sobre gestão de imóveis BeeStay"
                             >
                                 Saiba mais
@@ -727,55 +771,52 @@ export default function HomePage() {
 
             {/* CTA Section - High Conversion Premium (Moved Up) */}
             <section className="py-12 md:py-16 px-4 md:px-8 lg:px-16 bg-white overflow-hidden">
-                <div className="bg-bee-black rounded-4xl md:rounded-[3rem] overflow-hidden relative isolate shadow-2xl max-w-7xl mx-auto">
+                <div className="bg-bee-black rounded-[2rem] md:rounded-[3rem] overflow-hidden relative isolate shadow-2xl max-w-7xl mx-auto">
                     {/* Background Texture & Glow */}
                     <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-10 mix-blend-overlay"></div>
-                    <div className="absolute top-0 right-0 w-125 h-125 bg-bee-gold/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-bee-gold/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
 
-                    <div className="grid lg:grid-cols-2 gap-0 lg:gap-12 items-stretch w-full max-w-full">
+                    <div className="grid lg:grid-cols-2 gap-0 items-stretch w-full max-w-full">
 
-                        {/* Left - Video Side (Vertical/Shorts) */}
-                        <div className="relative w-full flex items-center justify-center p-14 md:p-6 lg:pl-12 lg:pr-6">
-                            <div className="w-full max-w-60 md:max-w-[320px] mx-auto group" style={{ cursor: showVideo ? 'default' : 'pointer' }} onClick={() => !showVideo && setShowVideo(true)}>
-                                <div className="relative rounded-2xl overflow-hidden aspect-9/16 border border-white/10 shadow-2xl transition-all duration-500 group-hover:border-bee-gold/50 group-hover:shadow-[0_0_30px_rgba(249,180,16,0.15)]">
-                                    {showVideo ? (
-                                        <iframe
-                                            src="https://www.youtube.com/embed/AU5YxXjzBgY?autoplay=1&mute=1&playsinline=1"
-                                            title="BeeStay - Vídeo institucional"
-                                            frameBorder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                            referrerPolicy="strict-origin-when-cross-origin"
-                                            allowFullScreen
-                                            className="absolute inset-0 w-full h-full"
-                                        />
-                                    ) : (
-                                        <>
-                                            {/* Thumbnail Image (Darkened) */}
-                                            <Image
-                                                src="/capa-video.webp"
-                                                className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500"
-                                                alt="Imóvel gerenciado pela BeeStay nas plataformas Airbnb, Booking, Expedia e Decolar"
-                                                fill
-                                                sizes="(max-width: 1024px) 320px, 320px"
-                                            />
-
-                                            {/* Custom Play Button */}
-                                            <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className="w-20 h-20 bg-bee-gold rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 relative">
-                                                    <div className="absolute inset-0 bg-bee-gold rounded-full animate-ping opacity-20"></div>
-                                                    <svg className="w-8 h-8 text-bee-black ml-1" fill="currentColor" viewBox="0 0 24 24">
-                                                        <path d="M8 5v14l11-7z" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        </>
-                                    )}
-                                </div>
+                        {/* Left - Video Side (Full Height Cover) */}
+                        <div className="relative w-full flex items-center justify-center pt-8 pb-2 px-6 lg:py-12 lg:px-8 z-10">
+                            <div
+                                className="w-full max-w-[260px] mx-auto rounded-2xl overflow-hidden aspect-[9/16] border border-white/10 shadow-2xl relative group cursor-pointer"
+                                onClick={() => {
+                                    const video = videoRef.current
+                                    if (!video) return
+                                    if (videoPlaying) {
+                                        video.pause()
+                                    } else {
+                                        video.play().catch(() => { })
+                                    }
+                                }}
+                            >
+                                <video
+                                    ref={videoRef}
+                                    src="/video-beestay.mp4"
+                                    poster="/capa-video.webp"
+                                    playsInline
+                                    preload="metadata"
+                                    onPlay={() => setVideoPlaying(true)}
+                                    onPause={() => setVideoPlaying(false)}
+                                    className="w-full h-full object-cover pointer-events-none"
+                                />
+                                {!videoPlaying && (
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="w-20 h-20 bg-bee-gold rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 relative">
+                                            <div className="absolute inset-0 bg-bee-gold rounded-full animate-ping opacity-20"></div>
+                                            <svg className="w-8 h-8 text-bee-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M8 5v14l11-7z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
                         {/* Right - Content Side */}
-                        <div className="p-8 pt-0 -mt-6 md:mt-0 md:p-12 lg:p-20 flex flex-col justify-center relative z-10 w-full max-w-full overflow-hidden">
+                        <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center relative z-10 w-full max-w-full overflow-hidden">
                             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight text-white">
                                 Seu imóvel rendendo <span className="text-bee-gold">muito mais</span>, enquanto cuidamos de tudo.
                             </h2>
@@ -803,9 +844,9 @@ export default function HomePage() {
                                     </div>
                                 </div>
                                 {/* Left Fade */}
-                                <div className="pointer-events-none absolute inset-y-0 -left-4 w-24 bg-linear-to-r from-bee-black to-transparent z-10"></div>
+                                <div className="pointer-events-none absolute inset-y-0 -left-4 w-24 bg-gradient-to-r from-bee-black to-transparent z-10"></div>
                                 {/* Right Fade */}
-                                <div className="pointer-events-none absolute inset-y-0 -right-4 w-24 bg-linear-to-l from-bee-black to-transparent z-10"></div>
+                                <div className="pointer-events-none absolute inset-y-0 -right-4 w-24 bg-gradient-to-l from-bee-black to-transparent z-10"></div>
                             </div>
                             <div className="pt-10 mb-10">
                                 <a
@@ -838,13 +879,13 @@ export default function HomePage() {
                     {/* Mobile & Tablet Timeline (Vertical) */}
                     <div className="lg:hidden relative max-w-4xl mx-auto">
                         {/* Continuous Vertical Line */}
-                        <div className="absolute left-4.75 md:left-9.75 top-0 bottom-0 w-px bg-linear-to-b from-gray-200 via-gray-300 to-gray-200"></div>
+                        <div className="absolute left-[19px] md:left-[39px] top-0 bottom-0 w-px bg-gradient-to-b from-gray-200 via-gray-300 to-gray-200"></div>
 
                         <div className="space-y-12">
                             {timelineSteps.map((item, index) => (
                                 <div key={index} className="relative pl-16 md:pl-28 group">
                                     {/* Marker */}
-                                    <div className="absolute left-0 md:left-5 top-0 w-10 h-10 md:w-10 md:h-10 bg-white border-2 border-bee-gold rounded-full flex items-center justify-center z-10 shadow-[0_0_0_4px_#ffffff] group-hover:bg-bee-gold transition-colors duration-300">
+                                    <div className="absolute left-0 md:left-[20px] top-0 w-10 h-10 md:w-10 md:h-10 bg-white border-2 border-bee-gold rounded-full flex items-center justify-center z-10 shadow-[0_0_0_4px_#ffffff] group-hover:bg-bee-gold transition-colors duration-300">
                                         <div className="w-2.5 h-2.5 bg-bee-gold rounded-full group-hover:bg-white transition-colors duration-300"></div>
                                     </div>
 
@@ -870,7 +911,7 @@ export default function HomePage() {
                     {/* Desktop Timeline (Horizontal) */}
                     <div className="hidden lg:block relative">
                         {/* Horizontal Line */}
-                        <div className="absolute top-12 left-0 right-0 h-px bg-linear-to-r from-gray-200 via-gray-300 to-gray-200"></div>
+                        <div className="absolute top-12 left-0 right-0 h-px bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200"></div>
 
                         <div className="grid grid-cols-4 gap-6">
                             {timelineSteps.map((item, index) => (
@@ -957,7 +998,7 @@ export default function HomePage() {
                                                         sizes="(max-width: 768px) 85vw, (max-width: 1024px) 50vw, 33vw"
                                                     />
                                                     {/* Overlay */}
-                                                    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-80 group-hover:opacity-70 transition-opacity"></div>
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-80 group-hover:opacity-70 transition-opacity"></div>
 
                                                     {/* Icon Badge */}
                                                     <div className="absolute bottom-4 right-4 z-10 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20">
@@ -1031,12 +1072,12 @@ export default function HomePage() {
             <section id="contato" className="py-10 md:py-32 bg-bee-black text-white relative overflow-hidden">
                 {/* Background Texture & Glow Effects */}
                 <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-10 mix-blend-overlay"></div>
-                <div className="absolute top-1/2 left-0 w-100 h-100 md:w-125 md:h-125 bg-bee-gold/20 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2"></div>
-                <div className="absolute bottom-0 right-0 w-75 h-75 md:w-100 md:h-100 bg-bee-gold/15 rounded-full blur-[100px] translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute top-1/2 left-0 w-[400px] h-[400px] md:w-[500px] md:h-[500px] bg-bee-gold/20 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2"></div>
+                <div className="absolute bottom-0 right-0 w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-bee-gold/15 rounded-full blur-[100px] translate-y-1/2 translate-x-1/2"></div>
                 {/* Additional desktop glows behind form */}
-                <div className="hidden lg:block absolute top-1/4 right-1/4 w-87.5 h-87.5 bg-bee-gold/25 rounded-full blur-[140px]"></div>
-                <div className="hidden lg:block absolute bottom-1/3 right-1/3 w-75 h-75 bg-amber-400/20 rounded-full blur-[110px]"></div>
-                <div className="hidden lg:block absolute top-1/2 right-0 w-112.5 h-112.5 bg-bee-gold/15 rounded-full blur-[130px] translate-x-1/4"></div>
+                <div className="hidden lg:block absolute top-1/4 right-1/4 w-[350px] h-[350px] bg-bee-gold/25 rounded-full blur-[140px]"></div>
+                <div className="hidden lg:block absolute bottom-1/3 right-1/3 w-[300px] h-[300px] bg-amber-400/20 rounded-full blur-[110px]"></div>
+                <div className="hidden lg:block absolute top-1/2 right-0 w-[450px] h-[450px] bg-bee-gold/15 rounded-full blur-[130px] translate-x-1/4"></div>
 
                 <div className="container mx-auto px-6 md:px-8 lg:px-16 max-w-6xl relative z-10">
                     <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
@@ -1122,7 +1163,7 @@ export default function HomePage() {
 
                         {/* Contato */}
                         <div className="flex flex-col items-center justify-center w-full">
-                            <div className="w-full sm:max-w-100">
+                            <div className="w-full sm:max-w-[400px]">
                                 <h4 className="text-white font-semibold mb-4 text-sm text-center">Contato</h4>
                                 <div className="flex flex-col gap-3 mb-6">
 
