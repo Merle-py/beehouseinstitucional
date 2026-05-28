@@ -17,8 +17,8 @@ export function Header() {
     // ScrollSpy effect
     useEffect(() => {
         const handleScroll = () => {
-            const sections = ['home', 'servicos', 'processo', 'contato']
-            const scrollPosition = window.scrollY + 100 // Offset for header height
+            const sections = ['home', 'servicos', 'processo', 'indicacoes', 'contato']
+            const scrollPosition = window.scrollY - 100 // Offset for header height
 
             for (const sectionId of sections) {
                 const section = document.getElementById(sectionId)
@@ -79,6 +79,13 @@ export function Header() {
                                     }`}
                             >
                                 Processo
+                            </a>
+                            <a
+                                href="#indicacoes"
+                                className={`text-sm transition-colors font-medium ${activeSection === 'indicacoes' ? 'text-bee-gold' : 'text-text-gray hover:text-bee-gold'
+                                    }`}
+                            >
+                                Indique e Ganhe
                             </a>
                             <a href="#contato" className="bg-bee-gold hover:bg-bee-gold-dark text-white px-6 py-2.5 rounded font-semibold transition-all text-sm hover:shadow-lg hover:scale-105 active:scale-95">
                                 Fale Conosco
@@ -159,6 +166,15 @@ export function Header() {
                             onClick={closeMenu}
                         >
                             Processo
+                        </a>
+                        <a
+                            href="https://indicacao.sejabeestay.com.br/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-2xl font-medium transition-all duration-300 text-right text-text-gray hover:text-bee-gold hover:scale-105"
+                            onClick={closeMenu}
+                        >
+                            Indique e Ganhe
                         </a>
                         <a
                             href="#faq"

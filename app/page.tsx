@@ -328,7 +328,7 @@ export default function HomePage() {
                 // 1. Update the value synchronously to prevent ANY visual flicker/stutter
                 input.value = formatted
 
-                const isDeletion = e instanceof InputEvent && 
+                const isDeletion = e instanceof InputEvent &&
                     (e.inputType ? e.inputType.toLowerCase().includes('delete') : false)
 
                 // Find the new cursor position in the formatted value
@@ -1037,8 +1037,49 @@ export default function HomePage() {
                 </div>
             </section>
 
+            {/* Seção Indicações - Indique e Ganhe (Ultra Premium Dark) */}
+            <section id="indicacoes" className="py-16 lg:py-24 bg-bee-black text-white relative overflow-hidden">
+                {/* Background Noise & Golden Glows */}
+                <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none"></div>
+                <div className="absolute -top-40 -left-40 w-[450px] h-[450px] bg-bee-gold/10 rounded-full blur-[130px] pointer-events-none"></div>
+                <div className="absolute -bottom-40 -right-40 w-[450px] h-[450px] bg-bee-gold/15 rounded-full blur-[130px] pointer-events-none"></div>
 
+                <div className="container mx-auto px-6 lg:px-16 max-w-7xl relative z-10">
+                    <div className="grid lg:grid-cols-1 gap-12 lg:gap-16 items-center">
 
+                        <div className="lg:col-span-5 text-center lg:text-center flex flex-col items-center justify-center">
+                            <div className="inline-flex items-center gap-2 px-3.5 py-0 rounded-full bg-bee-gold/10 border border-bee-gold/25 mb-6">
+                                <span className="w-1.5 h-1.5 rounded-full bg-bee-gold animate-pulse"></span>
+                                <span className="text-bee-gold font-semibold uppercase tracking-wider text-[11px] md:text-xs">
+                                    Indique e Ganhe
+                                </span>
+                            </div>
+                            <h2 className="text-4xl md:text-4xl font-bold leading-tight mb-6 font-sans tracking-tight text-center">
+                                O que é bom, merece ser compartilhado!<br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-bee-gold via-amber-300 to-yellow-500 font-extrabold">
+                                </span>
+                            </h2>
+                            <p className="text-gray-400 text-base md:text-lg mb-8 leading-relaxed max-w-xl mx-auto text-center">
+                                Divulgue a Beestay e seja bonificado.
+                            </p>
+
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                                <a
+                                    href="https://indicacao.sejabeestay.com.br/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="relative group overflow-hidden bg-bee-gold hover:bg-bee-gold/90 text-bee-black px-8 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-[0_0_30px_rgba(249,180,16,0.25)] hover:shadow-[0_0_40px_rgba(249,180,16,0.4)] text-center flex items-center justify-center gap-3"
+                                >
+                                    <span>Quero Indicar um Amigo</span>
+                                    <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             {/* FAQ Section */}
             <section id="faq" className="py-10 md:py-20 bg-warm-sand relative">

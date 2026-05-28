@@ -5,7 +5,11 @@
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "any",
   "background_color": "#ffffff",
   "theme_color": "#F9B410",
@@ -59,6 +63,18 @@
       ]
     },
     {
+      "name": "Indique e Ganhe",
+      "short_name": "Indique e Ganhe",
+      "description": "Conheça nossas indicações",
+      "url": "/#indicacoes",
+      "icons": [
+        {
+          "src": "/icone.svg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
       "name": "FAQ",
       "short_name": "FAQ",
       "description": "Perguntas frequentes",
@@ -71,7 +87,10 @@
       ]
     }
   ],
-  "categories": ["business", "productivity"],
+  "categories": [
+    "business",
+    "productivity"
+  ],
   "lang": "pt-BR",
   "dir": "ltr"
 }
